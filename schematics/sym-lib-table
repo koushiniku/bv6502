@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "bv6502_hw")(type "KiCad")(uri "${KIPRJMOD}/bv6502_hw.kicad_sym")(options "")(descr ""))
+)

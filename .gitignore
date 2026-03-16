@@ -38,3 +38,10 @@ fp-info-cache
 
 # Local project settings
 *.kicad_prl
+
+
+# cc65 build files
+*.o
+*.map
+*.lib
+*.bin
