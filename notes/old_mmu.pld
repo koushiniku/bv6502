@@ -1,0 +1,157 @@
+Name mmu;
+Partno U2;
+Date 12/07/25;
+Rev 01;
+Designer Bryan Veal;
+Company None;
+Assembly None;
+Location None;
+Device V2500C;
+
+/* Note: I never found a programmer for the ATF2500C. The code below most
+ * certainly does not work, but I'm keeping it for reference in case I want to
+ * try a AT22V10 someday.
+ */
+
+/* Pin Definitions
+ *
+ * Def    Pin   Spec_Def   Spec_Def   Pin   Def
+ * CLK    1     CLK/IN     IN         40    R
+ * VA7    2     IN         IN         39    VA6
+ * VA8    3     IN         IN         38    VA5
+ * !VP    4     I/O0       IN         37    VA4
+ * !CS0   5     I/O1       I/O6       36    RAM_OE
+ * !CS1   6     I/O2       I/O7       35    RAM_WE
+ * !CS2   7     I/O3       I/O8       34    ROM_CE
+ * !CS3   8     I/O4       I/O9       33    ROM_OE
+ * PA13   9     I/O5       I/O10      32    D13
+ * VCC    10    VCC        I/O11      31    D14
+ * PA14   11    I/O17      GND        30    GND
+ * PA15   12    I/O16      I/O23      29    D15
+ * PA16   13    I/O15      I/O22      28    D16
+ * PA17   14    I/O14      I/O21      27    D17
+ * PA18   15    I/O13      I/O20      26    D18
+ * PA19   16    I/O12      I/O19      25    D19
+ * VA9    17    IN         I/O18      24    D20
+ * VA10   18    IN         IN         23    VA15
+ * VA11   19    IN         IN         22    VA14
+ * VA12   20    IN         IN         21    VA13
+ *
+ * Page Size: 8KiB
+ *
+ * Physical Address Map
+ *      RAM      0x00000-0x7ffff
+ *      Empty    0x80000-0xf7fff
+ *      ROM      0xf8000-0xfffff
+ *
+ * Virtual Address Map
+ *      Remappable  0x0000-0xbfff
+ *      Fixed       0xc000-0xffff
+ */
+
+/* inputs */
+pin 1 = CLK;                            /* PHI2 */
+pin 40 = R;                             /* CPU R/W# pin */
+pin 4 = !VP;                            /* vector pull for detecting resets */
+pin [37..39,2,3,17..23] = [VA4..,VA18]; /* virtual addresses from CPU */
+field VA = [VA15..4];
+W = !R;
+RCLK = R & CLK;
+WCLK = W & CLK;
+
+/* outputs */
+pin 36 = RAM_OE;
+pin 35 = RAM_WE;
+pin 34 = ROM_CE;
+pin 33 = ROM_OE;
+pin [9,11..18] = [PA13..19];    /* bus (physical) addresses. RAM_CE = PA19 */
+field PA = [PA19..13];
+pin [5..9] = [CS0..3];      /* chip selects for IO ports */
+
+/* I/O pins */
+
+/* Data pins for page frame addresses. These are data bus pins D0-D7 but
+ * numbering this way avoids having to bit shift.
+ */
+pin [32,31,29..24] [D13..20];
+field D = [D20..13];
+
+/* Memory hole for I/O ports and MMU. */
+HOLE = VA:[efb0..efff];
+
+/* I/O ports */
+CS0 = VA:[efb0..efbf];
+CS1 = VA:[efc0..efcf];
+CS2 = VA:[efd0..efdf];
+CS3 = VA:[efe0..efef];
+
+
+/* Page table registers.
+ * We have 48 flops to work with, so six 1-byte page table entries.
+ * If we use 8K pages we can have 48K pageable address space and 16K fixed.
+ */
+field PT0 = [PT0_20..13];
+field PT1 = [PT1_20..13];
+field PT2 = [PT2_20..13];
+field PT3 = [PT3_20..13];
+field PT4 = [PT4_20..13];
+field PT5 = [PT5_20..13];
+
+/* PTE addresses */
+PT0_addr = VA:eff0;
+PT1_addr = VA:eff1;
+PT2_addr = VA:eff2;
+PT3_addr = VA:eff3;
+PT4_addr = VA:eff4;
+PT5_addr = VA:eff5;
+PT6_addr = VA:eff6;
+PT7_addr = VA:eff7;
+
+/* Reset detection */
+RST = VP & R & D:1fff8000;    /* 0xfffc << 13 */
+
+/* clock registers on writes and resets */
+PT0.ck = CLK & (W & PT0_addr # RST);
+PT1.ck = CLK & (W & PT1_addr # RST);
+PT2.ck = CLK & (W & PT2_addr # RST);
+PT3.ck = CLK & (W & PT3_addr # RST);
+PT4.ck = CLK & (W & PT4_addr # RST);
+PT5.ck = CLK & (W & PT5_addr # RST);
+
+/* set defaults on reset or else set to data bus */
+PT0.d = RST & 'h'78000 # !RST & D;
+PT1.d = RST & 'h'7a000 # !RST & D;
+PT2.d = RST & 'h'7c000 # !RST & D;
+PT3.d = RST & 'h'7e000 # !RST & D;
+PT4.d = RST & 'h'f8000 # !RST & D;
+PT5.d = RST & 'h'fa000 # !RST & D;
+
+/* output from registers to bus */
+D.oe = RCLK & VA:[eff0..eff7];
+
+D = [PT0_addr & PF0.dq,
+  PT1_addr & PF1.dq,
+  PT2_addr & PF2.dq,
+  PT3_addr & PF3.dq,
+  PT4_addr & PF4.dq,
+  PT5_addr & PF5.dq,
+  PT6_addr & 'h'1fc000,
+  PT7_addr & 'h'1fe000]#;
+
+/* physical address lookup */
+PA = [VA:[0000..1fff] & PF0.dq,
+   VA:[2000..3fff] & PF1.dq,
+   VA:[4000..5fff] & PF2.dq,
+   VA:[6000..7fff] & PF3.dq,
+   VA:[8000..9fff] & PF4.dq,
+   VA:[a000..bfff] & PF5.dq,
+   VA:[c000..dfff] & 'h'18e000,
+   VA:[e000..ffff] & 'h'086000]#;
+
+/* chip, read, and write enables */
+RAM_CE = !PA19;                         /* lower half of memory is all RAM */
+RAM_OE = RCLK & RAM_CE;
+RAM_WE = WCLK & RAM_CE;
+
+ROM_CE = PA:[f8000..fffff] & !HOLE;
+ROM_OE = RCLK & ROM_CE;
