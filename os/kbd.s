@@ -1,5 +1,5 @@
 ; SPDX-License-Identifier: MIT
-;
+; kbd.s
 ; PS/2 keyboard driver
 ; attached to VIA port A
 

@@ -1,5 +1,5 @@
 ; SPDX-License-Identifier: MIT
-;
+; lcd.s
 ; 4-row LCD character display driver
 ; attached to VIA port B, 4-bit mode
 ; port B bit 7 belongs to the keyboard--can't change its DDR bit here.
