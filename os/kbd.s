@@ -22,7 +22,7 @@ kb_map:                         ; index bit 7 selects which half
         .byte   $00,    $00,    'z',    's',    'a',    'w',    '2',    $00
         .byte   $00,    'c',    'x',    'd',    'e',    '4',    '3',    $00
         .byte   $00,    ' ',    'v',    'f',    't',    'r',    '5',    $00
-        .byte   $00,    'n',    'b',    'h',    'g',    'y'     '6',    $00
+        .byte   $00,    'n',    'b',    'h',    'g',    'y',    '6',    $00
         .byte   $00,    $00,    'm',    'j',    'u',    '7',    '8',    $00
         .byte   $00,    ',',    'k',    'i',    'o',    '0',    '9',    $00
         .byte   $00,    '.',    '/',    'l',    ';',    'p',    '-',    $00
@@ -39,7 +39,7 @@ kb_map:                         ; index bit 7 selects which half
         .byte   $00,    $00,    'Z',    'S',    'A',    'W',    '@',    $00
         .byte   $00,    'C',    'X',    'D',    'E',    '$',    '#',    $00
         .byte   $00,    ' ',    'V',    'F',    'T',    'R',    '%',    $00
-        .byte   $00,    'N',    'B',    'H',    'G',    'Y'     '^',    $00
+        .byte   $00,    'N',    'B',    'H',    'G',    'Y',    '^',    $00
         .byte   $00,    $00,    'M',    'J',    'U',    '&',    '*',    $00
         .byte   $00,    '<',    'K',    'I',    'O',    ')',    '9',    $00
         .byte   $00,    '>',    '?',    'L',    ':',    'P',    '_',    $00
@@ -174,7 +174,7 @@ kbd_parse:
         jmp     kb_buf_push     ; push DEL
 @nodel:
         and     #%00111111
-        beq     $nocaret
+        beq     @nocaret
         sec
         sbc     $40
         jmp     kb_buf_push     ; push caret code
@@ -252,7 +252,6 @@ kb_hscan:                       ; process $80-$FF scan codes
         jmp     kb_send
 @nl:
         rts
-:
         cmp     #$F0
         bne     :+
         smb7    kb_fl1          ; key release
@@ -265,7 +264,7 @@ kb_hscan:                       ; process $80-$FF scan codes
 :
         cmp     #$FE
         bne     :+
-        lda     $kb_prevcmd        ; resend request
+        lda     kb_prevcmd      ; resend request
         jmp     kb_send
 :
         cmp     #$E1
@@ -446,7 +445,7 @@ kb_send:
 @even:
         jsr     kb_clk_poll
         dex
-        bne     $loop
+        bne     @loop
         tya                     ; get parity into bit 7
         ror     A
         ror     A

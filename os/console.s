@@ -1,13 +1,18 @@
 ; SPDX-License-Identifier: MIT
-;
+; console.s
 ; cc65 library console calls
 
         .include "bv6502.inc"
 
         .import incsp2, popa, return0
-        .import lcd_inst_wr, lcd_char_wr, lcd_cur_xy, lcd_cr_wr, lcd_lf_wr
-        .import lcd_clrscr
+        .import lcd_char_wr, lcd_cr_wr, lcd_lf_wr
+        .import lcd_cls, lcd_scroll, lcd_xy_set, lcd_xy_get, lcd_cur_char
         .import kb_getc, kb_check
+
+        .export _bgcolor, _bordercolor, _cclear, _cclearxy, _cgetc, _chline
+        .export _chlinexy, _clrscr, _cpeekc, _cpeekcolor, _cpeekrevers, _cputc
+        .export _cputcxy, _cvline, _cvlinexy, _gotox, gotoxy, _gotoxy, _revers
+        .export _screensize, _textcolor, _wherex, _wherey
 
 
 ; unsigned char __fastcall__ bgcolor (unsigned char color);
@@ -127,15 +132,15 @@ _cvlinexy:
         jsr     popa            ; x coord -> A
         cmp     #20             ; clamp x
         bcc     @xok
-        sta     #19
+        lda     #19
 @xok:
         tax                     ; x coord -> X
         pha                     ; y coord -> A
         cmp     #4              ; clamp y
         bcc     @yok
-        sta     #3
+        lda     #3
 @yok:
-        sty                     ; y coord -> Y
+        ply                     ; y coord -> Y
         pla                     ; length  -> A
 vlloop:
         beq     @done
@@ -149,7 +154,7 @@ vlloop:
         cpy     #3              ; bottom row?
         bcc     @yok2
         jsr     lcd_scroll
-        sty     #2
+        ldy     #2
 @yok2:
         iny
         plx                     ; x coord -> X
@@ -171,16 +176,18 @@ _cvline:
 ;void __fastcall__ gotoxy (unsigned char x, unsigned char y);
 ; y coord in A
 ; x coord in X
+gotoxy:
+        jsr     popa            ; idk
 _gotoxy:
         cmp     #4              ; clamp Y
         bcc     @yok
-        sta     #3
+        lda     #3
 @yok:
         tay
         txa
         cmp     #20             ; clamp X
         bcc     @xok
-        sta     #19
+        lda     #19
 @xok:
         tax
         jmp     lcd_xy_set
@@ -189,7 +196,7 @@ _gotoxy:
 _gotox:
         cmp     #20             ; clamp X
         bcc     @xok
-        sta     #19
+        lda     #19
 @xok:
         pha
         jsr     lcd_xy_get
@@ -200,7 +207,7 @@ _gotox:
 _gotoy:
         cmp     #4              ; clamp Y
         bcc     @yok
-        sta     #3
+        lda     #3
 @yok:
         pha
         jsr     lcd_xy_get
@@ -229,7 +236,7 @@ _screensize:
         jmp     incsp2
 
 
-_textcolor:     := return0
+_textcolor      := return0
 
 
 ;unsigned char wherex (void);

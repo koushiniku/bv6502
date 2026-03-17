@@ -1,5 +1,4 @@
 # SPDX-License-Identifier: MIT
-#
 # Makefile
 
 .SUFFIXES:
@@ -11,8 +10,8 @@ AR 	= ar65
 AS 	= ca65
 CC 	= cc65
 LD 	= ld65
-ASFLAGS = --cpu w65c02
-CFLAGS	= -t none -O --cpu w65c02
+ASFLAGS := --cpu W65C02 -I $(HOME)/.local/share/cc65/asminc
+CFLAGS	:= -t none -O --cpu W65C02 -I $(HOME)/.local/share/cc65/include
 
 PROG	= minipro
 FLASH	= SST39SF010A
@@ -22,16 +21,18 @@ BASE	= bv6502
 LIB	:= $(BASE).lib
 BIN	:= $(BASE).bin
 MAP	:= $(BASE).map
-EXTLIB 	= /usr/share/cc65/lib/supervision.lib
+CFG	:= $(BASE).cfg
+EXTLIB 	:= $(HOME)/.local/share/cc65/lib/supervision.lib
 
 INCS_S	:= $(wildcard *.inc)
 SRCS_S	:= $(filter-out crt0.s,$(wildcard *.s))
-OBJS_S	:= $(SRCS_S:.o=.s)
 SRCS_C	:= $(wildcard *.c)
-OBJS_C	:= $(SRCS_C:.o=.c)
 HDRS_C	:= $(wildcard *.h)
 
-OBJS	:= $(SRCS_S:.o=.s) $(SRCS_C:.o=.c)
+OBJS	:= $(SRCS_S:.s=.o) $(SRCS_C:.c=.o)
+
+.PHONY: all
+all : $(BIN)
 
 %.o : %.s $(INCS_S)
 	$(AS) $(ASFLAGS) $<
@@ -45,9 +46,6 @@ $(LIB) : crt0.o $(EXTLIB)
 
 $(BIN) : $(OBJS) $(LIB)
 	$(LD) -C $(CFG) -m $(MAP) -o $@ $^
-
-.PHONY: all
-all : $(BIN)
 
 .PHONY: flash
 flash : $(BIN)

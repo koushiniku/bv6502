@@ -2,7 +2,7 @@
 ;
 ; bv6502.inc
 
-        .if (!.defined __bv6502_inc__)
+        .if (!.defined (__bv6502_inc__))
         .define __bv6502_inc__
 
         .pwc02
@@ -35,4 +35,5 @@ STS     .byte
 CMD     .byte
 CTL     .byte
         .endstruct
+
         .endif

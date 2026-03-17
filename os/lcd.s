@@ -8,7 +8,8 @@
 
         .constructor lcd_init
         .destructor lcd_done
-        .export _cputc, lcd_char_wr, lcd_inst_wr
+        .export lcd_char_wr, lcd_inst_wr, lcd_cr_wr, lcd_lf_wr
+        .export lcd_cls, lcd_scroll, lcd_xy_set, lcd_xy_get, lcd_cur_char
 
 LCD_RW          = $10           ; LCD Data R/~W
 LCD_RS          = $20           ; LCD Register Select; 0=instruction, 1=data
@@ -58,7 +59,7 @@ lcd_init:
         jsr     lcd_inst_wr
         lda     #%00001100      ; Display on, cursor off, blink cursor off.
         jsr     lcd_inst_wr
-        jmp     lcd_clrscr
+        jmp     lcd_cls
 
 delay:                          ; rough x * 1000 clock delay
         ldy     200
@@ -201,7 +202,7 @@ lcd_wr:
         sta     VIA::PORTB
         ora     #LCD_E
         sta     VIA::PORTB
-        and     #(~LCD_E)
+        and     #<~LCD_E
         sta     VIA::PORTB
         rts
 
@@ -217,11 +218,11 @@ lcd_bz_poll:
         ora     #LCD_E
         sta     VIA::PORTB
         ldx     VIA::PORTB      ; capture upper nibble
-        and     #(~LCD_E)
+        and     #<~LCD_E
         sta     VIA::PORTB
         ora     #LCD_E          ; ignore lower nibble
         sta     VIA::PORTB
-        and     #(~LCD_E)
+        and     #<~LCD_E
         sta     VIA::PORTB
         txa                     ; now check busy flag
         and     #LCD_BZ
@@ -239,7 +240,7 @@ lcd_bz_poll:
 ; clobbers A
 lcd_xy_get:
         lda     lcd_cur         ; will be remainder
-        ldy     #-1             ; will be quotient
+        ldy     #$FF            ; will be quotient
 @loop:
         iny                     ; will start at 0
         tax

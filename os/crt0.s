@@ -1,24 +1,17 @@
 ; SPDX-License-Identifier: MIT
-;
 ; crt0.s
 
         .include "bv6502.inc"
 
-        .export _exit, _stop, _wait
+        .export _init, _exit, _nmi_int, _irq_int, _stop, _wait
+        .export initirq, doneirq
         .import _main
         .export __STARTUP__ : absolute = 1
         .import __RAM_START__, __RAM_SIZE__
         .import copydata, zerobss, initlib, donelib, callirq
 
 
-        .segment "VECTORS"
-
-        .addr   _nmi_int
-        .addr   _init
-        .addr   _irq_int
-
-
-        .code
+        .segment "ONCE"
 
 _init:
         ldx     #$FF
@@ -33,12 +26,12 @@ _init:
         jsr     initlib
         jsr     _main
 
+
+        .code
+
 _exit:
         jsr     donelib
         brk
-
-
-        .code
 
 _nmi_int:
         rti
@@ -66,4 +59,9 @@ _wait:
         wai
         rts
 
+initirq:
+        cli
+        rts
+
+doneirq:
 
