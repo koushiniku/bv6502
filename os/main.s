@@ -16,8 +16,8 @@ hello:  .asciiz "Hello, world!\r\n"
         .code
 
 _main:
-        lda     <hello
-        ldy     >hello
+        lda     #<hello
+        ldy     #>hello
         jsr     _cputs
 @forever:
         jmp     @forever

@@ -93,10 +93,10 @@ kb_fl1:         .res    1       ; more keyboard flags
                                 ; 7: $F0 was received
 KB_ALTBITS      = %00000011
 KB_PAUSEBITS    = %00001100
-KB_PAUSE1       = 2             ; pause key make
-KB_LED          = 4             ; LED command was sent
-KB_E0CODE       = 6             ; E0 code in progress
-KB_F0CODE       = 7             ; F0 code in progress
+KB_PAUSE1       = %00000100     ; pause key make
+KB_LED          = %00010000     ; LED command was sent
+KB_E0CODE       = %01000000     ; E0 code in progress
+KB_F0CODE       = %10000000     ; F0 code in progress
 
 
         .bss
@@ -111,74 +111,89 @@ kb_prevcmd:
 
         .segment "ONCE"
 
+; initialize VIA for the keyboard
+; except for bit 7, port B is owned by LCD, so don't mess with it
+; port B bit 7 stays input to avoid clobbering the data signal until we need it
 kbd_init:
-        lda     VIA::PCR        ; CA1 rising edge, CA2 low output
-        ora     #%00001101
+        stz     VIA::DDRA       ; all input
+        lda     #%10000000
+        trb     VIA::DDRB       ; port B-7 defaults to input
+        lda     VIA::PCR
+        and     #$F0            ; clear the "CA" nibble
+        ora     #%00001101      ; set CA1 rising edge interrupt, CA2 low output
         sta     VIA::PCR
+        lda     #%10000010      ; enable the CA1 interrupt
+        sta     VIA::IER
 
 
         .code
 
+; restore VIA to defaults
 kbd_done:
-        lda     VIA::PCR
-        and     #%11110000
-        sta     VIA::PCR
+        lda     #%00000010      ; disable the interrupt
+        sta     VIA::IER
+        lda     #$0F            ; clear CA nibble of PCR
+        trb     VIA::PCR
+        lda     #%10000000      ; restore B.7 to input default
+        trb     VIA::DDRB
+        stz     VIA::DDRA       ; restore A to input default
 
 ;handle keyboard input
 kbd_isr:
         lda     #%00000010
-        and     VIA::IFR
+        sta     VIA::IFR
         beq     @mine           ; CA1 interrupt
-        clc                     ; not mine
+        clc                     ; not my interrupt
         rts
 @mine:
         lda     VIA::PORTA      ; clears interrupt, gets scancode
         jsr     kbd_parse
-        sec                     ; mark handled
+        sec                     ; handled my interrupt
         rts
 
 ; parse a scancode in A
 ; if it's a character, put it in the buffer
 kbd_parse:
-        sta     kb_cur
+        sta     kb_cur          ; zeropage backup copy
         bpl     @low
         jmp     kb_hscan        ; bit 7 is set: parse high jump table
 @low:                           ; bit 7 is clear
-        lda     KB_F0CODE       ; was $F0 the previous code?
+        lda     #KB_F0CODE      ; was $F0 the previous code?
         trb     kb_fl1
         beq     @make
         lda     kb_cur
         jsr     kb_bscan        ; parse "break" codes
         rmb6    kb_fl1          ; in case EO_CODE was set
         rts
-@make:
+@make:                          ; keypress, not release
         lda     #KB_ALTBITS     ; is alt being pressed?
-        and     kb_fl1
+        bit     kb_fl1
         beq     @noalt
         rts                     ; ignoring alt-anything for now
 @noalt:
-        lda     KB_E0CODE       ; was $E0 the previous code?
+        lda     #KB_E0CODE      ; was $E0 the previous code?
         trb     kb_fl1
         beq     @noe0
         jmp     kb_escan        ; parse the e0 jump table
 @noe0:                          ; is control being pressed?
-        lda     KB_CTRLBITS
-        and     kb_fl0
+        lda     #KB_CTRLBITS
+        bit     kb_fl0
         beq     @noctrl
-        ora     #%10000000      ; use upper table
+        lda     kb_cur
+        ora     #%10000000      ; use uppercase table
         tax
         lda     kb_buf,X
-        cmp     #'?'
+        cmp     #'?'            ; check for "DEL"
         bne     @nodel
-        lda     $7F
-        jmp     kb_buf_push     ; push DEL
-@nodel:
-        and     #%00111111
-        beq     @nocaret
+        lda     #$7F            ; push "DEL"
+        jmp     kb_buf_push
+@nodel:                         ; check for $40..$5F ('@'..'_')
         sec
-        sbc     $40
+        sbc     #$40            ; $40..$5F -> $00..$1F
+        cmp     #$20
+        bcs     @nocaret
         jmp     kb_buf_push     ; push caret code
-@nocaret:
+@nocaret:                       ; unsupported caret code
         rts
 @noctrl:                        ; check kb_mods effects of shift, caps, num
         lda     kb_cur          ; divide by 4: find byte index into kb_mods
@@ -187,8 +202,9 @@ kbd_parse:
         tax
         lda     #%00000011
         and     kb_cur          ; index of the crumb in the byte from kb_mods
-        tay
+        pha
         lda     kb_mods,X       ; get the byte from kb_mods
+        ply
 @modloop:
         beq     @moddone        ; shift by Y crumbs
         lsr     A
@@ -196,13 +212,13 @@ kbd_parse:
         dey
         jmp     @modloop
 @moddone:                       ; A[1:0] is the kb_mod code we want
-        ldx     #0
+        ldx     #0              ; default to lowercase table
         and     #%00000011      ; lose the upper bits and check the low crumb
         beq     @lwr            ; crumb is 0
         tay
         lda     #KB_SHIFTBITS
         bit     kb_fl0          ; Z=!shift, V=numlock, N=capslock
-        php
+        php                     ; save flags
         dey
         bne     @xor
         plp                     ; crumb is 1
@@ -226,9 +242,9 @@ kbd_parse:
 @sxn_s0:
         bvs     @upr            ; shift=0, numlock=1
         jmp     @lwr            ; shift=0, numlock=0
-@upr:                           ; upper table
+@upr:                           ; uppercase table
         ldx     #%10000000
-@lwr:                           ; lower table
+@lwr:                           ; lowercase table
         txa
         ora     kb_cur
         tax                     ; index into kb_map
@@ -239,8 +255,9 @@ kbd_parse:
         jmp     kb_buf_push
 
 kb_hscan:                       ; process $80-$FF scan codes
-        cmp     #$FA            ; command completion
-        lda     KB_LED
+        cmp     #$FA
+        bne     :+
+        lda     #KB_LED         ; command completion--was it LED?
         trb     kb_fl1
         beq     @nl
         lda     kb_fl0          ; update keyboard LEDs
@@ -250,8 +267,9 @@ kb_hscan:                       ; process $80-$FF scan codes
         rol     A               ; this is one instruction less
         and     #%00000111      ; than shifting them right
         jmp     kb_send
-@nl:
-        rts
+@nl:                            ; not an LED command = no data packet
+        rts                     ; nothing else to do
+:                               ; not a command completion
         cmp     #$F0
         bne     :+
         smb7    kb_fl1          ; key release
@@ -269,7 +287,7 @@ kb_hscan:                       ; process $80-$FF scan codes
 :
         cmp     #$E1
         bne     :+
-        lda     KB_PAUSE1
+        lda     #KB_PAUSE1
         trb     kb_fl1
         beq     @p2
         smb2    kb_fl1          ; first $E1
@@ -293,7 +311,10 @@ kb_hscan:                       ; process $80-$FF scan codes
 :
         rts
 
-kb_bscan:                       ; process post-$F0 ("break") $00-$7F scan codes
+; process post-$F0 ("break") $00-$7F scan codes
+; We only care about keys where releasing has an effect
+kb_bscan:
+
         cmp     #$12
         bne     :+
         rmb0    kb_fl0          ; left shift
@@ -306,6 +327,11 @@ kb_bscan:                       ; process post-$F0 ("break") $00-$7F scan codes
 :
         cmp     #$14
         bne     :+
+        lda     #KB_PAUSEBITS   ; is it a fake?
+        bit     kb_fl1
+        beq     @ctrl
+        rts
+@ctrl:
         bbs6    kb_fl1,@cr      ; which one?
         rmb2    kb_fl0          ; left control
         rts
@@ -323,7 +349,8 @@ kb_bscan:                       ; process post-$F0 ("break") $00-$7F scan codes
 :
         rts
 
-kb_escan:                       ; process $E0 $00-$7F scan codes
+; process $E0 $00-$7F scan codes
+kb_escan:
         clc
         cmp     #$14
         bne     :+
@@ -340,15 +367,16 @@ kb_escan:                       ; process $E0 $00-$7F scan codes
         bne     :+
         sec
         lda     #'/'            ; keypad slash
-        rts
+        jmp     kb_buf_push
 :
         cmp     #$11
         bne     :+
-        smb1    kb_fl1
+        smb1    kb_fl1          ; right alt
 :
         rts
 
-kb_mscan:                       ; process normal $00-$7F scan codes
+; process non-character $00-$7F scan codes
+kb_mscan:
         cmp     #$12
         bne     :+
         smb0    kb_fl0          ; left shift
@@ -362,12 +390,13 @@ kb_mscan:                       ; process normal $00-$7F scan codes
         cmp     #$58
         bne     :+
         smb7    kb_fl0          ; caps lock
+        smb4    kb_fl1          ; tracking LED command
         lda     $ED
         jmp     kb_send
 :
         cmp     #$14            ; left control
         bne     :+
-        lda     KB_PAUSEBITS    ; is it a fake?
+        lda     #KB_PAUSEBITS   ; is it a fake?
         bit     kb_fl1
         beq     @lctrl
         rts
@@ -377,13 +406,14 @@ kb_mscan:                       ; process normal $00-$7F scan codes
 :
         cmp     #$77            ; numlock
         bne     :+
-        lda     KB_PAUSEBITS    ; is it a fake?
+        lda     #KB_PAUSEBITS   ; is it a fake?
         bit     kb_fl1
         beq     @nmlck
         rts
 @nmlck:
         smb6    kb_fl0          ; numlock
-        lda     $ED
+        smb4    kb_fl1          ; tracking LED command
+        lda     #$ED
         jmp     kb_send
 :
         cmp     #$11
@@ -394,12 +424,14 @@ kb_mscan:                       ; process normal $00-$7F scan codes
         cmp     #$7E
         bne     :+
         smb5    kb_fl0          ; scroll lock
-        lda     $ED
+        smb4    kb_fl1          ; tracking LED command
+        lda     #$ED
         jmp     kb_send
 :
         rts
 
-kb_buf_push:                    ; push the ascii in A into the buffer
+; push the ascii in A into the buffer
+kb_buf_push:
         ldx     kb_wp
         inx
         cmp     kb_wp
@@ -415,63 +447,63 @@ kb_buf_push:                    ; push the ascii in A into the buffer
 ;       - PA0-6 are floating inputs.
 ;       - PA7 becomes clock input.
 ;       - PB7 becomes data output.
-;       - CA1 will go high, so we need to disable IRQ
+;       - other PB pins are outputs so we can't change them.
+;       - CA1 will go high, so we need to disable IRQ.
 ;         and clear the flag before going back to D2H.
 ; LCD code disables interrupts, so we may clear PB1-7 as long as we don't set.
 kb_send:
-        php                     ; critical section due to clock polling
+        php                     ; critical section for real-time clock polling
         sei
         sta     kb_prevcmd      ; save for retransmits
-        tay                     ; save for below
-        lda     VIA::PCR        ; set CA2 high, switch to H2D mode
-        eor     #%00000010
-        sta     VIA::PCR
-        lda     #%00000010      ; disable the interrupt
-        sta     VIA::IER
-        jsr     kbd_isr         ; check for missed input
-        stz     VIA::PORTB      ; start bit is 0
-        lda     #%10000000      ; set the bit to output
-        sta     VIA::DDRB
+        sta     kb_cur          ; save for below
+        lda     #%00000010      ; set CA2 high, switch to H2D mode
+        tsb     VIA::PCR
+        sta     VIA::IER        ; disable the CA1 interrupt
+        lda     #%10000000
+        trb     VIA::PORTB      ; start bit is 0
+        tsb     VIA::DDRB       ; set the data bit to output
         jsr     kb_clk_poll
         ldy     #1              ; y is parity to increment
         ldx     #8              ; x is loop count
-        tya                     ; a is data to shift out; move it to bit 7
-        ror     A
+        ror     kb_cur          ; bit 0 -> carry
 @loop:
-        ror     A
-        sta     VIA::PORTA      ; only bit 7 matters. the rest are input pins.
+        ror     kb_cur          ; carry -> bit 7
         bpl     @even
-        iny                     ; add parity on odd bits
+        tsb     VIA::PORTB      ; odd: set bit 7
+        iny                     ; increment parity on odd bits
+        jmp     @cont
 @even:
-        jsr     kb_clk_poll
+        trb     VIA::PORTB      ; even: clear bit 7
+@cont:
         dex
         bne     @loop
-        tya                     ; get parity into bit 7
-        ror     A
-        ror     A
-        and     #%10000000
-        sta     VIA::PORTB      ; write parity
+        sty     kb_cur          ; get parity
+        ror     kb_cur          ; bit 0 -> carry
+        bcc     @evenp
+        tsb     VIA::PORTB
+        jmp     @contp
+@evenp:
+        trb     VIA::PORTB
+@contp:
         jsr     kb_clk_poll
-        lda     #%10000000      ; stop bit is 1
-        sta     VIA::PORTB
+        tsb     VIA::PORTB      ; stop bit is 1
 @l1:
         bit     VIA::PORTA      ; poll for rising edge
         bpl     @l1
-        stz     VIA::DDRB       ; stop driving for ack input (which we ignore)
-        stz     VIA::PORTB      ; we can't stop driving output to receive ack
+        trb     VIA::DDRB       ; stop clobbering data input      
 @l2:
         bit     VIA::PORTA      ; poll for falling edge
         bmi     @l2
 @l3:
         bit     VIA::PORTA      ; poll for final rising edge
         bpl     @l3
-        lda     VIA::PCR        ; set CA2 low, restore D2H mode
-        eor     #%00000010
-        sta     VIA::PCR
+        lda     #%00000010
+        trb     VIA::PCR        ; set CA2 low, restore D2H mode
         lda     #%10000010      ; re-enable the interrupt
         sta     VIA::IER
         plp
         rts
+
 
 kb_clk_poll:
         bit     VIA::PORTA      ; poll for rising edge

@@ -34,9 +34,8 @@ lcd_buf:
 ; Initialize LCD display.
 lcd_init:
 ; Port B setup
-        lda     VIA::DDRB       ; default to output
-        ora     #%01111111
-        sta     VIA::DDRB
+        lda     #%01111111      ; default to output
+        tsb     VIA::DDRB
 ; coax it into 4-bit mode from whatever state we started in
         lda     #%00000011      ; Function set: 8-bit mode
         sta     VIA::PORTB
@@ -209,9 +208,8 @@ lcd_wr:
 
 ; Poll the LCD's busy flag.
 lcd_bz_poll:
-        lda     VIA::DDRB       ; set port B data nibble to read
-        and     #%11110000
-        sta     VIA::DDRB
+        lda     #$0F            ; set port B data nibble to read
+        trb     VIA::DDRB
         lda     #LCD_RW         ; set LCD data bus to read
         sta     VIA::PORTB
 @retry:
@@ -228,9 +226,8 @@ lcd_bz_poll:
         and     #LCD_BZ
         bne     @retry          ; retry if busy
         stz     VIA::PORTB      ; set LCD data bus back to write
-        lda     VIA::DDRB       ; set Port B data nibble back to write
-        ora     #%00001111
-        sta     VIA::DDRB
+        lda     #$0F            ; set Port B data nibble back to write
+        trb     VIA::DDRB
         rts
 
 
