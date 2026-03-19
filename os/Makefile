@@ -44,8 +44,8 @@ $(LIB) : crt0.o $(EXTLIB)
 	if [ ! -f $@ ]; then cp $(EXTLIB) $@; fi
 	$(AR) r $@ $<
 
-$(BIN) : $(OBJS) $(LIB)
-	$(LD) -C $(CFG) -m $(MAP) -o $@ $^
+$(BIN) : $(OBJS) $(LIB) $(CFG)
+	$(LD) -C $(CFG) -m $(MAP) -o $@ $(filter-out $(CFG),$^)
 
 .PHONY: flash
 flash : $(BIN)
