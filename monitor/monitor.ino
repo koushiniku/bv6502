@@ -21,10 +21,10 @@
 // pos    7         6         5         4         3         2         1         0
 // -----------------------------------------------------------------------------------
 // PORTA  D29       D28       D27       D26       D25       D24       D23       D22
-//        ram ce    a3        r*m oe    a2        ram we    a1        rom ce    a0
+//        ram ce    a3        oe        a2        we        a1        rom ce    a0
 // -----------------------------------------------------------------------------------
 // PORTB  D13       D12       D11       D10       D50       D51       D52       D53
-//                                                a14       d6        a15       d7
+//        cb2       cb1       ca2       ca1       a14       d6        a15       d7
 // -----------------------------------------------------------------------------------
 // PORTC  D30       D31       D32       D33       D34       D35       D36       D37
 //        a4        acia      a5        via2      a6        via1      a7        lcd
@@ -36,9 +36,9 @@
 //                            rw        clk
 // -----------------------------------------------------------------------------------
 // PORTF  A7/D61    A6/D60    A5/D59    A4/D58    A3/D57    A2/D56    A1/D55    A0/D54
-//
+//        pa7       pa6       pa5       pa4       pa3       pa2       pa1       pa0
 // -----------------------------------------------------------------------------------
-// PORTG  --        --        --        --        --        D39       D40       D41
+// PORTG  --        --        D4        --        --        D39       D40       D41
 //                            irq                           d0        a9        d1
 // -----------------------------------------------------------------------------------
 // PORTH  --        D9        D8        D7        D6        --        D16       D17
@@ -48,7 +48,7 @@
 //
 // -----------------------------------------------------------------------------------
 // PORTK  A15/D69   A14/D68   A13/D67   A12/D66   A11/D65   A10/D64   A9/D63    A8/D62
-//
+//        pb7       pb6       pb5       pb4       pb3       pb2       pb1       pb0
 // -----------------------------------------------------------------------------------
 // PORTL  D42       D43       D44       D45       D46       D47       D48       D49
 //        a10       d2        a11       d3        a12       d4        a13       d5
@@ -70,20 +70,20 @@ word breakpoint = RST_ADDR;
 // Whether we're single stepping or running until breakpoint.
 boolean step_mode = false;
 
-boolean clk = false;
-
 void setup()
 {
   // Set bits we are reading as inputs with pullups.
   DDRA  =  0x00; PORTA  = 0xff;
-  DDRB &= ~0x0f; PORTB |= 0x0f;
+  DDRB  =  0x00; PORTB |= 0xff;
   DDRC  =  0x00; PORTC  = 0xff;
   DDRD &= ~0x80; PORTD |= 0x80;
   DDRE &= ~0x20; PORTE |= 0x20;
+  DDRF  =  0x00; PORTF  = 0xff;
   DDRG &= ~0x27; PORTG |= 0x27;
+  DDRK  =  0x00; PORTK  = 0xff;
   DDRL  =  0x00; PORTL  = 0xff;
 
-  // clk is an output.
+  // CLK is an output.
   CLK_PORT &= ~CLK_BIT; CLK_DDR |= CLK_BIT;
 
   Serial.begin(115200);
@@ -91,18 +91,24 @@ void setup()
 
 void loop()
 {
+  // My source clock is inverted from phi2
   // Toggle clock
-  if (clk) {
-    clk = false;
-    CLK_PORT &= ~CLK_BIT;
-    cycle++;
-  } else {
-    clk = true;
-    CLK_PORT |= CLK_BIT;
-  }
+  CLK_PORT |= CLK_BIT;
+  delayMicroseconds(2);
+
+  CLK_PORT &= ~CLK_BIT;
+  delayMicroseconds(2);
 
   // Quickly capture current pin levels.
-  byte pa = PINA, pb = PINB, pc = PINC, pd = PIND, pe = PINE, pg = PING, pl = PINL;
+  byte pa = PINA,
+       pb = PINB,
+       pc = PINC,
+       pd = PIND,
+       pe = PINE,
+       vpa = PINF,
+       pg = PING,
+       vpb = PINK,
+       pl = PINL;
 
   // Get address bits.
   word addr = (pa & 0x01)       | (pa & 0x04) >> 1  | (pa & 0x10) >> 2  | (pa & 0x40) >> 3  |
@@ -118,44 +124,51 @@ void loop()
   boolean rw      = pe & 0x20,
           irq     = pg & 0x20,
           rom_ce  = pa & 0x02,
-          ram_we  = pa & 0x08,
-          ram_oe  = pa & 0x20,
+          we      = pa & 0x08,
+          oe      = pa & 0x20,
           ram_ce  = pa & 0x80,
-          acia    = pc & 0x40,
-          via2    = pc & 0x10,
-          via1    = pc & 0x04,
-          lcd     = pc & 0x01;
+          via     = pc & 0x04,
+          vca1    = pb & 0x10,
+          vca2    = pb & 0x20,
+          vcb1    = pb & 0x40,
+          vcb2    = pb & 0x80;
 
-  // reset cycle count
-  if (clk && rw && addr == RST_ADDR) {
+  // increment cycle count
+  cycle++;
+
+  if (rw && addr == RST_ADDR) {
+    // reset cycle count
     cycle = -2;
   }
 
-  // check for breakpoint at beginning of cycle
+  // check for breakpoint cycle
   if (!step_mode) {
-    step_mode = !clk && addr == breakpoint;
+    step_mode = addr == breakpoint;
   }
 
   char output[128];
 
   if (step_mode) {
     // Only output in step mode.
-    // "     cycle c $aaaa r $dd IRQ ROM_CE RAM_WE R*M_OE RAM_CE ACIA VIA2 VIA1 LCD"
-    sprintf(output, "%10lu %c $%04hx %c $%02hhx %3s %6s %6s %6s %6s %4s %4s %4s %3s",
+    // "     cycle $aaaa r $dd IRQ WE OE ROM_CE RAM_CE VIA vpa $aa vpb $bb VCA1 VCA2 VCB1 VCB2"
+    sprintf(output, "%10lu $%04hx %c $%02hhx %3s %2s %2s %6s %6s %3s vpa $%02hhx vpb $%02hhx %4s %4s %4s %4s",
         cycle,
-        clk ? 'C' : 'c',
         addr,
         rw ? 'r' : 'W',
         data,
         irq ? "" : "IRQ",
+        we ? "" : "WE",
+        oe ? "" : "OE",
         rom_ce ? "" : "ROM_CE",
-        ram_we ? "" : "RAM_WE",
-        ram_oe ? "" : "R*M_OE",
         ram_ce ? "" : "RAM_CE",
-        acia ? "" : "ACIA",
-        via1 ? "" : "VIA1",
-        via2 ? "" : "VIA2",
-        lcd ? "" : "LCD");
+        via ? "" : "VIA",
+        vpa,
+        vpb,
+        vca1 ? "VCA1" : "vca1",
+        vca2 ? "VCA2" : "vca2",
+        vcb1 ? "VCB1" : "vcb1",
+        vcb2 ? "VCB2" : "vcB2"
+        );
 
     Serial.println(output);
 
@@ -168,7 +181,6 @@ void loop()
     while (Serial.available() == 0);
     input = Serial.readStringUntil('\n');
     if (input.startsWith("b")) {
-      Serial.println(input);
       breakpoint = (word) strtoul(input.substring(1).c_str(), NULL, 16);
       sprintf(output, "b = $%04hx", breakpoint);
       Serial.println(output);

@@ -135,38 +135,36 @@ lcd_char_wr:
 lcd_wrap_cur:
         lda     lcd_cur
         cmp     #20
-        beq     @fixit
+        beq     lcd_cur_sync
         cmp     #40
-        beq     @fixit
+        beq     lcd_cur_sync
         cmp     #60
-        beq     @fixit
+        beq     lcd_cur_sync
         cmp     #80
-        beq     @scroll
+        beq     lcd_scroll
         rts
-@fixit:
-        jmp     lcd_cur_sync
-@scroll:
-        jmp     lcd_scroll
 
-; compute the LCD cursor position given lcd_cur
+; compute and set the LCD's cursor position given lcd_cur
 ; add bit 7 for the command and send the command to set it
 lcd_cur_sync:
         lda     lcd_cur
-        clc
         cmp     #20
         bpl     :+
+        clc
         adc     #128
-        rts
+        jmp     lcd_inst_wr
 :
         cmp     #40
         bpl     :+
+        clc
         adc     #172
-        rts
+        jmp     lcd_inst_wr
 :
         cmp     #60
         bpl     :+
-        sbc     #108
-        rts
+        clc
+        adc     #108
+        jmp     lcd_inst_wr
 :
         clc
         adc     #152

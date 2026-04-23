@@ -10,14 +10,14 @@
 
         .rodata
 
-hello:  .asciiz "Hello, world!\r\n"
+hello:  .asciiz "Hello,\r\nworld!"
 
 
         .code
 
 _main:
         lda     #<hello
-        ldy     #>hello
+        ldx     #>hello
         jsr     _cputs
 @forever:
         jmp     @forever
