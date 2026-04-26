@@ -10,7 +10,7 @@
 
         .rodata
 
-hello:  .asciiz "Hello,\r\nworld!"
+hello:  .asciiz "1234567890abcdefghijklmnopqrstuvwxyz"
 
 
         .code

@@ -122,8 +122,9 @@ kbd_init:
         and     #$F0            ; clear the "CA" nibble
         ora     #%00001101      ; set CA1 rising edge interrupt, CA2 low output
         sta     VIA::PCR
-        lda     #%10000010      ; enable the CA1 interrupt
-        sta     VIA::IER
+        lda     #%10000010
+        sta     VIA::IFR        ; clear the CA1 interrupt
+        sta     VIA::IER        ; enable the CA1 interrupt
 
 
         .code
@@ -140,9 +141,9 @@ kbd_done:
 
 ;handle keyboard input
 kbd_isr:
-        lda     #%00000010
-        sta     VIA::IFR
-        beq     @mine           ; CA1 interrupt
+        lda     VIA::IFR
+        and     #%00000010
+        bne     @mine           ; CA1 interrupt
         clc                     ; not my interrupt
         rts
 @mine:
@@ -489,14 +490,14 @@ kb_send:
         tsb     VIA::PORTB      ; stop bit is 1
 @l1:
         bit     VIA::PORTA      ; poll for rising edge
-        bpl     @l1
+        bmi     @l1
         trb     VIA::DDRB       ; stop clobbering data input      
 @l2:
         bit     VIA::PORTA      ; poll for falling edge
-        bmi     @l2
+        bpl     @l2
 @l3:
         bit     VIA::PORTA      ; poll for final rising edge
-        bpl     @l3
+        bmi     @l3
         lda     #%00000010
         trb     VIA::PCR        ; set CA2 low, restore D2H mode
         lda     #%10000010      ; re-enable the interrupt
@@ -507,10 +508,10 @@ kb_send:
 
 kb_clk_poll:
         bit     VIA::PORTA      ; poll for rising edge
-        bpl     kb_clk_poll
+        bmi     kb_clk_poll
 @l2:
         bit     VIA::PORTA      ; poll for falling edge
-        bmi     @l2
+        bpl     @l2
         rts
 
 ; char cgetc (void);

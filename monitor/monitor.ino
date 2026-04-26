@@ -150,8 +150,8 @@ void loop()
 
   if (step_mode) {
     // Only output in step mode.
-    // "     cycle $aaaa r $dd IRQ WE OE ROM_CE RAM_CE VIA vpa $aa vpb $bb VCA1 VCA2 VCB1 VCB2"
-    sprintf(output, "%10lu $%04hx %c $%02hhx %3s %2s %2s %6s %6s %3s vpa $%02hhx vpb $%02hhx %4s %4s %4s %4s",
+    // "     cycle $aaaa r $dd IRQ WE OE ROM_CE RAM_CE VIA vpa:$aa vpb:$bb vc:A1:A2:B1:B2 > "
+    sprintf(output, "%10lu $%04hx %c $%02hhx %3s %2s %2s %6s %6s %3s vpa:$%02hhx vpb:$%02hhx vc:%c1:%c2:%c1:%c2 > ",
         cycle,
         addr,
         rw ? 'r' : 'W',
@@ -164,26 +164,21 @@ void loop()
         via ? "" : "VIA",
         vpa,
         vpb,
-        vca1 ? "VCA1" : "vca1",
-        vca2 ? "VCA2" : "vca2",
-        vcb1 ? "VCB1" : "vcb1",
-        vcb2 ? "VCB2" : "vcB2"
+        vca1 ? 'A' : 'a',
+        vca2 ? 'A' : 'a',
+        vcb1 ? 'B' : 'b',
+        vcb2 ? 'B' : 'b'
         );
 
-    Serial.println(output);
+    Serial.print(output);
 
     // "b addr" sets breakpoint and runs until addr is found
     // "r" runs until the next breakpoint
     // anything else steps a half cycle
-    String input;
-    Serial.print("> ");
-
     while (Serial.available() == 0);
-    input = Serial.readStringUntil('\n');
+    String input = Serial.readStringUntil('\n');
     if (input.startsWith("b")) {
       breakpoint = (word) strtoul(input.substring(1).c_str(), NULL, 16);
-      sprintf(output, "b = $%04hx", breakpoint);
-      Serial.println(output);
       step_mode = false;
     } else if (input.startsWith("r")) {
       step_mode = false;

@@ -62,6 +62,8 @@ lcd_init:
         jsr     lcd_inst_wr
         lda     #%00001000      ; Display off.
         jsr     lcd_inst_wr
+        lda     #%00000001      ; Clear display, set DDRAM address to 0.
+        jsr     lcd_inst_wr     
         lda     #%00000110      ; Entry mode: shift cursor, don't shift display.
         jsr     lcd_inst_wr
         lda     #%00001100      ; Display on, cursor off, blink cursor off.
@@ -128,8 +130,7 @@ lcd_char_wr:
         ora     #LCD_RS         ; stay on data register
         jsr     lcd_wr
         stz     VIA::PORTB      ; set back to instruction register
-        plp
-        rts
+        plp                     ; fall through
 
 ; If at beginning of next line, fix the LCD cursor to the right place
 lcd_wrap_cur:
