@@ -27,6 +27,7 @@ lcd_cur:
 
 
         .bss
+
 lcd_buf:
         .res    80
 
@@ -43,61 +44,58 @@ lcd_init:
         trb     VIA::PORTB
         tsb     VIA::DDRB
 ; coax it into 4-bit mode from whatever state we started in
-        lda     #%00000011      ; Function set: 8-bit mode
-        sta     VIA::PORTB
-        jsr     lcd_wr          ; 1
+        lda     #%00000011      ; 8-bit mode, 3x.
+        ldx     #0
+        jsr     lcd_init_wr
         ldx     #(5 * MHZ)
-        jsr     delay
-        jsr     lcd_wr          ; 2
+        jsr     lcd_init_wr
         ldx     #(1 * MHZ)
-        jsr     delay
-        jsr     lcd_wr          ; 3
-        jsr     lcd_bz_poll
-        lda     #%00000010
-        sta     VIA::PORTB      ; Function set: 4-bit mode
-        jsr     lcd_wr
-        jsr     lcd_bz_poll
+        jsr     lcd_init_wr
+        lda     #%00000010      ; 4-bit mode, 1x.
+        ldx     #(1 * MHZ)
+        jsr     lcd_init_wr
 ; rest of the init
         lda     #%00101000      ; Fn set: 4-bit mode, 2-line display, 5x8 font.
         jsr     lcd_inst_wr
         lda     #%00001000      ; Display off.
         jsr     lcd_inst_wr
         lda     #%00000001      ; Clear display, set DDRAM address to 0.
-        jsr     lcd_inst_wr     
+        jsr     lcd_inst_wr
         lda     #%00000110      ; Entry mode: shift cursor, don't shift display.
         jsr     lcd_inst_wr
         lda     #%00001100      ; Display on, cursor off, blink cursor off.
         jsr     lcd_inst_wr
         jmp     lcd_clb         ; clear the local buffer
 
-delay:                          ; rough x * 1000 clock delay
-        ldy     200
-@loop:
+
+; Write an 8-bit instruction in A to the LCD display.
+; X contains delay in us * clock MHz
+lcd_init_wr:
+        ldy     #200
+@inner:
         dey
-        bne     @loop
+        bne     @inner
         dex
-        bne     delay
-        rts
+        bne     lcd_init_wr
+        jmp     lcd_wr          ; write what's in A
 
 
         .code
 
 ; De-initialize the LCD display.
 lcd_done:
-        lda     #%00001000      ; Display off.
-        jsr     lcd_inst_wr
         lda     #%01111111
         trb     VIA::DDRB
-        tsb     VIA::PORTB
+        trb     VIA::PORTB
         rts
 
 ; Write an instruction to the LCD display.
 lcd_inst_wr:
         php
         sei
-        tay                     ; lcd_bz_poll doesn't clobber y
+        tay
         jsr     lcd_bz_poll
-        tya                     ; write upper nibble
+        tya
         lsr     A
         lsr     A
         lsr     A
@@ -116,9 +114,9 @@ lcd_char_wr:
         ldx     lcd_cur         ; update in-memory copy
         sta     lcd_buf,X
         inc     lcd_cur         ; (fix line wrap later after writing to LCD)
-        tay                     ; lcd_bz_poll doesn't clobber y
+        tay
         jsr     lcd_bz_poll
-        tya                     ; write upper nibble
+        tya
         lsr     A
         lsr     A
         lsr     A
@@ -183,14 +181,14 @@ lcd_scroll:
         jsr     lcd_char_wr     ; slightly recursive...
         plx
         inx
-        cmp     #80
+        cpx     #80
         bcc     @loop
         ldx     #60
         lda     #' '            ; fill the remaining internal buffer with spaces
 @loop2:
         sta     lcd_buf,X
         inx
-        cmp     #80
+        cpx     #80
         bcc     @loop2
         rts
 
@@ -203,25 +201,26 @@ lcd_wr:
         sta     VIA::PORTB
         rts
 
-; Poll the LCD's busy flag.
+; Poll the LCD's busy flag with a timeout.
 lcd_bz_poll:
         lda     #$0F            ; set port B data nibble to read
         trb     VIA::DDRB
         lda     #LCD_RW         ; set LCD data bus to read
         sta     VIA::PORTB
 @retry:
-        ora     #LCD_E
+        lda     #(LCD_RW | LCD_E)
         sta     VIA::PORTB
-        ldx     VIA::PORTB      ; capture upper nibble
-        and     #<~LCD_E
+        lda     VIA::PORTB      ; capture upper nibble
+        tax
+        lda     #LCD_RW
         sta     VIA::PORTB
-        ora     #LCD_E          ; ignore lower nibble
+        lda     #(LCD_RW | LCD_E)
         sta     VIA::PORTB
-        and     #<~LCD_E
+        lda     #(LCD_RW)
         sta     VIA::PORTB
         txa                     ; now check busy flag
         and     #LCD_BZ
-        bne     @retry          ; retry if busy
+        bne     @retry
         stz     VIA::PORTB      ; set LCD data bus back to write
         lda     #$0F            ; set Port B data nibble back to write
         tsb     VIA::DDRB
@@ -283,14 +282,14 @@ lcd_cr_wr:
 ; Scroll if on bottom line already.
 lcd_lf_wr:
         lda     lcd_cur
-        tax
+        cmp     #60
+        bcc     @cursordown
+        jsr     lcd_scroll
+        lda     lcd_cur
+        jmp     lcd_cur_sync
+@cursordown:
         clc
         adc     #20
-        cmp     #80
-        bcc     @fix
-        jsr     lcd_scroll
-        txa
-@fix:
         sta     lcd_cur
         jmp     lcd_cur_sync
 

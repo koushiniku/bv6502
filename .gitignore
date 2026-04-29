@@ -39,7 +39,9 @@ fp-info-cache
 # Local project settings
 *.kicad_prl
 
-.history
+# more KiCad stuff
+/schematics/.history
+/schematics/*.pdf
 
 # cc65 build files
 *.o
