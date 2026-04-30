@@ -5,9 +5,9 @@
 	(uuid "e1457c89-50f6-4a12-b9e8-eaebe550df3b")
 	(paper "USLetter")
 	(title_block
-		(comment 1 "Buffer B allows H2D clock input for PA0. Timing is within ns of '595 ~{OE}.")
-		(comment 2 "Buffer A stops IRQ after H2D by letting CA1 go high while interrupts are disabled.")
-		(comment 3 "Keyboard H2D: CA2 high, PA7 clock input, PB7 data output.")
+		(comment 1 "Buffer C allows H2D clock input for PA0. Timing is within ns of '595 ~{OE}.")
+		(comment 2 "Buffer D stops IRQ after H2D by letting CA1 go high while interrupts are disabled.")
+		(comment 3 "Keyboard H2D: CA2 high, PA7 inverted clock input, PB7 data output.")
 		(comment 4 "Keyboard D2H: CA2 low, PA[0..7] inputs, CA1 rising interrupt.")
 	)
 	(lib_symbols
@@ -5273,12 +5273,6 @@
 		(uuid "b6a69cb5-0296-4597-a43b-b37f207760e8")
 	)
 	(junction
-		(at 43.18 67.31)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c0db6920-511b-439a-8aeb-653218b9e7b6")
-	)
-	(junction
 		(at 44.45 -38.1)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5333,10 +5327,22 @@
 		(uuid "eaf559b2-4d5d-460f-a648-9732b61954b9")
 	)
 	(junction
+		(at 43.18 67.31)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ecaeded3-a075-47ff-bbb9-e4278e3b01a2")
+	)
+	(junction
 		(at 158.75 147.32)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f2416344-144d-4754-a2bb-8ba445c1db39")
+	)
+	(junction
+		(at 43.18 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f26927be-aade-4b9a-9717-1d772b38ab88")
 	)
 	(junction
 		(at 219.71 74.93)
@@ -7175,7 +7181,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 83.82) (xy 74.93 83.82)
+			(xy 36.83 83.82) (xy 43.18 83.82)
 		)
 		(stroke
 			(width 0)
@@ -7222,6 +7228,16 @@
 			(type default)
 		)
 		(uuid "c79c8407-bf72-43aa-9c44-74037ff8cde7")
+	)
+	(wire
+		(pts
+			(xy 43.18 83.82) (xy 74.93 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7f5803b-e1eb-4a69-967a-b3c2b8ad943b")
 	)
 	(wire
 		(pts

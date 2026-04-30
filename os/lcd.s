@@ -8,7 +8,7 @@
 
         .constructor lcd_init
         .destructor lcd_done
-        .export lcd_char_wr, lcd_inst_wr, lcd_cr_wr, lcd_lf_wr
+        .export lcd_char_wr, lcd_inst_wr, lcd_cr_wr, lcd_lf_wr, lcd_bs_wr
         .export lcd_cls, lcd_scroll, lcd_xy_set, lcd_xy_get, lcd_cur_char
 
 LCD_RW          = $10           ; LCD Data R/~W
@@ -219,7 +219,7 @@ lcd_bz_poll:
         lda     #(LCD_RW)
         sta     VIA::PORTB
         txa                     ; now check busy flag
-        and     #LCD_BZ
+        bit     #LCD_BZ
         bne     @retry
         stz     VIA::PORTB      ; set LCD data bus back to write
         lda     #$0F            ; set Port B data nibble back to write
@@ -258,7 +258,20 @@ lcd_xy_set:
         sta     lcd_cur         ; lcd_cur = a
         jmp     lcd_cur_sync
 
-; Handle a carriage return.
+; Handle a line feed ("\n").
+; Set cursor to the beginning of the next line.
+; Scroll if on bottom line already.
+lcd_lf_wr:
+        lda     lcd_cur
+        cmp     #60
+        bcc     @cursordown
+        jmp     lcd_scroll
+@cursordown:
+        clc
+        adc     #20
+        sta     lcd_cur         ; fall through
+
+; Handle a carriage return ("\r").
 ; Set cursor to the beginning of the current line.
 ;     for (a = 20, x = 0; a <= lcd_cur; x = a, a += 20);
 ;     lcd_cur = x;
@@ -277,21 +290,26 @@ lcd_cr_wr:
         stx     lcd_cur
         jmp     lcd_cur_sync
 
-; Handle a line feed.
-; Set cursor to same position of next line.
-; Scroll if on bottom line already.
-lcd_lf_wr:
+; handle a backspace ("\b").
+; Except on column 0, move left, print space, move left
+lcd_bs_wr:
         lda     lcd_cur
+        cmp     #0
+        beq     @done
+        cmp     #20
+        beq     @done
+        cmp     #40
+        beq     @done
         cmp     #60
-        bcc     @cursordown
-        jsr     lcd_scroll
-        lda     lcd_cur
+        beq     @done
+        dec     lcd_cur
+        jsr     lcd_cur_sync
+        lda     #' '
+        jsr     lcd_char_wr
+        dec     lcd_cur
         jmp     lcd_cur_sync
-@cursordown:
-        clc
-        adc     #20
-        sta     lcd_cur
-        jmp     lcd_cur_sync
+@done:
+        rts
 
 ; return the character under the cursor in A
 lcd_cur_char:

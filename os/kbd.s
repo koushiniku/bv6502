@@ -27,7 +27,7 @@ kb_map:                         ; index bit 7 selects which half
         .byte   $00,    ',',    'k',    'i',    'o',    '0',    '9',    $00
         .byte   $00,    '.',    '/',    'l',    ';',    'p',    '-',    $00
         .byte   $00,    $00,    $27,    $00,    '[',    '=',    $00,    $00
-        .byte   $00,    $00,    $0A,    ']',    $00,    $5C,    $00,    $00
+        .byte   $00,    $00,    $0D,    ']',    $00,    $5C,    $00,    $00
         .byte   $00,    $00,    $00,    $00,    $00,    $00,    $08,    $00
         .byte   $00,    $00,    $00,    $00,    $00,    $00,    $00,    $00
         .byte   $00,    $00,    $00,    $00,    $00,    $00,    $1B,    $00
@@ -44,7 +44,7 @@ kb_map:                         ; index bit 7 selects which half
         .byte   $00,    '<',    'K',    'I',    'O',    ')',    '9',    $00
         .byte   $00,    '>',    '?',    'L',    ':',    'P',    '_',    $00
         .byte   $00,    $00,    '"',    $00,    '{',    '+',    $00,    $00
-        .byte   $00,    $00,    $0A,    '}',    $00,    '|',    $00,    $00
+        .byte   $00,    $00,    $0D,    '}',    $00,    '|',    $00,    $00
         .byte   $00,    $00,    $00,    $00,    $00,    $00,    $08,    $00
         .byte   $00,    '1',    $00,    '4',    '7',    $00,    $00,    $00
         .byte   '0',    '.',    '2',    '5',    '6',    '8',    $1B,    $00
@@ -125,6 +125,7 @@ kbd_init:
         lda     #%10000010
         sta     VIA::IFR        ; clear the CA1 interrupt
         sta     VIA::IER        ; enable the CA1 interrupt
+        rts
 
 
         .code
@@ -138,6 +139,7 @@ kbd_done:
         lda     #%10000000      ; restore B.7 to input default
         trb     VIA::DDRB
         stz     VIA::DDRA       ; restore A to input default
+        rts
 
 ;handle keyboard input
 kbd_isr:
@@ -152,13 +154,25 @@ kbd_isr:
         sec                     ; handled my interrupt
         rts
 
+; push the ascii in A into the buffer
+kb_buf_push:
+        ldx     kb_wp
+        inx
+        cmp     kb_wp
+        beq     @full
+        dex
+        sta     kb_buf,X
+        inc     kb_wp
+@full:
+        rts
+
 ; parse a scancode in A
 ; if it's a character, put it in the buffer
 kbd_parse:
         sta     kb_cur          ; zeropage backup copy
-        bpl     @low
+        bpl     @noh
         jmp     kb_hscan        ; bit 7 is set: parse high jump table
-@low:                           ; bit 7 is clear
+@noh:
         lda     #KB_F0CODE      ; was $F0 the previous code?
         trb     kb_fl1
         beq     @make
@@ -174,9 +188,9 @@ kbd_parse:
 @noalt:
         lda     #KB_E0CODE      ; was $E0 the previous code?
         trb     kb_fl1
-        beq     @noe0
+        beq     @noe
         jmp     kb_escan        ; parse the e0 jump table
-@noe0:                          ; is control being pressed?
+@noe:
         lda     #KB_CTRLBITS
         bit     kb_fl0
         beq     @noctrl
@@ -192,9 +206,7 @@ kbd_parse:
         sec
         sbc     #$40            ; $40..$5F -> $00..$1F
         cmp     #$20
-        bcs     @nocaret
-        jmp     kb_buf_push     ; push caret code
-@nocaret:                       ; unsupported caret code
+        bcc     kb_buf_push     ; push caret code
         rts
 @noctrl:                        ; check kb_mods effects of shift, caps, num
         lda     kb_cur          ; divide by 4: find byte index into kb_mods
@@ -250,10 +262,63 @@ kbd_parse:
         ora     kb_cur
         tax                     ; index into kb_map
         lda     kb_map,X
-        bne     @ascii
-        jmp     kb_mscan        ; ascii table returned $00
-@ascii:
+        beq     kb_mscan        ; ascii table returned $00
         jmp     kb_buf_push
+
+; process non-character $00-$7F scan codes
+kb_mscan:
+        cmp     #$12
+        bne     :+
+        smb0    kb_fl0          ; left shift
+        rts
+:
+        cmp     #$59
+        bne     :+
+        smb1    kb_fl0          ; right shift
+        rts
+:
+        cmp     #$58
+        bne     :+
+        smb7    kb_fl0          ; caps lock
+        smb4    kb_fl1          ; tracking LED command
+        lda     $ED
+        jmp     kb_send
+:
+        cmp     #$14            ; left control
+        bne     :+
+        lda     #KB_PAUSEBITS   ; is it a fake?
+        bit     kb_fl1
+        beq     @lctrl
+        rts
+@lctrl:
+        smb2    kb_fl0          ; left control
+        rts
+:
+        cmp     #$77            ; numlock
+        bne     :+
+        lda     #KB_PAUSEBITS   ; is it a fake?
+        bit     kb_fl1
+        beq     @nmlck
+        rts
+@nmlck:
+        smb6    kb_fl0          ; numlock
+        smb4    kb_fl1          ; tracking LED command
+        lda     #$ED
+        jmp     kb_send
+:
+        cmp     #$11
+        bne     :+
+        smb0    kb_fl1          ; left alt
+        rts
+:
+        cmp     #$7E
+        bne     :+
+        smb5    kb_fl0          ; scroll lock
+        smb4    kb_fl1          ; tracking LED command
+        lda     #$ED
+        jmp     kb_send
+:
+        rts
 
 kb_hscan:                       ; process $80-$FF scan codes
         cmp     #$FA
@@ -352,21 +417,23 @@ kb_bscan:
 
 ; process $E0 $00-$7F scan codes
 kb_escan:
-        clc
+        cmp     #$71
+        bne     :+
+        lda     #$08            ; del key: send backspace
+        jmp     kb_buf_push
+:
         cmp     #$14
         bne     :+
-        smb3    kb_fl0
+        smb3    kb_fl0          ; right ctrl
         rts
 :
         cmp     #$5A
         bne     :+
-        sec                     ; keypad "enter"
-        lda     #$0A            ; send lf
+        lda     #$0D            ; keypad "enter": send cr
         jmp     kb_buf_push
 :
         cmp     #$4A
         bne     :+
-        sec
         lda     #'/'            ; keypad slash
         jmp     kb_buf_push
 :
@@ -374,73 +441,6 @@ kb_escan:
         bne     :+
         smb1    kb_fl1          ; right alt
 :
-        rts
-
-; process non-character $00-$7F scan codes
-kb_mscan:
-        cmp     #$12
-        bne     :+
-        smb0    kb_fl0          ; left shift
-        rts
-:
-        cmp     #$59
-        bne     :+
-        smb1    kb_fl0          ; right shift
-        rts
-:
-        cmp     #$58
-        bne     :+
-        smb7    kb_fl0          ; caps lock
-        smb4    kb_fl1          ; tracking LED command
-        lda     $ED
-        jmp     kb_send
-:
-        cmp     #$14            ; left control
-        bne     :+
-        lda     #KB_PAUSEBITS   ; is it a fake?
-        bit     kb_fl1
-        beq     @lctrl
-        rts
-@lctrl:
-        smb2    kb_fl0          ; left control
-        rts
-:
-        cmp     #$77            ; numlock
-        bne     :+
-        lda     #KB_PAUSEBITS   ; is it a fake?
-        bit     kb_fl1
-        beq     @nmlck
-        rts
-@nmlck:
-        smb6    kb_fl0          ; numlock
-        smb4    kb_fl1          ; tracking LED command
-        lda     #$ED
-        jmp     kb_send
-:
-        cmp     #$11
-        bne     :+
-        smb0    kb_fl1          ; left alt
-        rts
-:
-        cmp     #$7E
-        bne     :+
-        smb5    kb_fl0          ; scroll lock
-        smb4    kb_fl1          ; tracking LED command
-        lda     #$ED
-        jmp     kb_send
-:
-        rts
-
-; push the ascii in A into the buffer
-kb_buf_push:
-        ldx     kb_wp
-        inx
-        cmp     kb_wp
-        beq     @full
-        dex
-        sta     kb_buf,X
-        inc     kb_wp
-@full:
         rts
 
 ; Bit-bang a host-to-keyboard command or data byte stored in A.

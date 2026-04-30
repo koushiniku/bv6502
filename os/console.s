@@ -5,7 +5,7 @@
         .include "bv6502.inc"
 
         .import incsp2, popa, return0
-        .import lcd_char_wr, lcd_cr_wr, lcd_lf_wr
+        .import lcd_char_wr, lcd_cr_wr, lcd_lf_wr, lcd_bs_wr
         .import lcd_cls, lcd_scroll, lcd_xy_set, lcd_xy_get, lcd_cur_char
         .import kb_getc, kb_check
 
@@ -110,6 +110,10 @@ _cputc:
         cmp     #$0D
         bne     :+
         jmp     lcd_cr_wr
+:
+        cmp     #$08
+        bne     :+
+        jmp     lcd_bs_wr
 :
         cmp     #$0A
         bne     :+
