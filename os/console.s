@@ -5,7 +5,7 @@
         .include "bv6502.inc"
 
         .import incsp2, popa, return0
-        .import lcd_char_wr, lcd_cr_wr, lcd_lf_wr, lcd_bs_wr
+        .import lcd_char_wr, lcd_cr_wr, lcd_lf_wr, lcd_bs_wr, lcd_tab_wr
         .import lcd_cls, lcd_scroll, lcd_xy_set, lcd_xy_get, lcd_cur_char
         .import kb_getc, kb_check
 
@@ -111,13 +111,17 @@ _cputc:
         bne     :+
         jmp     lcd_cr_wr
 :
+        cmp     #$0A
+        bne     :+
+        jmp     lcd_lf_wr
+:
         cmp     #$08
         bne     :+
         jmp     lcd_bs_wr
 :
-        cmp     #$0A
+        cmp     #$09
         bne     :+
-        jmp     lcd_lf_wr
+        jmp     lcd_tab_wr
 :
         jmp     lcd_char_wr
 
@@ -207,7 +211,7 @@ _gotox:
         plx
         jmp     lcd_xy_set
 
-; void __fastcall__ gotox (unsigned char y);
+; void __fastcall__ gotoy (unsigned char y);
 _gotoy:
         cmp     #4              ; clamp Y
         bcc     @yok

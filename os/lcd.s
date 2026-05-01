@@ -9,6 +9,7 @@
         .constructor lcd_init
         .destructor lcd_done
         .export lcd_char_wr, lcd_inst_wr, lcd_cr_wr, lcd_lf_wr, lcd_bs_wr
+        .export lcd_tab_wr
         .export lcd_cls, lcd_scroll, lcd_xy_set, lcd_xy_get, lcd_cur_char
 
 LCD_RW          = $10           ; LCD Data R/~W
@@ -269,7 +270,8 @@ lcd_lf_wr:
 @cursordown:
         clc
         adc     #20
-        sta     lcd_cur         ; fall through
+        sta     lcd_cur
+        rts
 
 ; Handle a carriage return ("\r").
 ; Set cursor to the beginning of the current line.
@@ -310,6 +312,22 @@ lcd_bs_wr:
         jmp     lcd_cur_sync
 @done:
         rts
+
+; handle a tab character ("\t").
+; Print spaces until column (not lcd_cur) is divisible by 8
+lcd_tab_wr:
+        lda     #' '
+        jsr     lcd_char_wr
+        lda     lcd_cur
+@loop:
+        tax
+        sec
+        sbc     #20
+        bcs     @loop           ; if >= 20, keep looping
+        txa
+        and     #%0000111
+        bne     lcd_tab_wr
+
 
 ; return the character under the cursor in A
 lcd_cur_char:

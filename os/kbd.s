@@ -523,7 +523,7 @@ kb_getc:
         beq     @empty
         lda     kb_buf,X
         inc     kb_rp
-        ldx     #>$0000
+        ldx     #0              ; C int high byte
         rts
 @empty:
         ldx     cursor
