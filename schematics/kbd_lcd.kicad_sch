@@ -5015,12 +5015,6 @@
 		(uuid "039e72ac-39a3-4905-a89f-98c326083413")
 	)
 	(junction
-		(at 93.98 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0a476c19-a072-40da-b3d4-2f6285477577")
-	)
-	(junction
 		(at 154.94 49.53)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5037,6 +5031,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0cbd7820-24f4-4133-b61e-55fd35623ce5")
+	)
+	(junction
+		(at 86.36 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0fde936a-d412-4f67-8e93-0c68b9f5e2ff")
 	)
 	(junction
 		(at 46.99 -45.72)
@@ -5111,22 +5111,16 @@
 		(uuid "5f8322d7-9f75-4069-b98a-ec6cc0990163")
 	)
 	(junction
-		(at 83.82 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "61d5b012-ea3e-452a-b6fb-b919ce685275")
-	)
-	(junction
 		(at 198.12 162.56)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6ca7cba4-305c-45a2-9717-b347956d8625")
 	)
 	(junction
-		(at 105.41 88.9)
+		(at 83.82 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "6fe1b6ac-6148-421f-a6d5-0bad846f5b12")
+		(uuid "71d9e24d-778a-4c67-b4a9-dae0b357e11d")
 	)
 	(junction
 		(at 24.13 -45.72)
@@ -5159,6 +5153,12 @@
 		(uuid "86006104-974b-46ab-913f-e264e3e7eda3")
 	)
 	(junction
+		(at 81.28 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "89ae6c35-4743-4e69-86f3-a3c47eaf3b05")
+	)
+	(junction
 		(at 74.93 -43.18)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5189,22 +5189,10 @@
 		(uuid "9d296dbc-fab0-4277-b416-6446e0919916")
 	)
 	(junction
-		(at 99.06 96.52)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9f804d5d-b935-49d6-89c1-4e3a2f09323b")
-	)
-	(junction
 		(at 46.99 -54.61)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a1a8fcce-7905-43f2-956f-5abcf5aa0984")
-	)
-	(junction
-		(at 54.61 67.31)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a22d5161-06ab-4b38-9491-196209ba22ad")
 	)
 	(junction
 		(at 67.31 198.12)
@@ -5223,6 +5211,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a6af0468-bf4a-4e86-9858-6b1c9cdfbf63")
+	)
+	(junction
+		(at 55.88 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a9ba550e-26b1-48b7-913e-17ecb9ffaa38")
 	)
 	(junction
 		(at 35.56 -45.72)
@@ -5261,6 +5255,12 @@
 		(uuid "b6a69cb5-0296-4597-a43b-b37f207760e8")
 	)
 	(junction
+		(at 53.34 67.31)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bac79315-53da-4e8a-9db9-c6d3787c7318")
+	)
+	(junction
 		(at 157.48 109.22)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5285,22 +5285,10 @@
 		(uuid "cb80350d-a9dd-46dc-a4a1-8812ab952437")
 	)
 	(junction
-		(at 95.25 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cf5ef5cf-9010-4017-ae15-77e47c92ac00")
-	)
-	(junction
 		(at 139.7 109.22)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d4c2e87d-7f4c-45a2-b561-e33b2927f06a")
-	)
-	(junction
-		(at 54.61 74.93)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "dac01a1e-11b9-4cca-9dea-20c0a27aade9")
 	)
 	(junction
 		(at 113.03 109.22)
@@ -5309,22 +5297,10 @@
 		(uuid "e48d9770-4ba8-41e6-8a18-f803ab121a7e")
 	)
 	(junction
-		(at 66.04 74.93)
+		(at 50.8 74.93)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "e9b59353-09eb-4447-a2e7-bcab2002d735")
-	)
-	(junction
-		(at 59.69 82.55)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "eaf559b2-4d5d-460f-a648-9732b61954b9")
-	)
-	(junction
-		(at 43.18 74.93)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ecaeded3-a075-47ff-bbb9-e4278e3b01a2")
+		(uuid "ec2a724d-e557-49cb-9608-2656a8af8056")
 	)
 	(junction
 		(at 170.18 146.05)
@@ -5529,13 +5505,23 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 88.9) (xy 93.98 88.9)
+			(xy 43.18 74.93) (xy 55.88 74.93)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "011a3a4f-8d20-4ae0-b875-cf6f7c2040e7")
+		(uuid "00b50765-f0b8-4da6-b0ef-8879f36f41c1")
+	)
+	(wire
+		(pts
+			(xy 55.88 74.93) (xy 63.5 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "017de97c-8394-4e28-9489-bdebc286a02d")
 	)
 	(wire
 		(pts
@@ -5729,16 +5715,6 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 96.52) (xy 99.06 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0f70b48d-dee9-413f-a2c9-08b30050070d")
-	)
-	(wire
-		(pts
 			(xy 157.48 45.72) (xy 157.48 54.61)
 		)
 		(stroke
@@ -5759,16 +5735,6 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 74.93) (xy 53.34 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "16b6d74e-a6bb-40a6-ac72-40f3ad8c0068")
-	)
-	(wire
-		(pts
 			(xy 186.69 74.93) (xy 186.69 86.36)
 		)
 		(stroke
@@ -5786,16 +5752,6 @@
 			(type default)
 		)
 		(uuid "1a237128-154e-49b2-9859-3aa62e8f508e")
-	)
-	(wire
-		(pts
-			(xy 66.04 74.93) (xy 54.61 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1aead07e-ae43-4b79-9b9f-964fad260df7")
 	)
 	(wire
 		(pts
@@ -5919,6 +5875,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 88.9) (xy 93.98 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2793993f-da43-4234-8e93-2fbafe183c22")
+	)
+	(wire
+		(pts
 			(xy 162.56 93.98) (xy 162.56 74.93)
 		)
 		(stroke
@@ -5926,16 +5892,6 @@
 			(type default)
 		)
 		(uuid "28d04439-a406-4113-be18-b7b0963bfdbc")
-	)
-	(wire
-		(pts
-			(xy 99.06 96.52) (xy 105.41 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2902b558-80a1-4f6e-b2cd-273540aa8e3b")
 	)
 	(wire
 		(pts
@@ -6037,16 +5993,6 @@
 		)
 		(uuid "35528d44-c310-4bfd-af95-2d22a16faf32")
 	)
-	(wire
-		(pts
-			(xy 95.25 81.28) (xy 105.41 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "35aa5c07-cf48-4154-907c-c48b84bda87e")
-	)
 	(bus
 		(pts
 			(xy 250.19 114.3) (xy 250.19 116.84)
@@ -6056,6 +6002,16 @@
 			(type default)
 		)
 		(uuid "35d5d511-3803-4909-8516-fd9c9352073b")
+	)
+	(wire
+		(pts
+			(xy 81.28 81.28) (xy 83.82 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36473c4a-2bc1-4947-ad6b-5b65995904af")
 	)
 	(wire
 		(pts
@@ -6209,16 +6165,6 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 67.31) (xy 66.04 67.31)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4ce1864c-8063-43a8-9443-b27cac1b81b9")
-	)
-	(wire
-		(pts
 			(xy 219.71 46.99) (xy 219.71 109.22)
 		)
 		(stroke
@@ -6226,16 +6172,6 @@
 			(type default)
 		)
 		(uuid "4d2fa510-f73e-4d4d-a034-fe61778644bf")
-	)
-	(wire
-		(pts
-			(xy 66.04 74.93) (xy 133.35 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4e41c284-5e10-4338-ae01-2c1356613b34")
 	)
 	(wire
 		(pts
@@ -6549,6 +6485,16 @@
 	)
 	(wire
 		(pts
+			(xy 71.12 74.93) (xy 133.35 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ef5f427-7250-4859-bfc8-99dce32c13a8")
+	)
+	(wire
+		(pts
 			(xy 165.1 91.44) (xy 165.1 74.93)
 		)
 		(stroke
@@ -6599,7 +6545,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 88.9) (xy 83.82 88.9)
+			(xy 36.83 88.9) (xy 86.36 88.9)
 		)
 		(stroke
 			(width 0)
@@ -6619,17 +6565,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 81.28) (xy 95.25 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8ad2730a-d48a-4584-a225-02d61ceb863c")
-	)
-	(wire
-		(pts
-			(xy 93.98 88.9) (xy 92.71 88.9)
+			(xy 101.6 88.9) (xy 113.03 88.9)
 		)
 		(stroke
 			(width 0)
@@ -6686,6 +6622,16 @@
 			(type default)
 		)
 		(uuid "92f3ecd8-3773-4aa7-bb13-d219e881aa34")
+	)
+	(wire
+		(pts
+			(xy 53.34 67.31) (xy 55.88 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "97bbfd74-aadf-4bc7-b0bd-8ea94b6325a6")
 	)
 	(wire
 		(pts
@@ -6859,16 +6805,6 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 67.31) (xy 54.61 67.31)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ace4cce0-f849-478b-8f12-4be6b5442d9c")
-	)
-	(wire
-		(pts
 			(xy 182.88 132.08) (xy 222.25 132.08)
 		)
 		(stroke
@@ -6896,16 +6832,6 @@
 			(type default)
 		)
 		(uuid "b17cd4d1-f6b3-4af7-afb8-474743292a23")
-	)
-	(wire
-		(pts
-			(xy 59.69 82.55) (xy 66.04 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b4a3d4e5-fced-499e-a531-3ad8bdd22474")
 	)
 	(bus
 		(pts
@@ -7019,16 +6945,6 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 88.9) (xy 113.03 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bf055fdc-65ad-412c-8787-08c61a5d53c5")
-	)
-	(wire
-		(pts
 			(xy 57.15 -53.34) (xy 45.72 -53.34)
 		)
 		(stroke
@@ -7106,16 +7022,6 @@
 			(type default)
 		)
 		(uuid "c60c0440-5225-4b6a-8f2e-be799cf7a9bb")
-	)
-	(wire
-		(pts
-			(xy 54.61 82.55) (xy 59.69 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c6b5e228-25a3-4cb4-92a0-1fa3cadea1bd")
 	)
 	(wire
 		(pts
@@ -7226,16 +7132,6 @@
 			(type default)
 		)
 		(uuid "cdb17372-289b-4468-8283-61a8c2bebf11")
-	)
-	(wire
-		(pts
-			(xy 43.18 74.93) (xy 45.72 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cdd0def7-1538-4d43-b976-edf6bfa86bba")
 	)
 	(wire
 		(pts
@@ -7439,16 +7335,6 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 88.9) (xy 85.09 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e6a138a1-a6d0-4ce8-8ffa-2d7aaef4da52")
-	)
-	(wire
-		(pts
 			(xy 121.92 109.22) (xy 123.19 109.22)
 		)
 		(stroke
@@ -7539,6 +7425,16 @@
 	)
 	(wire
 		(pts
+			(xy 50.8 67.31) (xy 53.34 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f1e5284c-189a-4b04-b8d5-ae6e0f064141")
+	)
+	(wire
+		(pts
 			(xy 156.21 109.22) (xy 157.48 109.22)
 		)
 		(stroke
@@ -7596,6 +7492,16 @@
 			(type default)
 		)
 		(uuid "f5344413-c254-439c-9424-d788b88cc3fc")
+	)
+	(wire
+		(pts
+			(xy 83.82 81.28) (xy 86.36 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f631a34d-492e-413b-8372-5683914faed7")
 	)
 	(bus
 		(pts
@@ -8048,6 +7954,88 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "#PWR037")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 50.8 71.12 0)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "0fb4b986-05c6-4e61-966b-8b3a4c968ff8")
+		(property "Reference" "R16"
+			(at 48.26 69.85 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "3.3kΩ"
+			(at 48.26 72.39 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 49.022 71.12 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 50.8 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 50.8 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "e262d4e6-100e-4ea3-a764-ecae6b209032")
+		)
+		(pin "1"
+			(uuid "3fe37b6a-7277-41ef-9f39-4a20d413d800")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
+					(reference "R16")
 					(unit 1)
 				)
 			)
@@ -8524,87 +8512,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Diode:BAT43")
-		(at 66.04 71.12 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "177c5dbd-dae8-4dcd-8b19-773484b61580")
-		(property "Reference" "D11"
-			(at 68.58 69.85 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BAT43"
-			(at 68.58 72.39 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 61.595 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
-			(at 66.04 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "30V 0.2A Small Signal Schottky Diode, DO-35"
-			(at 66.04 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "4fa7ee69-9e90-48cf-a35c-a514745b8e7a")
-		)
-		(pin "1"
-			(uuid "67412550-80c2-4577-ab7d-8075606fd3a8")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "D11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "74xx:74HC14")
 		(at 148.59 109.22 180)
 		(unit 3)
@@ -8917,87 +8824,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Diode:BAT43")
-		(at 105.41 92.71 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "1e8fe962-a3ae-431c-a27f-6ab8bf3fd2f1")
-		(property "Reference" "D8"
-			(at 107.95 91.44 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BAT43"
-			(at 107.95 93.98 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 100.965 92.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
-			(at 105.41 92.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "30V 0.2A Small Signal Schottky Diode, DO-35"
-			(at 105.41 92.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "d5d87111-c519-4fea-be60-aab99376cf8c")
-		)
-		(pin "1"
-			(uuid "eab00370-8622-450c-805c-4db9bfac021a")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "D8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 172.72 156.21 0)
 		(mirror y)
@@ -9072,169 +8898,6 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "R25")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Diode:BAT43")
-		(at 66.04 78.74 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "233caa68-df7a-4787-aacc-2b5905c8d0b3")
-		(property "Reference" "D9"
-			(at 68.58 77.47 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BAT43"
-			(at 68.58 80.01 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 61.595 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
-			(at 66.04 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "30V 0.2A Small Signal Schottky Diode, DO-35"
-			(at 66.04 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "235b2423-73dd-4527-b68c-8075e81080d1")
-		)
-		(pin "1"
-			(uuid "9ab517c5-b6c8-41b8-b8e4-90ba88986dcd")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "D9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 54.61 78.74 0)
-		(mirror y)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "280e0ec0-d087-4409-b834-4ecb45140020")
-		(property "Reference" "C9"
-			(at 57.15 77.47 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "680pF"
-			(at 57.15 80.01 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 53.6448 82.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 54.61 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 54.61 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b8ea9690-c369-4f2e-a167-ec94a3567da6")
-		)
-		(pin "2"
-			(uuid "72082bd8-babc-4fb5-bf01-5323ee70a848")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -9410,88 +9073,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 43.18 71.12 0)
-		(mirror x)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "2ca26ccd-0c26-41df-b97d-8d5735185039")
-		(property "Reference" "R17"
-			(at 40.64 69.85 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "1kΩ"
-			(at 40.64 72.39 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 41.402 71.12 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 43.18 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 43.18 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "e1dfe8b2-d968-444a-b617-f91d579ee259")
-		)
-		(pin "1"
-			(uuid "662475b3-6d72-4d8d-9f8d-fa45fb29486f")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "R17")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Transistor_BJT:2N3906")
 		(at 38.1 -38.1 180)
 		(unit 1)
@@ -9602,7 +9183,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 88.9 88.9 90)
+		(at 97.79 88.9 90)
 		(mirror x)
 		(unit 1)
 		(body_style 1)
@@ -9613,7 +9194,7 @@
 		(dnp no)
 		(uuid "33d1ba2c-cd6e-4778-995a-03c9831d4f73")
 		(property "Reference" "R33"
-			(at 88.9 83.82 90)
+			(at 97.79 83.82 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9622,8 +9203,8 @@
 				)
 			)
 		)
-		(property "Value" "220Ω"
-			(at 88.9 86.36 90)
+		(property "Value" "47Ω"
+			(at 97.79 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9633,7 +9214,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 88.9 87.122 90)
+			(at 97.79 87.122 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9644,7 +9225,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 88.9 88.9 0)
+			(at 97.79 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9655,7 +9236,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 88.9 88.9 0)
+			(at 97.79 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10534,7 +10115,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 83.82 85.09 0)
+		(at 81.28 85.09 0)
 		(mirror x)
 		(unit 1)
 		(body_style 1)
@@ -10545,7 +10126,7 @@
 		(dnp no)
 		(uuid "5277143b-b3c7-484c-83c0-1e2e46a5a43d")
 		(property "Reference" "R15"
-			(at 81.28 83.82 0)
+			(at 78.74 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10555,8 +10136,8 @@
 				(justify right)
 			)
 		)
-		(property "Value" "1kΩ"
-			(at 81.28 86.36 0)
+		(property "Value" "3.3kΩ"
+			(at 78.74 86.36 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10567,7 +10148,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 82.042 85.09 90)
+			(at 79.502 85.09 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10578,7 +10159,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 83.82 85.09 0)
+			(at 81.28 85.09 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10589,7 +10170,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 83.82 85.09 0)
+			(at 81.28 85.09 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10718,7 +10299,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 99.06 96.52 0)
+		(at 86.36 96.52 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10726,10 +10307,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "5813ac36-02b1-4e7c-81e1-6ceec0b5bc51")
 		(property "Reference" "#PWR032"
-			(at 99.06 102.87 0)
+			(at 86.36 102.87 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10740,7 +10320,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 99.06 101.6 0)
+			(at 86.36 100.33 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10750,7 +10330,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 99.06 96.52 0)
+			(at 86.36 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10761,7 +10341,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 99.06 96.52 0)
+			(at 86.36 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10772,7 +10352,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 99.06 96.52 0)
+			(at 86.36 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11126,88 +10706,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 93.98 92.71 0)
-		(mirror y)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "6492b224-4ee7-451e-b09a-ff56e3bb1c10")
-		(property "Reference" "C5"
-			(at 96.52 91.44 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "680pF"
-			(at 96.52 93.98 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 93.0148 96.52 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 93.98 92.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 93.98 92.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "bd9957e7-31cb-4f47-9826-ec6b3c1eb4d5")
-		)
-		(pin "2"
-			(uuid "8d9c9708-af42-4fbe-8a59-8c5edd6e338c")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "C5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 157.48 116.84 0)
 		(unit 1)
@@ -11280,6 +10778,87 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:BAT43")
+		(at 55.88 78.74 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6e8236c5-41b3-42e5-9031-51b1b6762f94")
+		(property "Reference" "D9"
+			(at 58.42 77.47 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BAT43"
+			(at 58.42 80.01 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 51.435 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
+			(at 55.88 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "30V 0.2A Small Signal Schottky Diode, DO-35"
+			(at 55.88 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ae47efbb-e270-4d26-ac4d-beee5800aca3")
+		)
+		(pin "1"
+			(uuid "7c8b673b-fd47-4a86-ac1e-113e959abafc")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
+					(reference "D9")
 					(unit 1)
 				)
 			)
@@ -11514,6 +11093,87 @@
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "U1")
 					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:BAT43")
+		(at 55.88 71.12 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7969c8ab-3428-43ea-a754-c253d1bc2108")
+		(property "Reference" "D11"
+			(at 58.42 69.85 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BAT43"
+			(at 58.42 72.39 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 51.435 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
+			(at 55.88 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "30V 0.2A Small Signal Schottky Diode, DO-35"
+			(at 55.88 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "73058af7-e0ac-4e79-843a-f02836115a59")
+		)
+		(pin "1"
+			(uuid "d64d13fa-0d5f-4ab3-9058-daad27d57190")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
+					(reference "D11")
+					(unit 1)
 				)
 			)
 		)
@@ -11983,87 +11643,6 @@
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "U16")
 					(unit 5)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Diode:BAT43")
-		(at 105.41 85.09 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "7f687a3b-1f5c-4e0e-9834-69156e206f58")
-		(property "Reference" "D10"
-			(at 107.95 83.82 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BAT43"
-			(at 107.95 86.36 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 100.965 85.09 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
-			(at 105.41 85.09 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "30V 0.2A Small Signal Schottky Diode, DO-35"
-			(at 105.41 85.09 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "5e26af0f-d7ec-47b4-94f7-038a9f1f6355")
-		)
-		(pin "1"
-			(uuid "792b5b56-8688-43f4-b3ab-514b8a573015")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "D10")
-					(unit 1)
 				)
 			)
 		)
@@ -12635,83 +12214,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:VCC")
-		(at 54.61 67.31 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "9e5d2455-a05d-4703-abbe-8cfb54723889")
-		(property "Reference" "#PWR047"
-			(at 54.61 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "VCC"
-			(at 54.61 62.23 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 54.61 67.31 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 54.61 67.31 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 54.61 67.31 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5dc84532-3cc1-440d-b050-f47118beb31a")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "#PWR047")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 232.41 153.67 0)
 		(unit 1)
@@ -12974,8 +12476,8 @@
 		)
 	)
 	(symbol
-		(lib_id "power:VCC")
-		(at 95.25 81.28 0)
+		(lib_id "power:GND")
+		(at 55.88 82.55 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12983,9 +12485,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "a8e6a4ee-3776-4f58-ad59-3723bcc9d837")
-		(property "Reference" "#PWR045"
-			(at 95.25 85.09 0)
+		(uuid "a8560308-cc08-43cf-8943-c61da5f2c5bb")
+		(property "Reference" "#PWR039"
+			(at 55.88 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12995,8 +12497,8 @@
 				)
 			)
 		)
-		(property "Value" "VCC"
-			(at 95.25 76.2 0)
+		(property "Value" "GND"
+			(at 55.88 86.36 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13006,7 +12508,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 95.25 81.28 0)
+			(at 55.88 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13017,7 +12519,84 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 95.25 81.28 0)
+			(at 55.88 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 55.88 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "48b8a1ea-d444-4718-b99c-e941ef67d128")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
+					(reference "#PWR039")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VCC")
+		(at 83.82 81.28 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "a8e6a4ee-3776-4f58-ad59-3723bcc9d837")
+		(property "Reference" "#PWR045"
+			(at 83.82 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VCC"
+			(at 83.82 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 83.82 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 83.82 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13028,7 +12607,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 95.25 81.28 0)
+			(at 83.82 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13045,6 +12624,87 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "#PWR045")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:BAT43")
+		(at 86.36 85.09 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "aa00524b-90fb-44d5-88e7-ddd15d25007d")
+		(property "Reference" "D10"
+			(at 88.9 83.82 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BAT43"
+			(at 88.9 86.36 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 81.915 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
+			(at 86.36 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "30V 0.2A Small Signal Schottky Diode, DO-35"
+			(at 86.36 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "a30b64e4-ee4e-4629-bc55-8ef9738d6ce6")
+		)
+		(pin "1"
+			(uuid "dd7fc394-a800-474e-a8d6-98b04a989e53")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
+					(reference "D10")
 					(unit 1)
 				)
 			)
@@ -13203,86 +12863,6 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "#PWR034")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 49.53 74.93 90)
-		(mirror x)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "b13125e5-ffdc-4072-82cb-06128f3d0f8a")
-		(property "Reference" "R34"
-			(at 49.53 69.85 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "220Ω"
-			(at 49.53 72.39 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 49.53 73.152 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 49.53 74.93 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 49.53 74.93 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "3bacd954-4fd8-4c80-a02d-3f7bf6ea54f7")
-		)
-		(pin "1"
-			(uuid "cd92f4c7-fd87-4c69-b8cf-d524b637b762")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "R34")
 					(unit 1)
 				)
 			)
@@ -13516,6 +13096,86 @@
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "U13")
 					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 67.31 74.93 90)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b5982a2e-554d-4fca-80a7-5bb6e6f5970e")
+		(property "Reference" "R34"
+			(at 67.31 69.85 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47Ω"
+			(at 67.31 72.39 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 67.31 73.152 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 67.31 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 67.31 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "2ced2da8-7006-4069-a8e5-2362197143d2")
+		)
+		(pin "1"
+			(uuid "131c0581-60ec-40fd-bb82-10d96fa46db1")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
+					(reference "R34")
+					(unit 1)
 				)
 			)
 		)
@@ -14228,6 +13888,87 @@
 		)
 	)
 	(symbol
+		(lib_id "Diode:BAT43")
+		(at 86.36 92.71 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e010e3c8-76b1-437f-a2a3-7dd96fe3d1f8")
+		(property "Reference" "D8"
+			(at 88.9 91.44 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BAT43"
+			(at 88.9 93.98 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 81.915 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
+			(at 86.36 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "30V 0.2A Small Signal Schottky Diode, DO-35"
+			(at 86.36 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "d2327ac2-6470-4579-b3d7-06e2f7906bbe")
+		)
+		(pin "1"
+			(uuid "0ed9dc7d-6aeb-4d9e-a23b-ce841b5f4188")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
+					(reference "D8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 194.31 162.56 0)
 		(unit 1)
@@ -14617,84 +14358,6 @@
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "U13")
 					(unit 3)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 59.69 82.55 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f6f1cc7f-6038-418b-a43e-cb66eac838b2")
-		(property "Reference" "#PWR046"
-			(at 59.69 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 59.69 87.63 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 59.69 82.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 59.69 82.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 59.69 82.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "00c16a21-d069-49a2-af43-08d7620540a0")
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
-					(reference "#PWR046")
-					(unit 1)
 				)
 			)
 		)
@@ -15188,6 +14851,83 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
 					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VCC")
+		(at 53.34 67.31 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ffc813a9-7711-44d1-a191-ba126c932072")
+		(property "Reference" "#PWR046"
+			(at 53.34 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VCC"
+			(at 53.34 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 53.34 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 53.34 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
+			(at 53.34 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a0d7ecc4-64f8-4379-bdc1-a267941779bd")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/3a12e717-ce5f-4719-9e29-095356b3ec50"
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
