@@ -82,6 +82,9 @@ kb_fl0:         .res    1       ; keyboard flags
                                 ; 7: kb_capslock on
 KB_SHIFTBITS    = %00000011
 KB_CTRLBITS     = %00001100
+KB_SCRLOCK      = %00100000
+KB_NUMLOCK      = %01000000
+KB_CAPSLOCK     = %10000000
 kb_fl1:         .res    1       ; more keyboard flags
                                 ; 0: left alt pressed
                                 ; 1: right alt pressed
@@ -115,6 +118,10 @@ kb_prevcmd:
 ; except for bit 7, port B is owned by LCD, so don't mess with it
 ; port B bit 7 stays input to avoid clobbering the data signal until we need it
 kbd_init:
+        stz     kb_rp
+        stz     kb_wp
+        stz     kb_fl0
+        stz     kb_fl1
         stz     VIA::DDRA       ; all input
         lda     #%10000000
         trb     VIA::DDRB       ; port B-7 defaults to input
@@ -189,7 +196,7 @@ kbd_parse:
         lda     #KB_E0CODE      ; was $E0 the previous code?
         trb     kb_fl1
         beq     @noe
-        jmp     kb_escan        ; parse the e0 jump table
+        jmp     kb_escan        ; parse the e0 keys
 @noe:
         lda     #KB_CTRLBITS
         bit     kb_fl0
@@ -207,7 +214,7 @@ kbd_parse:
         sbc     #$40            ; $40..$5F -> $00..$1F
         cmp     #$20
         bcc     kb_buf_push     ; push caret code
-        rts
+        rts                     ; ignore other CTRL keys
 @noctrl:                        ; check kb_mods effects of shift, caps, num
         lda     kb_cur          ; divide by 4: find byte index into kb_mods
         lsr     A
@@ -262,60 +269,65 @@ kbd_parse:
         ora     kb_cur
         tax                     ; index into kb_map
         lda     kb_map,X
-        beq     kb_mscan        ; ascii table returned $00
-        jmp     kb_buf_push
-
-; process non-character $00-$7F scan codes
-kb_mscan:
-        cmp     #$12
+        beq     @noa            ; check if ASCII code comes back as zero
+        jmp     kb_buf_push     ; valid ASCII
+@noa:                           ; process non-ASCII $00-$7F scan codes
+        lda     kb_cur
+        cmp     #$12            ; check left shift
         bne     :+
-        smb0    kb_fl0          ; left shift
+        smb0    kb_fl0          ; is left shift
         rts
 :
-        cmp     #$59
+        cmp     #$59            ; check right shift
         bne     :+
-        smb1    kb_fl0          ; right shift
+        smb1    kb_fl0          ; is right shift
         rts
 :
-        cmp     #$58
+        cmp     #$58            ; check caps lock
         bne     :+
-        smb7    kb_fl0          ; caps lock
+        lda     #KB_CAPSLOCK    ; is caps lock
+        eor     kb_fl0          ; toggle
+        sta     kb_fl0
         smb4    kb_fl1          ; tracking LED command
-        lda     $ED
+        lda     $ED             ; turn on LED
         jmp     kb_send
 :
-        cmp     #$14            ; left control
+        cmp     #$14            ; check for left control
         bne     :+
-        lda     #KB_PAUSEBITS   ; is it a fake?
+        lda     #KB_PAUSEBITS   ; pause key fake?
         bit     kb_fl1
         beq     @lctrl
         rts
 @lctrl:
-        smb2    kb_fl0          ; left control
+        smb2    kb_fl0          ; is left control
         rts
 :
-        cmp     #$77            ; numlock
+        cmp     #$77            ; check numlock
         bne     :+
-        lda     #KB_PAUSEBITS   ; is it a fake?
+        lda     #KB_PAUSEBITS   ; pause key fake?
         bit     kb_fl1
         beq     @nmlck
         rts
 @nmlck:
-        smb6    kb_fl0          ; numlock
+        lda     #KB_NUMLOCK     ; is numlock
+        eor     kb_fl0          ; toggle
+        sta     kb_fl0
         smb4    kb_fl1          ; tracking LED command
-        lda     #$ED
+        lda     #$ED            ; turn on LED
         jmp     kb_send
 :
-        cmp     #$11
+        cmp     #$11            ; check left alt
         bne     :+
-        smb0    kb_fl1          ; left alt
+        smb0    kb_fl1          ; is left alt
         rts
 :
-        cmp     #$7E
+        cmp     #$7E            ; check scroll lock
         bne     :+
-        smb5    kb_fl0          ; scroll lock
+        lda     #KB_SCRLOCK     ; is scroll lock
+        eor     kb_fl0          ; toggle
+        sta     kb_fl0
         smb4    kb_fl1          ; tracking LED command
-        lda     #$ED
+        lda     #$ED            ; turn on LED
         jmp     kb_send
 :
         rts
@@ -364,11 +376,7 @@ kb_hscan:                       ; process $80-$FF scan codes
 :
         cmp     #$AA
         bne     :+
-        stz     kb_rp           ; reset successfully
-        stz     kb_wp
-        stz     kb_fl0
-        stz     kb_fl1
-        rts
+        jmp     kbd_init        ; successful reset
 :
         cmp     #$FC
         bne     :+
@@ -463,12 +471,12 @@ kb_send:
         lda     #%10000000
         trb     VIA::PORTB      ; start bit is 0
         tsb     VIA::DDRB       ; set the data bit to output
-        jsr     kb_clk_poll
         ldy     #1              ; y is parity to increment
         ldx     #8              ; x is loop count
         ror     kb_cur          ; bit 0 -> carry
 @loop:
         ror     kb_cur          ; carry -> bit 7
+        jsr     kb_clk_poll
         bpl     @even
         tsb     VIA::PORTB      ; odd: set bit 7
         iny                     ; increment parity on odd bits
@@ -481,6 +489,7 @@ kb_send:
         sty     kb_cur          ; get parity
         ror     kb_cur          ; bit 0 -> carry
         bcc     @evenp
+        jsr     kb_clk_poll
         tsb     VIA::PORTB
         jmp     @contp
 @evenp:
@@ -489,14 +498,14 @@ kb_send:
         jsr     kb_clk_poll
         tsb     VIA::PORTB      ; stop bit is 1
 @l1:
-        bit     VIA::PORTA      ; poll for rising edge
-        bmi     @l1
-        trb     VIA::DDRB       ; stop clobbering data input      
-@l2:
         bit     VIA::PORTA      ; poll for falling edge
+        bmi     @l1
+        trb     VIA::DDRB       ; stop clobbering data input
+@l2:
+        bit     VIA::PORTA      ; poll for rising edge
         bpl     @l2
 @l3:
-        bit     VIA::PORTA      ; poll for final rising edge
+        bit     VIA::PORTA      ; poll for final falling edge
         bmi     @l3
         lda     #%00000010
         trb     VIA::PCR        ; set CA2 low, restore D2H mode
@@ -507,10 +516,10 @@ kb_send:
 
 
 kb_clk_poll:
-        bit     VIA::PORTA      ; poll for rising edge
+        bit     VIA::PORTA      ; poll for falling edge
         bmi     kb_clk_poll
 @l2:
-        bit     VIA::PORTA      ; poll for falling edge
+        bit     VIA::PORTA      ; poll for rising edge
         bpl     @l2
         rts
 
