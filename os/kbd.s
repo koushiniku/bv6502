@@ -71,35 +71,26 @@ kb_mods:
 kb_cur          = tmp1
 kb_rp:          .res    1       ; keyboard read pointer
 kb_wp:          .res    1       ; keyboard write pointer
+
 kb_fl0:         .res    1       ; keyboard flags
-                                ; 0: left shift pressed
+KB_SHIFTBITS    = %00000011     ; 0: left shift pressed
                                 ; 1: right shift pressed
-                                ; 2: left ctrl pressed
+KB_CTRLBITS     = %00001100     ; 2: left ctrl pressed
                                 ; 3: right ctrl pressed
                                 ; 4: rsvd
-                                ; 5: kb_scrlock on
-                                ; 6: kb_numlock on
-                                ; 7: kb_capslock on
-KB_SHIFTBITS    = %00000011
-KB_CTRLBITS     = %00001100
-KB_SCRLOCK      = %00100000
-KB_NUMLOCK      = %01000000
-KB_CAPSLOCK     = %10000000
+KB_SCRLOCK      = %00100000     ; 5: kb_scrlock on
+KB_NUMLOCK      = %01000000     ; 6: kb_numlock on
+KB_CAPSLOCK     = %10000000     ; 7: kb_capslock on
+
 kb_fl1:         .res    1       ; more keyboard flags
-                                ; 0: left alt pressed
+KB_ALTBITS      = %00000011     ; 0: left alt pressed
                                 ; 1: right alt pressed
-                                ; 2: first $E1 of "pause" seen
-                                ; 3: second $E1 of "pause" seen
-                                ; 4: sent command to set LEDs
+KB_PAUSE1       = %00000100     ; 2: first $E1 of "pause" seen
+KB_PAUSEBITS    = %00001100     ; 3: second $E1 of "pause" seen
+KB_LED          = %00010000     ; 4: sent command to set LEDs
                                 ; 5: rsvd
-                                ; 6: $E0 was received
-                                ; 7: $F0 was received
-KB_ALTBITS      = %00000011
-KB_PAUSEBITS    = %00001100
-KB_PAUSE1       = %00000100     ; pause key make
-KB_LED          = %00010000     ; LED command was sent
-KB_E0CODE       = %01000000     ; E0 code in progress
-KB_F0CODE       = %10000000     ; F0 code in progress
+KB_E0CODE       = %01000000     ; 6: $E0 was received
+KB_F0CODE       = %10000000     ; 7: $F0 was received
 
 
         .bss
@@ -116,7 +107,6 @@ kb_prevcmd:
 
 ; initialize VIA for the keyboard
 ; except for bit 7, port B is owned by LCD, so don't mess with it
-; port B bit 7 stays input to avoid clobbering the data signal until we need it
 kbd_init:
         stz     kb_rp
         stz     kb_wp
@@ -124,10 +114,8 @@ kbd_init:
         stz     kb_fl1
         stz     VIA::DDRA       ; all input
         lda     #%10000000
-        trb     VIA::DDRB       ; port B-7 defaults to input
-        lda     VIA::PCR
-        and     #$F0            ; clear the "CA" nibble
-        ora     #%00001101      ; set CA1 rising edge interrupt, CA2 low output
+        trb     VIA::DDRB       ; port B-7 is input
+        lda     #%00001101      ; set CA1 rising edge interrupt, CA2 low output
         sta     VIA::PCR
         lda     #%10000010
         sta     VIA::IFR        ; clear the CA1 interrupt
@@ -141,9 +129,8 @@ kbd_init:
 kbd_done:
         lda     #%00000010      ; disable the interrupt
         sta     VIA::IER
-        lda     #$0F            ; clear CA nibble of PCR
-        trb     VIA::PCR
-        lda     #%10000000      ; restore B.7 to input default
+        stz     VIA::PCR        ; reset PCR
+        lda     #%10000000      ; restore B-7 to input default
         trb     VIA::DDRB
         stz     VIA::DDRA       ; restore A to input default
         rts
@@ -453,74 +440,73 @@ kb_escan:
 
 ; Bit-bang a host-to-keyboard command or data byte stored in A.
 ; Setting CA2 high enables H2D mode.
-;       - PA0-6 are floating inputs.
-;       - PA7 becomes clock input.
-;       - PB7 becomes data output.
-;       - other PB pins are outputs so we can't change them.
-;       - CA1 will go high, so we need to disable IRQ.
-;         and clear the flag before going back to D2H.
-; LCD code disables interrupts, so we may clear PB1-7 as long as we don't set.
+;       - Tri-state buffer disconnects CA1 pulse interrupt from clock so we
+;         don't get an interrupt afterward.
+;       - PB7 is inverted clock input.
+;       - CB2 is data output.
+;       - Other PB pins are LCD outputs so we can't change them.
+;       - Since this is real-time clock polling, we need to disable IRQ.
 kb_send:
         php                     ; critical section for real-time clock polling
         sei
         sta     kb_prevcmd      ; save for retransmits
         sta     kb_cur          ; save for below
-        lda     #%00000010      ; set CA2 high, switch to H2D mode
+        lda     #%11001111      ; set CA2 high, set CB2 low for start bit
         tsb     VIA::PCR
-        sta     VIA::IER        ; disable the CA1 interrupt
-        lda     #%10000000
-        trb     VIA::PORTB      ; start bit is 0
-        tsb     VIA::DDRB       ; set the data bit to output
+        lda     #%00000010      ; disable the CA1 interrupt
+        sta     VIA::IER
+        lda     #%00100000      ; bit 5 to toggle CB2 output
         ldy     #1              ; y is parity to increment
         ldx     #8              ; x is loop count
-        ror     kb_cur          ; bit 0 -> carry
-@loop:
-        ror     kb_cur          ; carry -> bit 7
+@ld:
         jsr     kb_clk_poll
-        bpl     @even
-        tsb     VIA::PORTB      ; odd: set bit 7
+        ror     kb_cur          ; bit 0 -> carry
+        bcc     @d0
+        tsb     VIA::PCR        ; set bit 7
         iny                     ; increment parity on odd bits
-        jmp     @cont
-@even:
-        trb     VIA::PORTB      ; even: clear bit 7
-@cont:
+        jmp     @d1
+@d0:
+        trb     VIA::PCR        ; clear bit 7
+@d1:
         dex
-        bne     @loop
+        bne     @ld
         sty     kb_cur          ; get parity
+        jsr     kb_clk_poll
         ror     kb_cur          ; bit 0 -> carry
-        bcc     @evenp
+        bcc     @even
+        tsb     VIA::PCR
+        jmp     @odd
+@even:
+        trb     VIA::PCR
+@odd:
         jsr     kb_clk_poll
-        tsb     VIA::PORTB
-        jmp     @contp
-@evenp:
-        trb     VIA::PORTB
-@contp:
-        jsr     kb_clk_poll
-        tsb     VIA::PORTB      ; stop bit is 1
+        tsb     VIA::PCR        ; stop bit is 1
 @l1:
-        bit     VIA::PORTA      ; poll for falling edge
+        bit     VIA::PORTB      ; poll for falling edge
         bmi     @l1
-        trb     VIA::DDRB       ; stop clobbering data input
+        lda     #%00001111
+        sta     VIA::PCR        ; stop driving CB2
 @l2:
-        bit     VIA::PORTA      ; poll for rising edge
+        bit     VIA::PORTB      ; poll for rising edge
         bpl     @l2
 @l3:
-        bit     VIA::PORTA      ; poll for final falling edge
+        bit     VIA::PORTB      ; poll for final falling edge
         bmi     @l3
         lda     #%00000010
-        trb     VIA::PCR        ; set CA2 low, restore D2H mode
+        sta     VIA::IER        ; clear any CA1 interrupt
+        lda     #%00001101      ; set CA2 low
+        sta     VIA::PCR
         lda     #%10000010      ; re-enable the interrupt
-        sta     VIA::IER
+        sta     VIA::IFR
         plp
         rts
 
-
 kb_clk_poll:
-        bit     VIA::PORTA      ; poll for falling edge
+        bit     VIA::PORTB      ; poll for falling edge
         bmi     kb_clk_poll
-@l2:
-        bit     VIA::PORTA      ; poll for rising edge
-        bpl     @l2
+@loop:
+        bit     VIA::PORTB      ; poll for rising edge
+        bpl     @loop
         rts
 
 ; char cgetc (void);
