@@ -1,0 +1,34 @@
+Name        decoder ;
+PartNo      00 ;
+Date        05/14/26 ;
+Revision    01 ;
+Designer    koushiniku ;
+Company     None ;
+Assembly    None ;
+Location    None ;
+Device      g22v10 ;
+
+/* inputs */
+pin 1 = CLK;
+pin 2 = R;
+pin [17..13,11..3] = [A15..A2];
+
+/* outputs */
+pin 18 = !VIA_CS;
+pin 19 = !ACIA_CS;
+pin 20 = !RAM_CE;
+pin 21 = !ROM_CE;
+pin 22 = !OE;
+pin 23 = !WE;
+
+/* address field */
+field address = [A15..A2];
+
+/* definitions */
+WE = CLK & !R;
+OE = CLK & R;
+VIA_CS  = address:[0000..000F];
+ACIA_CS = address:[0010..0013];
+VECTORS = address:[FFF8..FFFF];
+ROM_CE  = address:[8000..FFFF];
+RAM_CE  = !ROM_CE & !ACIA_CS & !VIA_CS;

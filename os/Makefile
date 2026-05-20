@@ -10,7 +10,7 @@ AR 	= ar65
 AS 	= ca65
 CC 	= cc65
 LD 	= ld65
-ASFLAGS := --cpu W65C02 --feature string_escapes -I $(HOME)/.local/share/cc65/asminc -g
+ASFLAGS := --cpu W65C02 -I $(HOME)/.local/share/cc65/asminc -g
 CFLAGS	:= -t none -O --cpu W65C02 -I $(HOME)/.local/share/cc65/include -g
 BYTES	= 131072
 

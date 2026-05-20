@@ -1,0 +1,74 @@
+/* SPDX-License-Identifier: MIT */
+
+/* kbd.pld */
+
+Name        kbd ;
+PartNo      00 ;
+Date        05/19/26 ;
+Revision    01 ;
+Designer    koushiniku ;
+Company     None ;
+Assembly    None ;
+Location    None ;
+Device      g22v10 ;
+
+/* inputs */
+pin 1 = PHI2;       /* Host clock */
+pin 2 = !ACK;       /* Keyboard ACK goes high after clock goes high for 100us */
+pin 3 = STA;        /* Start bit from keyboard */
+pin 4 = PAR;        /* Computed parity from keyboard (1 = good) */
+pin 5 = !STO;       /* Stop bit from keyboard */
+
+pin 9 = A0;         /* Address bit from host. */
+pin 10 = RW;        /* R/W# from host */
+pin 11 = !CS;       /* Chip select from host */
+pin 13 = !RES;      /* Reset button */
+
+
+/* outputs */
+pin 14 = IRQ;       /* IRQ and also keyboard clock suppression (active high). */
+pin 15 = D7;        /* IRQ status flag, W1C. */
+pin 16 = D6;        /* Error status flag. */
+pin 17 = ACK1;      /* ACK edge detection */
+pin 18 = ACK2;      /* ACK edge detection */
+pin 19 = KWR1;      /* Waiting for first ACK after a KB write (after holding clock low). */
+pin 20 = NC;
+pin 21 = !HDW;      /* Host data write. PISO load input enabled and KWR is latched. */
+pin 22 = !HDR;      /* Host data read. SIPO output is enabled. */
+pin 23 = !KWR;      /* H2D mode. 100us low clock pulse, PISO shift clock uninhibited. */
+
+/* unused outputs */
+ACK1.oe = 'b'0;
+ACK2.oe = 'b'0;
+KWR1.oe = 'b'0;
+NC.oe = 'b'0;
+
+/* Host IO states */
+W = CS & !RW;
+HDW_D = W & A0;      /* non-clocked for clocked registers */
+HCW_D = W & !A0;
+HDW = PHI2 & HDW_D # RES;   /* Reset preloads SR. */
+
+R = PHI2 & CS & RW;
+HDR = R & A0;
+HCR = R & !A0;
+
+/* ACK edge detection */
+ACK1.d = ACK;
+ACK2.d = ACK1;
+ACK_E = ACK1 & !ACK2;
+
+/* Host-to-keyboard writes */
+KWR1.d = (HDW_D # KWR1 & !ACK_E) & !RES;
+KWR.d  = (HDW_D # KWR1 # KWR & !ACK_E) & !RES;
+
+/* IRQ: Set on read ack, clear on write 1 to IRQ status bit (D7). */
+IRQ.d = (ACK_E & !KWR # IRQ & !(HCW_D & D7)) & !RES;
+
+/* IRQ status */
+D7.oe = HCR;
+D7 = IRQ;
+
+/* error status */
+D6.oe = HCR;
+D6 = !(STA & STO & PAR);

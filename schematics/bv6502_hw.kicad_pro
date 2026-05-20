@@ -439,7 +439,7 @@
         "uuid": "94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
       }
     ],
-    "used_designators": "#PWR47,D1,D7",
+    "used_designators": "D1,R10,R22,R25,R32-35,R39-42,#PWR6,#PWR31,#PWR33,#PWR56,#PWR65,U15",
     "variants": []
   },
   "sheets": [
@@ -470,6 +470,14 @@
     [
       "3a12e717-ce5f-4719-9e29-095356b3ec50",
       "Keyboard and LCD"
+    ],
+    [
+      "a706df21-fd6c-437e-86a1-96397867f2ab",
+      "Keyboard"
+    ],
+    [
+      "ce02b87a-0b7e-446c-8a51-e177c4556bd7",
+      "LCD"
     ]
   ],
   "text_variables": {},

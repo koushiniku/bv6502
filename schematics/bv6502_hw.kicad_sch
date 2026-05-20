@@ -190,6 +190,98 @@
 		)
 	)
 	(sheet
+		(at 227.33 99.06)
+		(size 33.02 33.02)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "a706df21-fd6c-437e-86a1-96397867f2ab")
+		(property "Sheetname" "Keyboard"
+			(at 227.33 98.3484 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "keyboard.kicad_sch"
+			(at 227.33 132.6646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 229.87 140.97)
+		(size 30.48 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "ce02b87a-0b7e-446c-8a51-e177c4556bd7")
+		(property "Sheetname" "LCD"
+			(at 229.87 140.2584 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "lcd.kicad_sch"
+			(at 229.87 166.9546 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
+					(page "9")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 34.29 146.05)
 		(size 50.8 43.18)
 		(exclude_from_sim no)

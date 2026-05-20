@@ -1838,15 +1838,6 @@
 		(uuid "e849ca8b-08c6-4cb2-b8b3-138336a21ea6")
 	)
 	(bus_entry
-		(at 111.76 85.09)
-		(size 2.54 2.54)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0d4d5010-60c9-4f3f-90d6-c5ea02fef72b")
-	)
-	(bus_entry
 		(at 110.49 120.65)
 		(size 2.54 2.54)
 		(stroke
@@ -2176,16 +2167,6 @@
 		)
 		(uuid "6c7070f5-34e0-4b44-b80e-e1eb1f529b45")
 	)
-	(bus
-		(pts
-			(xy 109.22 85.09) (xy 111.76 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6feed56f-e4bc-41b9-bacd-032e9eebfeee")
-	)
 	(wire
 		(pts
 			(xy 163.83 133.35) (xy 163.83 124.46)
@@ -2458,16 +2439,6 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 87.63) (xy 119.38 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bfd00ba6-37f1-4578-b230-9b538e73be74")
-	)
-	(wire
-		(pts
 			(xy 113.03 120.65) (xy 119.38 120.65)
 		)
 		(stroke
@@ -2505,6 +2476,16 @@
 			(type default)
 		)
 		(uuid "c87ca7b6-3c20-4057-9776-104f7b6f2575")
+	)
+	(wire
+		(pts
+			(xy 109.22 87.63) (xy 119.38 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9a703bc-f88e-43e7-b385-a5b85f799b0e")
 	)
 	(bus
 		(pts
@@ -2716,16 +2697,6 @@
 		)
 		(uuid "7cfed4e6-7962-4dce-8aaf-3330446f9c50")
 	)
-	(label "~{CS}1"
-		(at 114.3 87.63 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8aca9a61-3649-4b43-9c86-1006a8953e44")
-	)
 	(label "D7"
 		(at 115.57 123.19 0)
 		(effects
@@ -2906,9 +2877,9 @@
 			)
 		)
 	)
-	(global_label "~{CS}[0..1]"
+	(global_label "ACIA.~{CS}"
 		(shape input)
-		(at 109.22 85.09 180)
+		(at 109.22 87.63 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2916,9 +2887,9 @@
 			)
 			(justify right)
 		)
-		(uuid "9de404a2-ba82-43ea-a29e-865bd20d4d1f")
+		(uuid "e69129f4-7c60-47c6-bc3e-e49e405dcbdf")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 98.4333 85.09 0)
+			(at 99.0985 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
