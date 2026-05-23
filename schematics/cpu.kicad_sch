@@ -2972,7 +2972,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "4k7"
 			(at 177.8 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3051,7 +3051,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "4k7"
 			(at 172.72 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3130,7 +3130,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "4k7"
 			(at 162.56 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3209,8 +3209,8 @@
 				)
 			)
 		)
-		(property "Value" "3.3k"
-			(at 121.92 63.5 90)
+		(property "Value" "3K3"
+			(at 116.84 63.5 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3288,7 +3288,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "4k7"
 			(at 147.32 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3367,8 +3367,8 @@
 				)
 			)
 		)
-		(property "Value" "3.3k"
-			(at 116.84 63.5 90)
+		(property "Value" "3K3"
+			(at 111.76 63.5 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3446,7 +3446,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "4k7"
 			(at 152.4 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3525,7 +3525,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "4k7"
 			(at 182.88 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3604,7 +3604,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "4k7"
 			(at 167.64 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3760,7 +3760,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "4k7"
 			(at 157.48 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)

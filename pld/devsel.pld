@@ -1,0 +1,37 @@
+Name        devsel ;
+PartNo      00 ;
+Date        05/23/26 ;
+Revision    01 ;
+Designer    koushiniku ;
+Company     None ;
+Assembly    None ;
+Location    None ;
+Device      g22v10 ;
+
+/* inputs */
+pin 1 = PHI2;
+pin 2 = !DEV_CE;
+pin 3 = RW;
+pin [11..4] = [A7..A0];
+
+/* outputs */
+pin 23 = BR_LE;         /* Bank register latch enable */
+pin 22 = !BR_OE;        /* Bank register transceiver output enable */
+                        /* TBD outputs */
+pin 19 = !KBD_CS;
+pin 18 = !LCD_CS;
+pin 17 = !ACIA_CS;
+pin 16 = !VIA_CS;
+pin 15 = !SID_CS;
+
+/* address field */
+field ADDR = [A7..A0];
+
+BR_LE = DEV_CE & ADDR:0 & PHI2 & !RW;
+BR_OE = DEV_CE & ADDR:0 & PHI2 & RW;
+
+KB_CS   = DEV_CE & ADDR:[08..09];
+LCD_CS  = DEV_CE & ADDR:[0A..0B];
+ACIA_CS = DEV_CE & ADDR:[0C..0F];
+VIA_CS  = DEV_CE & ADDR:[10..1F];
+SID_CS  = DEV_CE & ADDR:[20..3F];

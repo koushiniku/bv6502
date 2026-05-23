@@ -1,0 +1,11 @@
+{signal: [
+  {                    node:'ABCDEFGHIJKLMNOP'},
+  {name: 'phi2',       wave:'01...0......1..', node:'.a...b'},
+  {name: 'addr/ce#',   wave:'x......=......x', node:'.......c'},
+  {name: 'wdata',      wave:'x.........=...x', data:['data valid'], node:'..........d'},
+  {name: 'oe# or we#', wave:'1....0......1..', node:'............e'},
+  {name: 'rdata',      wave:'x.........=..x.', data:['data valid'], node:'..........f'},
+
+],
+  edge:['A -5','B 0','C 5','D 10','E 15','F 20','G 25','H 30','I 35','J 40','K 45','L 50','M 55','N 60','O 65','P 70','a~c 30ns','b-~d 25ns','d~-e 7ns','c~f 15ns']
+}

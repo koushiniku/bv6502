@@ -6,52 +6,6 @@
 	(paper "USLetter")
 	(lib_symbols)
 	(sheet
-		(at 167.64 101.6)
-		(size 40.64 34.29)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "3a12e717-ce5f-4719-9e29-095356b3ec50")
-		(property "Sheetname" "Keyboard and LCD"
-			(at 167.64 100.8884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "kbd_lcd.kicad_sch"
-			(at 167.64 136.4746 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
-					(page "7")
-				)
-			)
-		)
-	)
-	(sheet
 		(at 124.46 29.21)
 		(size 45.72 44.45)
 		(exclude_from_sim no)
@@ -113,7 +67,7 @@
 			(color 0 0 0 0)
 		)
 		(uuid "79decbb9-0443-4d8e-a639-28f3b5de1557")
-		(property "Sheetname" "UART"
+		(property "Sheetname" "ACIA/UART"
 			(at 81.28 102.1584 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -190,7 +144,7 @@
 		)
 	)
 	(sheet
-		(at 227.33 99.06)
+		(at 142.24 105.41)
 		(size 33.02 33.02)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -206,7 +160,7 @@
 		)
 		(uuid "a706df21-fd6c-437e-86a1-96397867f2ab")
 		(property "Sheetname" "Keyboard"
-			(at 227.33 98.3484 0)
+			(at 142.24 104.6984 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -217,7 +171,7 @@
 			)
 		)
 		(property "Sheetfile" "keyboard.kicad_sch"
-			(at 227.33 132.6646 0)
+			(at 142.24 139.0146 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -236,7 +190,7 @@
 		)
 	)
 	(sheet
-		(at 229.87 140.97)
+		(at 189.23 107.95)
 		(size 30.48 25.4)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -252,7 +206,7 @@
 		)
 		(uuid "ce02b87a-0b7e-446c-8a51-e177c4556bd7")
 		(property "Sheetname" "LCD"
-			(at 229.87 140.2584 0)
+			(at 189.23 107.2384 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -263,7 +217,7 @@
 			)
 		)
 		(property "Sheetfile" "lcd.kicad_sch"
-			(at 229.87 166.9546 0)
+			(at 189.23 133.9346 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

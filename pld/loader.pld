@@ -1,0 +1,47 @@
+/* SPDX-License-Identifier: MIT */
+
+/* loader.pld */
+
+Name        loader ;
+PartNo      00 ;
+Date        05/23/26 ;
+Revision    01 ;
+Designer    koushiniku ;
+Company     None ;
+Assembly    None ;
+Location    None ;
+Device      g22v10 ;
+
+
+pin 1 = PHI2;       /* System clock. */
+pin 2 = C0;         /* Counter bit 0. Invert for WE#. */
+pin 3 = !R_IN;      /* Reset button. */
+pin 4 = A15;        /* Upper bit to select which RAM to enable. */
+pin 5 = A16;        /* Carry means we're done counting. */
+
+
+
+pin 23 = !CEN;      /* Count enable / counter output enable. */
+pin 22 = !RAM1_CE;  /* 32K RAM chip enables. */
+pin 21 = !RAM0_CE;
+pin 20 = !WE;       /* Write enable. */
+pin 19 = !RES;      /* Reset output. */
+
+/* Hold reset until copy is done. */
+RES.ar = R_IN;
+RES.d = RES # !A16;
+
+/* Counter enable. */
+CEN = R_IN & !RES;
+
+/* Only drive these during boot. */
+RAM1_CE.oe = CEN;
+RAM0_CE.oe = CEN;
+WE.oe = CEN;
+
+/* RAM WE on odd numbers. */
+WE = C0;
+
+/* Chip enables. */
+RAM0_CE = !A15;
+RAM1_CE = A15;

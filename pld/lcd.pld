@@ -1,0 +1,86 @@
+/* SPDX-License-Identifier: MIT */
+
+/* lcd.pld */
+
+Name        lcd ;
+PartNo      00 ;
+Date        05/22/26 ;
+Revision    01 ;
+Designer    koushiniku ;
+Company     None ;
+Assembly    None ;
+Location    None ;
+Device      g22v10 ;
+
+/* inputs */
+pin 1 = PHI2;       /* Host clock */
+/*
+pin 2 = ;
+pin 3 = ;
+pin 4 = ;
+pin 5 = ;
+pin 6 = ;
+pin 7 = ;
+*/
+pin 8 = !RES;       /* Reset button. */
+pin 9 = !CS;        /* Chip select from host */
+pin 10 = A0;        /* Address bit from host. */
+pin 11 = RW;        /* R/W# from host */
+pin 13 = LCD_BF;    /* Incoming busy flag. */
+
+
+/* outputs */
+pin 14 = C2;        /* LCD Enable bit and counter MSB. */
+pin 15 = LCD_RS;    /* LCD register select bit. */
+pin 16 = !LCD_W;    /* LCD R/W bit, register OE#, pending write tracker. */
+pin 17 = REG_LE;    /* Register latch enable. */
+pin 18 = W_PEND;    /* Write pending from host, latched. */
+pin 19 = RS_PEND;   /* Register select from host, latched. */
+pin 20 = C1;        /* Counter bits.*/
+pin 21 = C0;
+pin 22 = NC;
+pin 23 = D7;        /* Last latched busy flag status. */
+
+
+W_PEND.ar = RES;
+RS_PEND.ar = RES;
+LCD_W.ar = RES;
+D7.ar = RES;
+NC.oe = 'b'0;
+
+/* Set up counter. */
+field COUNT = [C2..C0];
+COUNT.ar = RES;
+COUNT.oe = 'b'0;
+
+C0.d = !C0;
+C1.d = C1 $ C0;
+C2.d = C2 $ (C1 & C0);
+
+/* When to set RS, RW, data. Offset for 10ns hold time requirement. */
+WTIME = COUNT:1;
+
+/* When to latch read data. */
+RTIME = COUNT:0;
+
+/* Latching host write data. */
+HOST_W = CS & !RW;
+REG_LE = PHI2 & HOST_W;
+
+/* Track writes until they are in progress. */
+W_PEND.d = HOST_W # W_PEND & !WTIME;
+
+/* RS can keep its value until changed. */
+RS_PEND.d = HOST_W & A0 # !HOST_W & RS_PEND;
+
+/* Hold RS=RS_PEND, RW=W, and data OE for a cycle. */
+LCD_W.d = W_PEND & WTIME # LCD_W & !WTIME;
+LCD_RS = LCD_W & RS_PEND;
+
+/* Track the busy flag.
+    - Set to 1 with any write pending or in progress.
+    - Set to BF from LCD on falling edge of E.
+    - Otherwise keep the previous value.
+    - Enable output on for host read. */
+D7.d = W_PEND # LCD_W # D7 & !RTIME # LCD_BF & RTIME;
+D7.oe = PHI2 & CS & RW;

@@ -1,6 +1,10 @@
+/* SPDX-License-Identifier: MIT */
+
+/* decoder.pld */
+
 Name        decoder ;
 PartNo      00 ;
-Date        05/14/26 ;
+Date        05/23/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -8,27 +12,45 @@ Assembly    None ;
 Location    None ;
 Device      g22v10 ;
 
-/* inputs */
-pin 1 = CLK;
-pin 2 = R;
-pin [17..13,11..3] = [A15..A2];
 
-/* outputs */
-pin 18 = !VIA_CS;
-pin 19 = !ACIA_CS;
-pin 20 = !RAM_CE;
-pin 21 = !ROM_CE;
-pin 22 = !OE;
+pin 1 = PHI2;
+pin 2 = !RES;
+pin 3 = RW;
+pin [11..4] = [A15..A8];
+
+
 pin 23 = !WE;
+pin 22 = !OE;
+pin 21 = !RAM1_CE;
+pin 20 = !RAM0_CE;
+pin 19 = !BRAM_CE;
+pin 18 = !DEV_CE;
+pin 17 = RDY;
+pin 16 = BZ;
+
 
 /* address field */
-field address = [A15..A2];
+field ADDR = [A15..A6];
 
-/* definitions */
-WE = CLK & !R;
-OE = CLK & R;
-VIA_CS  = address:[0000..000F];
-ACIA_CS = address:[0010..0013];
-VECTORS = address:[FFF8..FFFF];
-ROM_CE  = address:[8000..FFFF];
-RAM_CE  = !ROM_CE & !ACIA_CS & !VIA_CS;
+WE.oe = !RES;       /* Bootloader is driving during reset. */
+WE = PHI2 & !RW;
+
+OE = !RES & PHI2 & RW;
+
+DEV_CE  = !RES & ADDR:[D000..D0FF];     /* I/O memory */
+
+RAM0_CE = ADDR:[0000..7FFF];            /* Low RAM */
+RAM0_CE.oe = !RES;
+BRAM_CE = ADDR:[8000..BFFF];            /* Banked RAM */
+RAM1_CE = ADDR:[C000..FFFF] & !DEV_CE;  /* High RAM */
+RAM1_CE.oe = !RES;
+
+
+/* Hold RDY low for a clock to access 55ns bank RAM. */
+BZ.d = BRAM_CE & !BZ;
+BZ.oe = 'b'0;
+
+/* W65C02 can drive RDY low on WAI instruction, so use it as an open drain
+ * active low busy signal with a resistor pullup. */
+RDY = 'b'0;
+RDY.oe = BZ;
