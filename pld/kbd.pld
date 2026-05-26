@@ -26,8 +26,6 @@ pin 11 = !CS;       /* Chip select from host */
 pin 13 = !RES;      /* Reset button */
 
 
-/* FIXME: Add IRQ enable D5 bit. */
-
 /* outputs */
 pin 14 = IRQ;       /* IRQ also keyboard clock suppression (active high). */
 pin 15 = D7;        /* IRQ status flag, W1C. */
@@ -44,7 +42,6 @@ pin 23 = !KWR;      /* H2D mode. 100us low pulse, PISO shift uninhibited. */
 ACK1.oe = 'b'0;
 ACK2.oe = 'b'0;
 KWR1.oe = 'b'0;
-NC.oe = 'b'0;
 
 /* Host IO states */
 W = CS & !RW;
@@ -58,12 +55,14 @@ HCR = R & !A0;
 
 /* ACK edge detection */
 ACK1.d = ACK;
+ACK1.ar = RES;
 ACK2.d = ACK1;
+ACK2.ar = RES;
 ACK_E = ACK1 & !ACK2;
 
 /* Host-to-keyboard writes */
 KWR1.d = HDW_D # KWR1 & !ACK_E;
-KW1.ar = RES;
+KWR1.ar = RES;
 KWR.d  = HDW_D # KWR1 # KWR & !ACK_E;
 KWR.ar = RES;
 
