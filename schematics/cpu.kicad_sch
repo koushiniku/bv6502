@@ -1226,6 +1226,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "1K is marginal\nto release RDY\nwithin 1/2 cycle\nat 12MHz"
+		(exclude_from_sim no)
+		(at 102.87 62.23 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "3833d87c-fe5e-42eb-9208-395280c13aba")
+	)
 	(junction
 		(at 154.94 138.43)
 		(diameter 0)
@@ -1317,6 +1327,12 @@
 		(uuid "a7d03bca-f4ed-4793-af6a-7913395d2c67")
 	)
 	(junction
+		(at 120.65 59.69)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a8b1648f-acfb-4e22-94cc-aa9d2de2fc89")
+	)
+	(junction
 		(at 149.86 127)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1335,28 +1351,22 @@
 		(uuid "b32b920a-70f6-462f-bc86-7df0a20fc59e")
 	)
 	(junction
-		(at 119.38 59.69)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bd049a07-8f7e-46ec-b135-af385ede1e90")
-	)
-	(junction
 		(at 144.78 129.54)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d71c9008-74d8-4a8d-8dc4-bbceb75ffec1")
 	)
 	(junction
-		(at 119.38 83.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d73eafd7-1d85-4f10-9de2-67eb0b3b550f")
-	)
-	(junction
 		(at 175.26 138.43)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e1311e0a-81a2-470c-94ee-080730399686")
+	)
+	(junction
+		(at 120.65 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e98bd2d2-e84a-4674-9156-b760e453f582")
 	)
 	(no_connect
 		(at 124.46 76.2)
@@ -1596,7 +1606,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 67.31) (xy 119.38 83.82)
+			(xy 120.65 67.31) (xy 120.65 83.82)
 		)
 		(stroke
 			(width 0)
@@ -1766,7 +1776,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 96.52) (xy 114.3 96.52)
+			(xy 124.46 96.52) (xy 115.57 96.52)
 		)
 		(stroke
 			(width 0)
@@ -1814,6 +1824,16 @@
 		)
 		(uuid "3631e71f-f1c7-4332-89d0-80170a059e29")
 	)
+	(wire
+		(pts
+			(xy 120.65 83.82) (xy 124.46 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3cb9985c-cf10-4d72-b026-b13b6f5cc23d")
+	)
 	(bus
 		(pts
 			(xy 152.4 88.9) (xy 152.4 86.36)
@@ -1846,7 +1866,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 83.82) (xy 119.38 83.82)
+			(xy 113.03 83.82) (xy 120.65 83.82)
 		)
 		(stroke
 			(width 0)
@@ -1996,7 +2016,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 67.31) (xy 114.3 96.52)
+			(xy 115.57 67.31) (xy 115.57 96.52)
 		)
 		(stroke
 			(width 0)
@@ -2033,16 +2053,6 @@
 			(type default)
 		)
 		(uuid "73d30d53-eb29-4dcf-88d6-ae4ff71c3dd4")
-	)
-	(wire
-		(pts
-			(xy 119.38 83.82) (xy 124.46 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "74220ad9-a22e-415e-b1f0-ef057cf1f90a")
 	)
 	(wire
 		(pts
@@ -2153,6 +2163,16 @@
 			(type default)
 		)
 		(uuid "8e7799fe-98f6-4ae6-a2c3-0cf8bef3a6fa")
+	)
+	(wire
+		(pts
+			(xy 120.65 59.69) (xy 134.62 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8ec68b7f-d6b3-41a4-a5b7-70030b2b1807")
 	)
 	(wire
 		(pts
@@ -2273,16 +2293,6 @@
 			(type default)
 		)
 		(uuid "b3321c0d-09d8-41b9-9d7f-680dca5403c4")
-	)
-	(wire
-		(pts
-			(xy 119.38 59.69) (xy 134.62 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b92754dc-a1f0-4f05-b947-bd4fbf01938d")
 	)
 	(wire
 		(pts
@@ -2416,7 +2426,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 59.69) (xy 119.38 59.69)
+			(xy 115.57 59.69) (xy 120.65 59.69)
 		)
 		(stroke
 			(width 0)
@@ -2972,7 +2982,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "4K7"
 			(at 177.8 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3051,7 +3061,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "4K7"
 			(at 172.72 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3130,7 +3140,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "4K7"
 			(at 162.56 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3190,7 +3200,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 119.38 63.5 0)
+		(at 120.65 63.5 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3200,7 +3210,7 @@
 		(dnp no)
 		(uuid "722d3b11-8202-4565-aad7-5203a2892655")
 		(property "Reference" "R9"
-			(at 119.38 63.5 90)
+			(at 120.65 63.5 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3210,7 +3220,7 @@
 			)
 		)
 		(property "Value" "3K3"
-			(at 116.84 63.5 90)
+			(at 118.11 63.5 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3220,7 +3230,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 117.602 63.5 90)
+			(at 118.872 63.5 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3231,7 +3241,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 63.5 0)
+			(at 120.65 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3242,7 +3252,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 119.38 63.5 0)
+			(at 120.65 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3288,7 +3298,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "4K7"
 			(at 147.32 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3348,7 +3358,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 114.3 63.5 0)
+		(at 115.57 63.5 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3358,7 +3368,7 @@
 		(dnp no)
 		(uuid "b667c57e-cfe5-46fe-a9a9-d8d1baca3b7c")
 		(property "Reference" "R8"
-			(at 114.3 63.5 90)
+			(at 115.57 63.5 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3367,8 +3377,8 @@
 				)
 			)
 		)
-		(property "Value" "3K3"
-			(at 111.76 63.5 90)
+		(property "Value" "1K0"
+			(at 113.03 63.5 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3378,7 +3388,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 112.522 63.5 90)
+			(at 113.792 63.5 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3389,7 +3399,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 114.3 63.5 0)
+			(at 115.57 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3400,7 +3410,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 114.3 63.5 0)
+			(at 115.57 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3446,7 +3456,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "4K7"
 			(at 152.4 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3525,7 +3535,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "4K7"
 			(at 182.88 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3604,7 +3614,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "4K7"
 			(at 167.64 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3760,7 +3770,7 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
+		(property "Value" "4K7"
 			(at 157.48 134.62 90)
 			(show_name no)
 			(do_not_autoplace no)
