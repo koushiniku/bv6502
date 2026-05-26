@@ -37,7 +37,7 @@ WE = PHI2 & !RW;
 
 OE = !RES & PHI2 & RW;
 
-DEV_CE  = !RES & ADDR:[D000..D0FF];     /* I/O memory */
+DEV_CE  = !RES & ADDR:[C000..C0FF];     /* I/O memory */
 
 RAM0_CE = ADDR:[0000..7FFF];            /* Low RAM */
 RAM0_CE.oe = !RES;

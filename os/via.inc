@@ -1,25 +1,25 @@
 ; SPDX-License-Identifier: MIT
-; bv6502.inc
-; zeropage via data structure
+;
+; via.inc
 
         .if (!.defined (__via_inc__))
         .define __via_inc__
 
         .struct VIA             ; W65C22
-        .org    $0              ; that's right
-PORTB   .byte
-PORTA   .byte
-DDRB    .byte
-DDRA    .byte
-T1C     .word
-T1L     .word
-T2C     .word
-SR      .byte
-ACR     .byte
-PCR     .byte
-IFR     .byte
-IER     .byte
-NHSPA   .byte
+                .org    $C010
+                PORTB   .byte
+                PORTA   .byte
+                DDRB    .byte
+                DDRA    .byte
+                T1C     .word
+                T1L     .word
+                T2C     .word
+                SR      .byte
+                ACR     .byte
+                PCR     .byte
+                IFR     .byte
+                IER     .byte
+                NHSPA   .byte
         .endstruct
 
 VIA_PORTB_T2I   = 6             ; T2 timer count negative pulse input
@@ -60,11 +60,11 @@ VIA_ACR_SR_SOT2 = (5 << VIA_ACR_SR)     ; ACR Shift out T2
 VIA_ACR_SR_SOP2 = (6 << VIA_ACR_SR)     ; ACR Shift out PHI2
 VIA_ACR_SR_SOEX = (7 << VIA_ACR_SR)     ; ACR Shift out external clock
 VIA_ACR_T2_CTL  = 5                     ; ACR T2 Timer Control
-
-VIA_ACR_T1_PB7  = 6                     ; ACR T1 Timer PB7 Output Enable
-VIA_ACR_T2_CTL  = 5                     ; ACR T2 Timer Control
 VIA_ACR_T2_INT  = (0 << VIA_ACR_T2_CTL) ; ACR Shift Disabled
 VIA_ACR_T2_PLS  = (1 << VIA_ACR_T2_CTL) ; ACR Shift in T2
+
+VIA_ACR_T1_PB7  = 6                     ; ACR T1 Timer PB7 Output Enable
+VIA_ACR_T1_CTL  = 7                     ; ACR T1 Timer Control
 
 VIA_IFR_IER_CA2 = 0             ; Interrupt Flags/Enable CA2
 VIA_IFR_IER_CA1 = 1             ; Interrupt Flags/Enable CA1

@@ -6,8 +6,8 @@
 	(paper "USLetter")
 	(lib_symbols)
 	(sheet
-		(at 124.46 29.21)
-		(size 45.72 44.45)
+		(at 17.78 17.78)
+		(size 24.13 19.05)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -22,7 +22,7 @@
 		)
 		(uuid "560ef1bd-4b3f-459c-9f6a-9898850b3c5b")
 		(property "Sheetname" "Globals"
-			(at 124.46 28.4984 0)
+			(at 17.78 17.0684 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -33,7 +33,7 @@
 			)
 		)
 		(property "Sheetfile" "globals.kicad_sch"
-			(at 124.46 74.2446 0)
+			(at 17.78 37.4146 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -52,8 +52,8 @@
 		)
 	)
 	(sheet
-		(at 81.28 102.87)
-		(size 39.37 35.56)
+		(at 71.12 29.21)
+		(size 22.86 20.32)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -68,7 +68,7 @@
 		)
 		(uuid "79decbb9-0443-4d8e-a639-28f3b5de1557")
 		(property "Sheetname" "ACIA/UART"
-			(at 81.28 102.1584 0)
+			(at 71.12 28.4984 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -79,7 +79,7 @@
 			)
 		)
 		(property "Sheetfile" "uart.kicad_sch"
-			(at 81.28 139.0146 0)
+			(at 71.12 50.1146 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -98,8 +98,8 @@
 		)
 	)
 	(sheet
-		(at 182.88 33.02)
-		(size 41.91 39.37)
+		(at 17.78 77.47)
+		(size 22.86 19.05)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -114,7 +114,7 @@
 		)
 		(uuid "84bb5624-3de3-475d-b983-481178beada9")
 		(property "Sheetname" "Address Decoder"
-			(at 182.88 32.3084 0)
+			(at 17.78 76.7584 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -125,7 +125,7 @@
 			)
 		)
 		(property "Sheetfile" "decoder.kicad_sch"
-			(at 182.88 72.9746 0)
+			(at 17.78 97.1046 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -144,8 +144,8 @@
 		)
 	)
 	(sheet
-		(at 142.24 105.41)
-		(size 33.02 33.02)
+		(at 71.12 62.23)
+		(size 22.86 19.05)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -160,7 +160,7 @@
 		)
 		(uuid "a706df21-fd6c-437e-86a1-96397867f2ab")
 		(property "Sheetname" "Keyboard"
-			(at 142.24 104.6984 0)
+			(at 71.12 61.5184 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -171,7 +171,7 @@
 			)
 		)
 		(property "Sheetfile" "keyboard.kicad_sch"
-			(at 142.24 139.0146 0)
+			(at 71.12 81.8646 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -190,8 +190,8 @@
 		)
 	)
 	(sheet
-		(at 189.23 107.95)
-		(size 30.48 25.4)
+		(at 72.39 91.44)
+		(size 22.86 21.59)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -206,7 +206,7 @@
 		)
 		(uuid "ce02b87a-0b7e-446c-8a51-e177c4556bd7")
 		(property "Sheetname" "LCD"
-			(at 189.23 107.2384 0)
+			(at 72.39 90.7284 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -217,7 +217,7 @@
 			)
 		)
 		(property "Sheetfile" "lcd.kicad_sch"
-			(at 189.23 133.9346 0)
+			(at 72.39 113.6146 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -236,8 +236,8 @@
 		)
 	)
 	(sheet
-		(at 34.29 146.05)
-		(size 50.8 43.18)
+		(at 17.78 105.41)
+		(size 22.86 17.78)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -252,7 +252,7 @@
 		)
 		(uuid "e0ef0165-61c4-4081-b725-ec037a3db6b2")
 		(property "Sheetname" "Memory"
-			(at 34.29 145.3384 0)
+			(at 17.78 104.6984 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -263,7 +263,7 @@
 			)
 		)
 		(property "Sheetfile" "mem.kicad_sch"
-			(at 34.29 189.8146 0)
+			(at 17.78 123.7746 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -282,8 +282,8 @@
 		)
 	)
 	(sheet
-		(at 49.53 34.29)
-		(size 41.91 43.18)
+		(at 17.78 46.99)
+		(size 24.13 21.59)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -298,7 +298,7 @@
 		)
 		(uuid "fd67868c-cd7d-4cf5-b33e-a271872edf4f")
 		(property "Sheetname" "CPU"
-			(at 49.53 33.5784 0)
+			(at 17.78 46.2784 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -309,7 +309,7 @@
 			)
 		)
 		(property "Sheetfile" "cpu.kicad_sch"
-			(at 49.53 78.0546 0)
+			(at 17.78 69.1646 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

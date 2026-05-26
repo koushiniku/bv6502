@@ -1,277 +1,159 @@
 ; SPDX-License-Identifier: MIT
+;
 ; lcd.s
-; 4-row LCD character display driver
-; attached to VIA port B, 4-bit mode
-; port B bit 7 belongs to the keyboard--can't change its DDR bit here.
+; 20x4 character LCD driver.
 
         .include "bv6502.inc"
 
+        .import incsp2, popa, return0, cursor
+
+        .export con_bgcolor, con_bordercolor, con_cclear, con_cclearxy
+        .export con_chline, con_chlinexy, con_clrscr, con_cpeekc
+        .export con_cpeekcolor, con_cpeekrevers, con_cputc, con_cputcxy
+        .export con_cvline, con_cvlinexy, con_gotox, con_gotoxy
+        .export con_revers, con_screensize, con_textcolor, con_wherex
+        .export con_wherey, con_setcursor
+
         .constructor lcd_init
         .destructor lcd_done
-        .export lcd_char_wr, lcd_inst_wr, lcd_cr_wr, lcd_lf_wr, lcd_bs_wr
-        .export lcd_tab_wr
-        .export lcd_cls, lcd_scroll, lcd_xy_set, lcd_xy_get, lcd_cur_char
 
-LCD_RW          = $10           ; LCD Data R/~W
-LCD_RS          = $20           ; LCD Register Select; 0=instruction, 1=data
-LCD_E           = $40           ; LCD Data Xfer Enable
+        .struct LCD
+                .org    $C00A
+                INST    .byte
+                CHAR    .byte
+        .endstruct
 
-LCD_BZ          = $08           ; LCD Busy Flag
-
-
-; maintain our own console buffer and cursor position because it's tedious to
-; read from the display
         .zeropage
 
+; cursor position in local buffer
 lcd_cur:
         .res    1
 
 
         .bss
 
+; local copy of character buffer
 lcd_buf:
         .res    80
 
 
-        .segment "ONCE"
-
-; Initialize LCD display.
-; Not necessarily a cold reset, so we need to do the Initialization by
-; Instruction on like page 46 of the datasheet.
-; Port B bit 7 belongs to keyboard, so leave it as input.
-lcd_init:
-; Port B setup
-        lda     #%01111111      ; default to output
-        trb     VIA::PORTB
-        tsb     VIA::DDRB
-; coax it into 4-bit mode from whatever state we started in
-        lda     #%00000011      ; 8-bit mode, 3x.
-        ldx     #0
-        jsr     lcd_init_wr
-        ldx     #(5 * MHZ)
-        jsr     lcd_init_wr
-        ldx     #(1 * MHZ)
-        jsr     lcd_init_wr
-        lda     #%00000010      ; 4-bit mode, 1x.
-        ldx     #(1 * MHZ)
-        jsr     lcd_init_wr
-; rest of the init
-        lda     #%00101000      ; Fn set: 4-bit mode, 2-line display, 5x8 font.
-        jsr     lcd_inst_wr
-        lda     #%00001000      ; Display off.
-        jsr     lcd_inst_wr
-        lda     #%00000001      ; Clear display, set DDRAM address to 0.
-        jsr     lcd_inst_wr
-        lda     #%00000110      ; Entry mode: shift cursor, don't shift display.
-        jsr     lcd_inst_wr
-        lda     #%00001100      ; Display on, cursor off, blink cursor off.
-        jsr     lcd_inst_wr
-        jmp     lcd_clb         ; clear the local buffer
-
-
-; Write an 8-bit instruction in A to the LCD display.
-; X contains delay in us * clock MHz
-lcd_init_wr:
-        ldy     #200
-@inner:
-        dey
-        bne     @inner
-        dex
-        bne     lcd_init_wr
-        jmp     lcd_wr          ; write what's in A
-
-
         .code
 
-; De-initialize the LCD display.
-lcd_done:
-        lda     #%01111111
-        trb     VIA::DDRB
-        trb     VIA::PORTB
-        rts
+; void __fastcall__ cclear (unsigned char length);
+con_cclear:
+        ldy     #' '
+        bra     lcd_rep
 
-; Write an instruction to the LCD display.
-lcd_inst_wr:
-        php
-        sei
-        tay
-        jsr     lcd_bz_poll
-        tya
-        lsr     A
-        lsr     A
-        lsr     A
-        lsr     A
-        jsr     lcd_wr
-        tya                     ; write lower nibble
-        and     #$0F
-        jsr     lcd_wr
-        plp
-        rts
+; void __fastcall__ cclearxy (unsigned char x, unsigned char y,
+; unsigned char length);
+con_cclearxy:
+        ldy     #' '
+        bra     lcd_repxy
 
-; Write a character to the LCD display.
-lcd_char_wr:
-        php
-        sei
-        ldx     lcd_cur         ; update in-memory copy
-        sta     lcd_buf,X
-        inc     lcd_cur         ; (fix line wrap later after writing to LCD)
-        tay
-        jsr     lcd_bz_poll
-        tya
-        lsr     A
-        lsr     A
-        lsr     A
-        lsr     A
-        ora     #LCD_RS         ; switch to data register
-        jsr     lcd_wr
-        tya                     ; write lower nibble
-        and     #$0F
-        ora     #LCD_RS         ; stay on data register
-        jsr     lcd_wr
-        stz     VIA::PORTB      ; set back to instruction register
-        plp                     ; fall through
+; void __fastcall__ chline (unsigned char length);
+con_chline:
+        ldy     #'-'
+        bra     lcd_rep
 
-; If at beginning of next line, fix the LCD cursor to the right place
-lcd_wrap_cur:
-        lda     lcd_cur
-        cmp     #20
-        beq     lcd_cur_sync
-        cmp     #40
-        beq     lcd_cur_sync
-        cmp     #60
-        beq     lcd_cur_sync
-        cmp     #80
-        beq     lcd_scroll
-        rts
+; void __fastcall__ chlinexy (unsigned char x, unsigned char y,
+; unsigned char length);
+con_chlinexy:
+        ldy     #'-'
+; fall through
 
-; compute and set the LCD's cursor position given lcd_cur
-; add bit 7 for the command and send the command to set it
-lcd_cur_sync:
-        lda     lcd_cur
-        cmp     #20
-        bpl     :+
-        clc
-        adc     #128
-        jmp     lcd_inst_wr
-:
-        cmp     #40
-        bpl     :+
-        clc
-        adc     #172
-        jmp     lcd_inst_wr
-:
-        cmp     #60
-        bpl     :+
-        clc
-        adc     #108
-        jmp     lcd_inst_wr
-:
-        clc
-        adc     #152
-        jmp     lcd_inst_wr
+; move cursor to coords and repeat character write
+;       length    -> A
+;       ycoord:   -> X
+;       xcoord:   -> (c_sp)
+;       character:-> Y
+lcd_repxy:                      ; want: xcoord -> X; ycoord -> A
+        phy                     ; character -> stack
+        pha                     ; length -> stack
+        phx                     ; ycoord -> stack
+        jsr     popa            ; xcoord -> A
+        tax                     ; xcoord -> X
+        pla                     ; ycoord -> A
+        jsr     con_gotoxy
+        ply
+        pla
 
-; copy lines 1-3 to lines 0-2, erase line 3, put cursor at beginning of line 3
-lcd_scroll:
-        lda     #%00000001      ; clear display, reset cursor
-        jsr     lcd_inst_wr
-        stz     lcd_cur
-        ldx     #20             ; copy characters 20-79 to 0-59
-@loop:
-        lda     lcd_buf,X
-        phx
-        jsr     lcd_char_wr     ; slightly recursive...
-        plx
-        inx
-        cpx     #80
-        bcc     @loop
-        ldx     #60
-        lda     #' '            ; fill the remaining internal buffer with spaces
-@loop2:
-        sta     lcd_buf,X
-        inx
-        cpx     #80
-        bcc     @loop2
-        rts
-
-; store A to PORTB and pulse the enable bit
-lcd_wr:
-        sta     VIA::PORTB
-        ora     #LCD_E
-        sta     VIA::PORTB
-        and     #<~LCD_E
-        sta     VIA::PORTB
-        rts
-
-; Poll the LCD's busy flag with a timeout.
-lcd_bz_poll:
-        lda     #$0F            ; set port B data nibble to read
-        trb     VIA::DDRB
-        lda     #LCD_RW         ; set LCD data bus to read
-        sta     VIA::PORTB
-@retry:
-        lda     #(LCD_RW | LCD_E)
-        sta     VIA::PORTB
-        lda     VIA::PORTB      ; capture upper nibble
-        tax
-        lda     #LCD_RW
-        sta     VIA::PORTB
-        lda     #(LCD_RW | LCD_E)
-        sta     VIA::PORTB
-        lda     #(LCD_RW)
-        sta     VIA::PORTB
-        txa                     ; now check busy flag
-        bit     #LCD_BZ
-        bne     @retry
-        stz     VIA::PORTB      ; set LCD data bus back to write
-        lda     #$0F            ; set Port B data nibble back to write
-        tsb     VIA::DDRB
-        rts
-
-; get current cursor coordinates
-; x coord = lcd_cur % 20; return it in X
-; y coord = lcd_cur / 20; return it in Y
-; clobbers A
-lcd_xy_get:
-        lda     lcd_cur         ; will be remainder
-        ldy     #$FF            ; will be quotient
-@loop:
-        iny                     ; will start at 0
-        tax
-        sec
-        sbc     #20
-        bcs     @loop           ; if >=20, keep looping
-        rts
-
-; set cursor to X,Y coords stored in X,Y
-; caller must do bounds check
-lcd_xy_set:
-        lda     #0              ; starting value
-        clc
-        cpy     #0              ; a = 20 * y
+; repeat character write
+;       length  -> A
+;       character -> Y
+lcd_rep:
+        tax                     ; length -> X
         beq     @done
+        tya                     ; character -> A
 @loop:
-        adc     #20
-        dey
+        jsr     lcd_char_wr
+        dex
         bne     @loop
 @done:
-        stx     lcd_cur         ; lcd_cur = x
-        adc     lcd_cur         ; a = lcd_cur + y
-        sta     lcd_cur         ; lcd_cur = a
-        jmp     lcd_cur_sync
-
-; Handle a line feed ("\n").
-; Set cursor to the beginning of the next line.
-; Scroll if on bottom line already.
-lcd_lf_wr:
-        lda     lcd_cur
-        cmp     #60
-        bcc     @cursordown
-        jmp     lcd_scroll
-@cursordown:
-        clc
-        adc     #20
-        sta     lcd_cur
         rts
+
+
+; Send a character to the LCD and fix line wrap.
+; If X != 0, scroll up when writing to bottom right.
+; Otherwise, cursor wraps to top left.
+lcd_char_wr:
+        ldy     lcd_cur         ; store locally
+        sta     lcd_buf,Y
+        iny
+        sty     lcd_cur
+@busy:
+        bit     LCD::CHAR
+        bmi     @busy
+        sta     LCD::CHAR
+        cpy     #20
+        beq     @r1
+        cpy     #40
+        beq     @r2
+        cpy     #60
+        beq     @r3
+        cpy     #80
+        beq     lcd_scroll
+        rts
+@r1:
+        lda     #$80 | 64
+        bra     lcd_inst_wr
+@r2:
+        lda     #$80 | 20
+        bra     lcd_inst_wr
+@r3:    
+        lda     #$80 | 84
+        bra     lcd_inst_wr
+@end:
+        tya
+        beq     lcd_scroll
+        stz     lcd_cur
+        lda     #$80
+        bra     lcd_inst_wr
+
+; void __fastcall__ cputcxy (unsigned char x, unsigned char y, char c);
+;       char   -> A
+;       ycoord -> X
+;       xcoord -> (c_sp)
+con_cputcxy:                    ; want: xcoord -> X; ycoord -> A
+        pha                     ; char -> stack
+        phx                     ; xcoord -> stack
+        jsr     popa            ; xcoord -> A
+        tay                     ; xcoord -> Y
+        pla                     ; ycoord -> A
+        jsr     con_gotoxy
+        pla                     ; char -> A
+; fall through
+; void __fastcall__ cputc (char c);
+; handle \r, \n, \t, bs, otherwise output the character
+con_cputc:
+        cmp     #$0D
+        beq     lcd_cr_wr
+        cmp     #$0A
+        beq     lcd_lf_wr
+        cmp     #$08
+        beq     lcd_bs_wr
+        cmp     #$09
+        beq     lcd_tab_wr
+        bra     lcd_char_wr
 
 ; Handle a carriage return ("\r").
 ; Set cursor to the beginning of the current line.
@@ -287,7 +169,7 @@ lcd_cr_wr:
 :
         tax
         adc     #20
-        jmp     @loop
+        bra     @loop
 @fix:
         stx     lcd_cur
         jmp     lcd_cur_sync
@@ -313,6 +195,51 @@ lcd_bs_wr:
 @done:
         rts
 
+; Send and instruction
+lcd_inst_wr:
+        bit     LCD::INST
+        bmi     lcd_inst_wr
+        sta     LCD::INST
+        rts
+
+; We went off the bottom
+lcd_scroll:
+        lda     $01             ; clear screen
+        sta     lcd_inst_wr
+        stz     lcd_cur
+        ldy     #20             ; copy characters 20-79 to 0-59
+        ldx     #0
+@loop:
+        lda     lcd_buf,Y
+        jsr     lcd_char_wr     ; recursive...careful...
+        cpy     #60
+        bcc     @next
+        lda     #' '            ; fill buffer bottom row with spaces
+        sta     lcd_buf,Y
+@next:
+        iny
+        cpy     #80
+        bcc     @loop
+        lda     #60             ; set cursor to beginning of last line
+        sta     lcd_cur
+        lda     #$80 | 84
+        bra     lcd_inst_wr
+
+
+; Handle a line feed ("\n").
+; Set cursor to the beginning of the next line.
+; Scroll if on bottom line already.
+lcd_lf_wr:
+        lda     lcd_cur
+        cmp     #60
+        bcc     @cursordown
+        bra     lcd_scroll
+@cursordown:
+        clc
+        adc     #20
+        sta     lcd_cur
+        rts
+
 ; handle a tab character ("\t").
 ; Print spaces until column (not lcd_cur) is divisible by 8
 lcd_tab_wr:
@@ -328,24 +255,236 @@ lcd_tab_wr:
         and     #%0000111
         bne     lcd_tab_wr
 
+; Initialize the LCD
+lcd_init:
+        jsr     lcd_inst_wr
+        lda     #$38            ; Fn set: 8-bit mode, 2-line display, 5x8 font.
+        jsr     lcd_inst_wr
+        lda     #$08            ; Display off.
+        jsr     lcd_inst_wr
+        lda     #$01            ; Clear display, set DDRAM address to 0.
+        jsr     lcd_inst_wr
+        lda     #$06            ; Entry mode: shift cursor, don't shift display.
+        jsr     lcd_inst_wr
+        lda     #$0C            ; Display on, cursor off, blink cursor off.
+        jsr     lcd_inst_wr
+        stz     lcd_cur         ; init the local cursor tracker
+        rts
 
-; return the character under the cursor in A
-lcd_cur_char:
-        ldx     lcd_cur
+;void __fastcall__ gotoxy (unsigned char x, unsigned char y);
+; y coord in A
+; x coord in X
+con_gotoxy:
+        tay
+        cpy     #4              ; clamp Y
+        bcc     @yok
+        ldy     #3
+@yok:
+        cpx     #20             ; clamp X
+        bcc     lcd_xy_set
+        ldx     #19
+;fall through
+lcd_xy_set:                     ; set cursor to X, Y coords stored in X and Y
+        lda     #0              ; starting value
+        clc
+        cpy     #0              ; a = 20 * y
+        beq     @done
+@loop:
+        adc     #20
+        dey
+        bne     @loop
+@done:
+        stx     lcd_cur         ; lcd_cur = x
+        adc     lcd_cur         ; a = lcd_cur + a
+        sta     lcd_cur         ; lcd_cur = a
+; fall through
+; compute and set the LCD's cursor position in lcd_cur
+; add bit 7 for the command and send the command to set it
+lcd_cur_sync:
+        lda     lcd_cur
+        cmp     #20
+        bcc     @r0
+        cmp     #40
+        bcc     @r1
+        cmp     #60
+        bcc     @r2
+        clc
+        adc     #152
+        jmp     lcd_inst_wr
+@r0:
+        clc
+        adc     #128
+        jmp     lcd_inst_wr
+@r1:
+        clc
+        adc     #172
+        jmp     lcd_inst_wr
+@r2:
+        clc
+        adc     #108
+        jmp     lcd_inst_wr
+
+; void __fastcall__ gotoy (unsigned char y);
+con_gotoy:
+        cmp     #4              ; clamp Y
+        bcc     @yok
+        lda     #3
+@yok:
+        pha
+        jsr     lcd_xy_get
+        ply
+        bra     lcd_xy_set
+
+; void clrscr (void);
+con_clrscr:
+        lda     #$01
+        jsr     lcd_inst_wr
+        lda     #' '
+        ldy     #79
+@loop:
+        sta     lcd_buf,X
+        dey
+        bpl     @loop
+        stz     lcd_cur
+        rts
+
+con_setcursor:
+        ldx     cursor
+        beq     @done
+        ror
+        bcs     @set
+        lda     #$0C
+        jmp     lcd_inst_wr
+@set:
+        lda     $0F
+        jmp     lcd_inst_wr
+@done:
+        rts
+
+con_cvlinexy:
+        cmp     #0
+        beq     lcd_done
+        sta     tmp1            ; length -> zp
+        jsr     popa            ; xcoord -> A
+        cmp     #20             ; clamp xcoord < 20
+        bcc     @xok
+        lda     #19
+@xok:
+        cpx     #4              ; clamp ycoord < 4
+        bcc     @yok
+        ldx     #3
+@yok:
+        sty     tmp2            ; xcoord -> zp
+        txa                     ; ycoord -> A
+        tay                     ; ycoord -> Y
+lcd_cvloop:
+        ldx     tmp2            ; xcoord -> X
+        phy                     ; ycoord -> stack
+        jsr     lcd_xy_set
+        ldx     #0
+        lda     #'|'
+        jsr     lcd_inst_wr
+        ply                     ; ycoord -> Y
+        cpy     #3
+        beq     lcd_done        ; already at bottom?
+        dec     tmp1
+        beq     lcd_done        ; length
+        bra     lcd_cvloop
+lcd_done:
+        rts
+
+;void __fastcall__ cvline (unsigned char length);
+con_cvline:
+        cmp     #0
+        beq     lcd_done
+        sta     tmp1            ; length -> zp
+        jsr     lcd_xy_get
+        stx     tmp2            ; xcoord -> zp
+        bra     lcd_cvloop
+
+
+; void __fastcall__ gotox (unsigned char x);
+con_gotox:
+        cmp     #20             ; clamp X
+        bcc     @xok
+        lda     #19
+@xok:
+        pha
+        jsr     lcd_xy_get
+        plx
+        jmp     lcd_xy_set
+
+; get current cursor coordinates
+; x coord = lcd_cur % 20; return it in X
+; y coord = lcd_cur / 20; return it in Y
+; clobbers A
+lcd_xy_get:
+        lda     lcd_cur         ; will be remainder
+        ldy     #$FF            ; will be quotient
+@loop:
+        iny                     ; will start at 0
+        tax
+        sec
+        sbc     #20
+        bcs     @loop           ; if >=20, keep looping
+        rts
+
+; char cpeekc (void);
+con_cpeekc:
+        ldy     lcd_cur
         lda     lcd_buf,X
         ldx     #0
         rts
 
-; clear the screen
-lcd_cls:                        ; clear the LCD screen
-        lda     #%00000001
-        jsr     lcd_inst_wr
-lcd_clb:                        ; clear the local buffer
-        lda     #' '
-        ldx     #79
-@loop:
-        sta     lcd_buf,X
-        dex
-        bpl     @loop
-        stz     lcd_cur
+;unsigned char wherex (void);
+con_wherex:
+        jsr     lcd_xy_get
+        txa
+        ldx     #0
         rts
+
+;unsigned char wherey (void);
+con_wherey:
+        jsr     lcd_xy_get
+        tya
+        ldx     #0
+        rts
+
+; unsigned char cpeekcolor (void);
+con_cpeekcolor     := return0
+
+; unsigned char cpeekrevers (void);
+con_cpeekrevers    := return0
+
+; void __fastcall__ cvlinexy (unsigned char x, unsigned char y,
+; unsigned char length);
+;       length -> A
+;       ycoord -> X
+;       xcoord -> (c_sp)
+
+con_revers         := return0
+
+;void __fastcall__ screensize (unsigned char* x, unsigned char* y);
+; lower address for y coord is in A
+; upper address for y coord is in X
+; lower address for X coord is in (c_sp)
+; upper address for X coord is in (c_sp+1)
+con_screensize:
+        sta     <ptr1
+        stx     >ptr1
+        lda     #4
+        sta     (ptr1)
+        lda     #20
+        sta     (c_sp)
+        jmp     incsp2
+
+
+con_textcolor      := return0
+
+       
+; unsigned char __fastcall__ bgcolor (unsigned char color);
+con_bgcolor     := return0
+
+; unsigned char __fastcall__ bordercolor (unsigned char color);
+con_bordercolor := return0
+

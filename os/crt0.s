@@ -5,7 +5,7 @@
 
         .export _init, _exit, _nmi_int, _irq_int, _stop, _wait
         .export initirq, doneirq
-        .import _main, kbd_isr
+        .import _main
         .export __STARTUP__ : absolute = 1
         .import __RAM_START__, __RAM_SIZE__
         .import copydata, zerobss, initlib, donelib, callirq
@@ -31,7 +31,8 @@ _exit:
         jsr     donelib
         brk
 
-_nmi_int        := kbd_isr
+_nmi_int:
+        rti
 
 _irq_int:
         phx
@@ -61,4 +62,3 @@ initirq:
         rts
 
 doneirq:
-

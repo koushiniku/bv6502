@@ -3,7 +3,8 @@
 
         .include "bv6502.inc"
 
-        .import _cgetc, _cputc, cursor
+        ;.import _cgetc, _cputc, cursor
+        .import _cputs
 
         .export _main
 
@@ -12,19 +13,28 @@
 
 ;hello:  .asciiz "Hello,\r\nworld!\r\nScroll\r\nup\r\nnow!"
 ;hello:  .asciiz "Hello,\r\nworld!\r\nScroll\r\nup!"
-;hello:  .asciiz "Hello,\rworld!"
+hello:  .asciiz "Hello,\rworld!"
 
         .code
 
 _main:
-        lda     #1
-        sta     cursor
+        lda     #<hello
+        ldx     #>hello
+        jsr     _cputs
 @loop:
-        jsr     _cgetc
-        cmp     #$0D
-        bne     @nocr
-        jsr     _cputc
-        lda     #$0A
-@nocr:
-        jsr     _cputc
-        jmp     @loop
+        bra     @loop
+
+
+
+;_main:
+;        lda     #1
+;        sta     cursor
+;@loop:
+;        jsr     _cgetc
+;        cmp     #$0D
+;        bne     @nocr
+;        jsr     _cputc
+;        lda     #$0A
+;@nocr:
+;        jsr     _cputc
+;        jmp     @loop

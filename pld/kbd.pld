@@ -19,20 +19,23 @@ pin 3 = STA;        /* Start bit from keyboard */
 pin 4 = PAR;        /* Computed parity from keyboard (1 = good) */
 pin 5 = !STO;       /* Stop bit from keyboard */
 
+pin 8 = D5_IN;      /* For writing to D5. */
 pin 9 = A0;         /* Address bit from host. */
 pin 10 = RW;        /* R/W# from host */
 pin 11 = !CS;       /* Chip select from host */
 pin 13 = !RES;      /* Reset button */
 
 
+/* FIXME: Add IRQ enable D5 bit. */
+
 /* outputs */
 pin 14 = IRQ;       /* IRQ also keyboard clock suppression (active high). */
 pin 15 = D7;        /* IRQ status flag, W1C. */
 pin 16 = D6;        /* Error status flag. */
-pin 17 = ACK1;      /* ACK edge detection */
-pin 18 = ACK2;      /* ACK edge detection */
-pin 19 = KWR1;      /* Waiting for first ACK after a KB write). */
-pin 20 = NC;
+pin 17 = D5;        /* IRQ enable flag. */
+pin 18 = ACK1;      /* ACK edge detection */
+pin 19 = ACK2;      /* ACK edge detection */
+pin 20 = KWR1;      /* Waiting for first ACK after a KB write). */
 pin 21 = !HDW;      /* Host data write. PISO input enabled KWR latched. */
 pin 22 = !HDR;      /* Host data read. SIPO output is enabled. */
 pin 23 = !KWR;      /* H2D mode. 100us low pulse, PISO shift uninhibited. */
@@ -42,9 +45,6 @@ ACK1.oe = 'b'0;
 ACK2.oe = 'b'0;
 KWR1.oe = 'b'0;
 NC.oe = 'b'0;
-KW1.ar = RES;
-KWR.ar = RES;
-IRQ.ar = RES;
 
 /* Host IO states */
 W = CS & !RW;
@@ -62,11 +62,14 @@ ACK2.d = ACK1;
 ACK_E = ACK1 & !ACK2;
 
 /* Host-to-keyboard writes */
-KWR1.d = (HDW_D # KWR1 & !ACK_E);
-KWR.d  = (HDW_D # KWR1 # KWR & !ACK_E);
+KWR1.d = HDW_D # KWR1 & !ACK_E;
+KW1.ar = RES;
+KWR.d  = HDW_D # KWR1 # KWR & !ACK_E;
+KWR.ar = RES;
 
-/* IRQ: Set on read ack, clear on write 1 to IRQ status bit (D7). */
-IRQ.d = (ACK_E & !KWR # IRQ & !(HCW_D & D7));
+/* IRQ: Set on read ack, clear on write 1 to IRQ status bit (D7) or disabled. */
+IRQ.d = D5 & (ACK_E & !KWR # IRQ & !(HCW_D & D7));
+IRQ.ar = RES;
 
 /* IRQ status */
 D7.oe = HCR;
@@ -75,3 +78,8 @@ D7 = IRQ;
 /* error status */
 D6.oe = HCR;
 D6 = !(STA & STO & PAR);
+
+/* IRQ enable */
+D5.oe = HCR;
+D5.d = HCW_D & D5_IN # !HCW_D & D5;
+D5.ar = RES;
