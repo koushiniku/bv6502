@@ -60,7 +60,6 @@ con_chline:
 con_chlinexy:
         ldy     #'-'
 ; fall through
-
 ; move cursor to coords and repeat character write
 ;       length    -> A
 ;       ycoord:   -> X
@@ -81,16 +80,18 @@ lcd_repxy:                      ; want: xcoord -> X; ycoord -> A
 ;       length  -> A
 ;       character -> Y
 lcd_rep:
-        tax                     ; length -> X
+        cmp     #0
         beq     @done
-        tya                     ; character -> A
+        sta     tmp1            ; length -> zp
+        sty     tmp2            ; character -> zp
 @loop:
+        ldx     #0
         jsr     lcd_char_wr
-        dex
+        lda     tmp1
+        dec     tmp2
         bne     @loop
 @done:
         rts
-
 
 ; Send a character to the LCD and fix line wrap.
 ; If X != 0, scroll up when writing to bottom right.
@@ -111,7 +112,7 @@ lcd_char_wr:
         cpy     #60
         beq     @r3
         cpy     #80
-        beq     lcd_scroll
+        beq     @end
         rts
 @r1:
         lda     #$80 | 64
@@ -123,7 +124,7 @@ lcd_char_wr:
         lda     #$80 | 84
         bra     lcd_inst_wr
 @end:
-        tya
+        txa
         beq     lcd_scroll
         stz     lcd_cur
         lda     #$80
@@ -153,6 +154,7 @@ con_cputc:
         beq     lcd_bs_wr
         cmp     #$09
         beq     lcd_tab_wr
+        ldx     #1
         bra     lcd_char_wr
 
 ; Handle a carriage return ("\r").
@@ -189,6 +191,7 @@ lcd_bs_wr:
         dec     lcd_cur
         jsr     lcd_cur_sync
         lda     #' '
+        ldx     #0
         jsr     lcd_char_wr
         dec     lcd_cur
         jmp     lcd_cur_sync
@@ -208,8 +211,8 @@ lcd_scroll:
         sta     lcd_inst_wr
         stz     lcd_cur
         ldy     #20             ; copy characters 20-79 to 0-59
-        ldx     #0
 @loop:
+        ldx     #0
         lda     lcd_buf,Y
         jsr     lcd_char_wr     ; recursive...careful...
         cpy     #60
@@ -243,17 +246,30 @@ lcd_lf_wr:
 ; handle a tab character ("\t").
 ; Print spaces until column (not lcd_cur) is divisible by 8
 lcd_tab_wr:
-        lda     #' '
-        jsr     lcd_char_wr
         lda     lcd_cur
 @loop:
-        tax
         sec
         sbc     #20
-        bcs     @loop           ; if >= 20, keep looping
-        txa
-        and     #%0000111
-        bne     lcd_tab_wr
+        bcs     @loop
+        clc
+        adc     #20
+        tay
+@loop2:
+        phy
+        ldx     #1
+        lda     #' '
+        jsr     lcd_char_wr
+        ply
+        iny
+        cpy     #8
+        jsr     @done
+        cpy     #16
+        jsr     @done
+        cpy     #20
+        jsr     @done
+        bra     @loop2
+@done:
+        rts
 
 ; Initialize the LCD
 lcd_init:
@@ -361,6 +377,11 @@ con_setcursor:
 @done:
         rts
 
+; void __fastcall__ cvlinexy (unsigned char x, unsigned char y,
+; unsigned char length);
+;       length -> A
+;       ycoord -> X
+;       xcoord -> (c_sp)
 con_cvlinexy:
         cmp     #0
         beq     lcd_done
@@ -387,6 +408,7 @@ lcd_cvloop:
         ply                     ; ycoord -> Y
         cpy     #3
         beq     lcd_done        ; already at bottom?
+        iny
         dec     tmp1
         beq     lcd_done        ; length
         bra     lcd_cvloop
@@ -456,12 +478,7 @@ con_cpeekcolor     := return0
 ; unsigned char cpeekrevers (void);
 con_cpeekrevers    := return0
 
-; void __fastcall__ cvlinexy (unsigned char x, unsigned char y,
-; unsigned char length);
-;       length -> A
-;       ycoord -> X
-;       xcoord -> (c_sp)
-
+; unsigned char __fastcall__ revers (unsigned char onoff); 
 con_revers         := return0
 
 ;void __fastcall__ screensize (unsigned char* x, unsigned char* y);
@@ -478,9 +495,8 @@ con_screensize:
         sta     (c_sp)
         jmp     incsp2
 
-
-con_textcolor      := return0
-
+; unsigned char __fastcall__ textcolor (unsigned char color);
+con_textcolor   := return0
        
 ; unsigned char __fastcall__ bgcolor (unsigned char color);
 con_bgcolor     := return0
