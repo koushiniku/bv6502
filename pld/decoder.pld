@@ -4,7 +4,7 @@
 
 Name        decoder ;
 PartNo      00 ;
-Date        05/23/26 ;
+Date        05/26/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -12,13 +12,13 @@ Assembly    None ;
 Location    None ;
 Device      g22v10 ;
 
-
+/* inputs */
 pin 1 = PHI2;
 pin 2 = !RES;
 pin 3 = RW;
 pin [11..4] = [A15..A8];
 
-
+/* output */
 pin 23 = !WE;
 pin 22 = !OE;
 pin 21 = !RAM1_CE;
@@ -27,7 +27,6 @@ pin 19 = !BRAM_CE;
 pin 18 = !DEV_CE;
 pin 17 = RDY;
 pin 16 = BZ;
-
 
 /* address field */
 field ADDR = [A15..A6];
@@ -44,7 +43,6 @@ RAM0_CE.oe = !RES;
 BRAM_CE = ADDR:[8000..BFFF];            /* Banked RAM */
 RAM1_CE = ADDR:[C000..FFFF] & !DEV_CE;  /* High RAM */
 RAM1_CE.oe = !RES;
-
 
 /* Hold RDY low for a clock to access 55ns bank RAM. */
 BZ.d = BRAM_CE & !BZ;
