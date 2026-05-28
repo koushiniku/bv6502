@@ -13,15 +13,9 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = PHI2;       /* Host clock */
-/*
-pin 2 = ;
-pin 3 = ;
-pin 4 = ;
-pin 5 = ;
-pin 6 = ;
-pin 7 = ;
-*/
+pin 1 = PHI0;       /* Host write clock */
+pin 2 = PHI2;
+
 pin 8 = !RES;       /* Reset button. */
 pin 9 = !CS;        /* Chip select from host */
 pin 10 = A0;        /* Address bit from host. */
@@ -65,7 +59,7 @@ RTIME = COUNT:0;
 
 /* Latching host write data. */
 HOST_W = CS & !RW;
-REG_LE = PHI2 & HOST_W;
+REG_LE = PHI0 & HOST_W;
 
 /* Track writes until they are in progress. */
 W_PEND.d = HOST_W # W_PEND & !WTIME;

@@ -439,7 +439,7 @@
         "uuid": "94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
       }
     ],
-    "used_designators": "#PWR11,#PWR13,C11,R11,Q2",
+    "used_designators": "D3,SW1-3,SW5-6,BAR1,U27-28,#PWR24,#PWR29,#PWR41-42,Y1,R26",
     "variants": []
   },
   "sheets": [
@@ -466,6 +466,10 @@
     [
       "79decbb9-0443-4d8e-a639-28f3b5de1557",
       "ACIA/UART"
+    ],
+    [
+      "1ef3c140-f4b6-4822-8124-95d89afcf061",
+      "VIA"
     ],
     [
       "a706df21-fd6c-437e-86a1-96397867f2ab",

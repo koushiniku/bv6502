@@ -10,9 +10,10 @@ Device      g22v10 ;
 
 /* inputs */
 pin 1 = PHI2;
-pin 2 = !DEV_CE;
-pin 3 = RW;
-pin [11..4] = [A7..A0];
+pin 2 = PHI0;
+pin 3 = !DEV_CE;
+pin 4 = RW;
+pin [13,11..5] = [A7..A0];
 
 /* outputs */
 pin 23 = BR_LE;         /* Bank register latch enable */
@@ -27,7 +28,7 @@ pin 15 = !SID_CS;
 /* address field */
 field ADDR = [A7..A0];
 
-BR_LE = DEV_CE & ADDR:0 & PHI2 & !RW;
+BR_LE = DEV_CE & ADDR:0 & PHI0 & !RW;
 BR_OE = DEV_CE & ADDR:0 & PHI2 & RW;
 
 KB_CS   = DEV_CE & ADDR:[08..09];

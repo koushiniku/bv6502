@@ -13,11 +13,12 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = PHI2;       /* Host clock */
-pin 2 = !ACK;       /* Keyboard ACK goes high after clock high for 100us */
-pin 3 = STA;        /* Start bit from keyboard */
-pin 4 = PAR;        /* Computed parity from keyboard (1 = good) */
-pin 5 = !STO;       /* Stop bit from keyboard */
+pin 1 = PHI0;       /* Host write clock */
+pin 2 = PHI2;       /* Host clock */
+pin 3 = !ACK;       /* Keyboard ACK goes high after clock high for 100us */
+pin 4 = STA;        /* Start bit from keyboard */
+pin 5 = PAR;        /* Computed parity from keyboard (1 = good) */
+pin 6 = !STO;       /* Stop bit from keyboard */
 
 pin 8 = D5_IN;      /* For writing to D5. */
 pin 9 = A0;         /* Address bit from host. */
@@ -47,7 +48,7 @@ KWR1.oe = 'b'0;
 W = CS & !RW;
 HDW_D = W & A0;      /* non-clocked for clocked registers */
 HCW_D = W & !A0;
-HDW = PHI2 & HDW_D # RES;   /* Reset preloads SR. */
+HDW = PHI0 & HDW_D # RES;   /* Reset preloads SR. */
 
 R = PHI2 & CS & RW;
 HDR = R & A0;
