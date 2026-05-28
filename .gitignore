@@ -41,7 +41,6 @@ fp-info-cache
 
 # more KiCad stuff
 /schematics/.history
-/schematics/*.pdf
 
 # cc65 build files
 *.o
