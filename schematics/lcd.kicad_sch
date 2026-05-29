@@ -2668,7 +2668,7 @@
 			)
 		)
 	)
-	(global_label "KBD.~{CS}"
+	(global_label "LCD.~{CS}"
 		(shape input)
 		(at 104.14 106.68 180)
 		(fields_autoplaced yes)
@@ -2680,7 +2680,7 @@
 		)
 		(uuid "ce7a74c0-9ee8-4643-b65e-845f0734e7a6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 94.2605 106.68 0)
+			(at 94.5024 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

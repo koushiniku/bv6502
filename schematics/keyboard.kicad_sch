@@ -5489,9 +5489,9 @@
 		)
 		(uuid "9fa108ea-8d26-4adb-bbf6-f5b50c9767c3")
 	)
-	(text "data ready/\nwrite ack"
+	(text "data ready/write ack.\nrising edge whenver kb\nclock stays high 100us"
 		(exclude_from_sim no)
-		(at 69.85 72.39 0)
+		(at 68.58 73.66 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5499,9 +5499,9 @@
 		)
 		(uuid "ac6d1001-c716-43e5-806d-74c8a31496d2")
 	)
-	(text "disables clock until\nCPU clears IRQ"
+	(text "disables clock until\nCPU clears IRQ.\nFIXME...this will\ngenerate an ACK that\nneeds to be ignored"
 		(exclude_from_sim no)
-		(at 194.31 46.99 0)
+		(at 194.31 44.45 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13152,7 +13152,7 @@
 				)
 			)
 		)
-		(property "Value" "2K2"
+		(property "Value" "1K0"
 			(at 194.31 102.87 90)
 			(show_name no)
 			(do_not_autoplace no)
