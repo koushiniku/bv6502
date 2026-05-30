@@ -123,12 +123,10 @@ kbd_done:
         rts
 
 kbd_irq:
-        lda     KBD::CSR
-        bit     #0
+        bit     KBD::CSR
         bpl     @notmine
         bvc     @error
         ldx     KBD::DATA
-        sta     KBD::CSR
         txa
         jsr     kbd_parse
         sec

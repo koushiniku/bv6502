@@ -3701,7 +3701,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "5db7abb9-4f6f-4c17-a6f7-a3bee051603a")
-		(property "Reference" "#PWR026"
+		(property "Reference" "#PWR023"
 			(at 143.51 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -3761,7 +3761,7 @@
 		(instances
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/84bb5624-3de3-475d-b983-481178beada9"
-					(reference "#PWR026")
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)
@@ -3779,7 +3779,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "60506e2a-f6cc-41de-8334-f7a274552f3d")
-		(property "Reference" "U26"
+		(property "Reference" "U11"
 			(at 182.88 106.68 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3895,7 +3895,7 @@
 		(instances
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/84bb5624-3de3-475d-b983-481178beada9"
-					(reference "U26")
+					(reference "U11")
 					(unit 1)
 				)
 			)
@@ -3912,7 +3912,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "8ad6f8a6-9009-4aa1-bf77-2aa6853dcadf")
-		(property "Reference" "#PWR030"
+		(property "Reference" "#PWR024"
 			(at 143.51 134.62 0)
 			(hide yes)
 			(show_name no)
@@ -3972,7 +3972,7 @@
 		(instances
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/84bb5624-3de3-475d-b983-481178beada9"
-					(reference "#PWR030")
+					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -3990,7 +3990,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "919d6912-e61e-4e60-9be6-105bc2bf90d6")
-		(property "Reference" "U25"
+		(property "Reference" "U10"
 			(at 139.7 107.95 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4118,7 +4118,7 @@
 		(instances
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/84bb5624-3de3-475d-b983-481178beada9"
-					(reference "U25")
+					(reference "U10")
 					(unit 1)
 				)
 			)
@@ -4136,7 +4136,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "d6373cb4-f7a4-4a8e-bbe8-8320371f4f8f")
-		(property "Reference" "U23"
+		(property "Reference" "U9"
 			(at 96.52 109.22 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4264,7 +4264,7 @@
 		(instances
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/84bb5624-3de3-475d-b983-481178beada9"
-					(reference "U23")
+					(reference "U9")
 					(unit 1)
 				)
 			)
