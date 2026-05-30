@@ -5389,7 +5389,7 @@
 	)
 	(text "20us delay\n(1/4 cycle)"
 		(exclude_from_sim no)
-		(at 190.5 64.77 0)
+		(at 191.77 64.77 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5399,7 +5399,7 @@
 	)
 	(text "shift clock"
 		(exclude_from_sim no)
-		(at 147.32 76.2 90)
+		(at 148.59 76.2 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5499,16 +5499,6 @@
 		)
 		(uuid "ac6d1001-c716-43e5-806d-74c8a31496d2")
 	)
-	(text "disables clock until\nCPU clears IRQ.\nFIXME...this will\ngenerate an ACK that\nneeds to be ignored"
-		(exclude_from_sim no)
-		(at 194.31 44.45 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "adbcda7f-dd4d-411e-b186-5a8642105b66")
-	)
 	(text "over voltage\nclamp"
 		(exclude_from_sim no)
 		(at 149.86 46.99 0)
@@ -5541,7 +5531,7 @@
 	)
 	(text "R limits current\nfrom cap discharge"
 		(exclude_from_sim no)
-		(at 133.35 76.2 0)
+		(at 134.62 76.2 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5585,6 +5575,12 @@
 		(uuid "10f06bac-fd2c-4a14-801c-c42cbf959acb")
 	)
 	(junction
+		(at 203.2 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1209d9ec-9195-4761-915c-989d9ef2c5fc")
+	)
+	(junction
 		(at 191.77 49.53)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5607,12 +5603,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1b2270ac-5289-4db1-8150-8dc71580cc56")
-	)
-	(junction
-		(at 203.2 69.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1c6e1600-f440-4fec-99e5-7848c7986f88")
 	)
 	(junction
 		(at 100.33 118.11)
@@ -5687,19 +5677,13 @@
 		(uuid "4a9fcbba-f728-4cdd-a047-02c7081894f2")
 	)
 	(junction
-		(at 87.63 69.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4e516620-dbb5-44f5-9180-dd138e28d6cf")
-	)
-	(junction
 		(at 148.59 115.57)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4ead2899-2eee-4707-9761-5272b6464cb3")
 	)
 	(junction
-		(at 148.59 69.85)
+		(at 149.86 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5a126a59-197d-4897-9e13-a9d3c91d41c2")
@@ -5747,7 +5731,7 @@
 		(uuid "7a79a630-dda5-4267-b020-0514e79eeac0")
 	)
 	(junction
-		(at 179.07 69.85)
+		(at 180.34 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7ebb9e25-927e-42b9-9459-234f65397441")
@@ -5765,7 +5749,7 @@
 		(uuid "85f5765c-32b3-4e65-82d9-ea2ef8422213")
 	)
 	(junction
-		(at 133.35 69.85)
+		(at 134.62 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "97a57c80-c700-4c01-8074-27438963f0b3")
@@ -5915,10 +5899,10 @@
 		(uuid "cd49e279-c05f-4b38-b205-aa9379954a27")
 	)
 	(junction
-		(at 148.59 86.36)
+		(at 149.86 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "cec29188-69b6-4f2d-9851-981e89255ad2")
+		(uuid "d1e037bc-4067-4efc-bb36-e35fa76e2b95")
 	)
 	(junction
 		(at 80.01 54.61)
@@ -5939,7 +5923,7 @@
 		(uuid "ded29567-3e9b-4259-a96b-6f9cd8b4ae9b")
 	)
 	(junction
-		(at 118.11 69.85)
+		(at 119.38 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "df9097a2-9658-429c-a28a-4a6a751432f6")
@@ -5973,6 +5957,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ef510be4-ba80-4bb3-a70d-4504deaf79cc")
+	)
+	(junction
+		(at 87.63 41.91)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f281749c-9977-41de-8862-a17140c429be")
 	)
 	(junction
 		(at 152.4 139.7)
@@ -6134,16 +6124,6 @@
 			(type default)
 		)
 		(uuid "fff438e3-b903-4f8c-88db-32e91e3a277b")
-	)
-	(wire
-		(pts
-			(xy 148.59 86.36) (xy 181.61 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "02619975-9d26-4653-b513-3525fb1fed93")
 	)
 	(wire
 		(pts
@@ -6477,7 +6457,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 69.85) (xy 148.59 86.36)
+			(xy 149.86 69.85) (xy 149.86 86.36)
 		)
 		(stroke
 			(width 0)
@@ -6527,7 +6507,7 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 86.36) (xy 148.59 86.36)
+			(xy 143.51 86.36) (xy 149.86 86.36)
 		)
 		(stroke
 			(width 0)
@@ -6604,16 +6584,6 @@
 			(type default)
 		)
 		(uuid "3d041b8f-cf41-4086-88a0-e331f46205b7")
-	)
-	(wire
-		(pts
-			(xy 203.2 69.85) (xy 201.93 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d11377a-aa40-45d9-9a13-d195623bf005")
 	)
 	(wire
 		(pts
@@ -6987,6 +6957,16 @@
 	)
 	(wire
 		(pts
+			(xy 87.63 41.91) (xy 87.63 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b9c0268-dc82-4139-801c-21fce3d6103a")
+	)
+	(wire
+		(pts
 			(xy 191.77 109.22) (xy 184.15 109.22)
 		)
 		(stroke
@@ -7014,6 +6994,16 @@
 			(type default)
 		)
 		(uuid "6d33c000-ccc3-4570-8137-1aa8a01094b1")
+	)
+	(wire
+		(pts
+			(xy 149.86 86.36) (xy 181.61 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6eabccea-7230-47d8-b5a8-9f8ee7eda4dd")
 	)
 	(wire
 		(pts
@@ -7297,7 +7287,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 69.85) (xy 87.63 69.85)
+			(xy 53.34 69.85) (xy 88.9 69.85)
 		)
 		(stroke
 			(width 0)
@@ -7457,7 +7447,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 66.04) (xy 118.11 69.85)
+			(xy 119.38 66.04) (xy 119.38 69.85)
 		)
 		(stroke
 			(width 0)
@@ -7667,7 +7657,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 66.04) (xy 133.35 69.85)
+			(xy 134.62 66.04) (xy 134.62 69.85)
 		)
 		(stroke
 			(width 0)
@@ -8037,7 +8027,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 66.04) (xy 118.11 66.04)
+			(xy 127 66.04) (xy 119.38 66.04)
 		)
 		(stroke
 			(width 0)
@@ -8094,16 +8084,6 @@
 			(type default)
 		)
 		(uuid "f69151a6-f899-4584-a4b4-166f9981f691")
-	)
-	(wire
-		(pts
-			(xy 87.63 69.85) (xy 87.63 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f827e2e7-bfbe-4cd7-8ea3-6931eea5eef9")
 	)
 	(wire
 		(pts
@@ -9484,7 +9464,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 179.07 73.66 0)
+		(at 180.34 73.66 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9494,7 +9474,7 @@
 		(dnp no)
 		(uuid "39b1bbc1-29dd-4d72-b3a3-97612c35cc8c")
 		(property "Reference" "C4"
-			(at 181.61 72.39 0)
+			(at 182.88 72.39 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9505,7 +9485,7 @@
 			)
 		)
 		(property "Value" "10N"
-			(at 181.61 74.93 0)
+			(at 182.88 74.93 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9516,7 +9496,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 180.0352 77.47 0)
+			(at 181.3052 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9527,7 +9507,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 73.66 0)
+			(at 180.34 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9538,7 +9518,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 179.07 73.66 0)
+			(at 180.34 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10040,7 +10020,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 118.11 77.47 0)
+		(at 119.38 77.47 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10050,7 +10030,7 @@
 		(dnp no)
 		(uuid "492cabb5-4625-48ca-8685-0c999d83fb10")
 		(property "Reference" "#PWR061"
-			(at 118.11 83.82 0)
+			(at 119.38 83.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10061,7 +10041,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 118.11 81.28 0)
+			(at 119.38 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10071,7 +10051,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 118.11 77.47 0)
+			(at 119.38 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10082,7 +10062,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 118.11 77.47 0)
+			(at 119.38 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10093,7 +10073,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 118.11 77.47 0)
+			(at 119.38 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10386,7 +10366,7 @@
 	)
 	(symbol
 		(lib_id "74xx:74HC14")
-		(at 194.31 69.85 180)
+		(at 195.58 69.85 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10396,7 +10376,7 @@
 		(dnp no)
 		(uuid "4b8f4589-81c7-43e5-b16a-f180eda3eb43")
 		(property "Reference" "U14"
-			(at 194.31 74.93 0)
+			(at 195.58 74.93 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10406,7 +10386,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 194.31 77.47 0)
+			(at 195.58 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10416,7 +10396,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 194.31 69.85 0)
+			(at 195.58 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10427,7 +10407,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 194.31 69.85 0)
+			(at 195.58 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10438,7 +10418,7 @@
 			)
 		)
 		(property "Description" "Hex inverter schmitt trigger"
-			(at 194.31 69.85 0)
+			(at 195.58 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10814,7 +10794,7 @@
 	)
 	(symbol
 		(lib_id "Diode:1N4148")
-		(at 121.92 69.85 180)
+		(at 123.19 69.85 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10824,7 +10804,7 @@
 		(dnp no)
 		(uuid "5d4c690b-5c97-4275-baff-48dffb727265")
 		(property "Reference" "D2"
-			(at 121.92 64.77 0)
+			(at 123.19 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10834,7 +10814,7 @@
 			)
 		)
 		(property "Value" "1N4148"
-			(at 121.92 67.31 0)
+			(at 123.19 67.31 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10844,7 +10824,7 @@
 			)
 		)
 		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 121.92 69.85 0)
+			(at 123.19 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10855,7 +10835,7 @@
 			)
 		)
 		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf"
-			(at 121.92 69.85 0)
+			(at 123.19 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10866,7 +10846,7 @@
 			)
 		)
 		(property "Description" "100V 0.15A standard switching diode, DO-35"
-			(at 121.92 69.85 0)
+			(at 123.19 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10877,7 +10857,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 121.92 69.85 0)
+			(at 123.19 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10888,7 +10868,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 121.92 69.85 0)
+			(at 123.19 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11240,7 +11220,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 182.88 69.85 90)
+		(at 184.15 69.85 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -11250,7 +11230,7 @@
 		(dnp no)
 		(uuid "75e1d7c1-594a-4e5e-aca6-a10ff05fef01")
 		(property "Reference" "R29"
-			(at 182.88 69.85 90)
+			(at 184.15 69.85 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11260,7 +11240,7 @@
 			)
 		)
 		(property "Value" "2K0"
-			(at 182.88 67.31 90)
+			(at 184.15 67.31 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11270,7 +11250,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 182.88 71.628 90)
+			(at 184.15 71.628 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11281,7 +11261,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 182.88 69.85 0)
+			(at 184.15 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11292,7 +11272,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 182.88 69.85 0)
+			(at 184.15 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11319,7 +11299,7 @@
 	)
 	(symbol
 		(lib_id "74xx:74HC04")
-		(at 156.21 69.85 180)
+		(at 157.48 69.85 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -11329,7 +11309,7 @@
 		(dnp no)
 		(uuid "7a449e5a-8767-4b74-aab2-3e68363ccbb6")
 		(property "Reference" "U18"
-			(at 156.21 62.23 0)
+			(at 157.48 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11339,7 +11319,7 @@
 			)
 		)
 		(property "Value" "74HC04"
-			(at 156.21 64.77 0)
+			(at 157.48 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11349,7 +11329,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 156.21 69.85 0)
+			(at 157.48 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11360,7 +11340,7 @@
 			)
 		)
 		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
-			(at 156.21 69.85 0)
+			(at 157.48 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11371,7 +11351,7 @@
 			)
 		)
 		(property "Description" "Hex Inverter"
-			(at 156.21 69.85 0)
+			(at 157.48 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11590,7 +11570,7 @@
 	)
 	(symbol
 		(lib_id "74xx:74HC04")
-		(at 95.25 69.85 180)
+		(at 96.52 69.85 180)
 		(unit 3)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -11600,7 +11580,7 @@
 		(dnp no)
 		(uuid "8f0a93ba-8b62-4f4a-9843-416cff045331")
 		(property "Reference" "U18"
-			(at 95.25 62.23 0)
+			(at 96.52 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11610,7 +11590,7 @@
 			)
 		)
 		(property "Value" "74HC04"
-			(at 95.25 64.77 0)
+			(at 96.52 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11620,7 +11600,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 95.25 69.85 0)
+			(at 96.52 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11631,7 +11611,7 @@
 			)
 		)
 		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
-			(at 95.25 69.85 0)
+			(at 96.52 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11642,7 +11622,7 @@
 			)
 		)
 		(property "Description" "Hex Inverter"
-			(at 95.25 69.85 0)
+			(at 96.52 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12013,7 +11993,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 129.54 66.04 90)
+		(at 130.81 66.04 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12023,7 +12003,7 @@
 		(dnp no)
 		(uuid "a3ca2ae8-c586-4245-b6d2-1e851a4ece89")
 		(property "Reference" "R28"
-			(at 129.54 66.04 90)
+			(at 130.81 66.04 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12033,7 +12013,7 @@
 			)
 		)
 		(property "Value" "10K"
-			(at 129.54 63.5 90)
+			(at 130.81 63.5 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12043,7 +12023,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.54 67.818 90)
+			(at 130.81 67.818 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12054,7 +12034,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 66.04 0)
+			(at 130.81 66.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12065,7 +12045,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 129.54 66.04 0)
+			(at 130.81 66.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12169,7 +12149,7 @@
 	)
 	(symbol
 		(lib_id "74xx:74HC04")
-		(at 140.97 69.85 180)
+		(at 142.24 69.85 180)
 		(unit 2)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12179,7 +12159,7 @@
 		(dnp no)
 		(uuid "aaffc219-3bf8-4024-8282-8e7db8f05f30")
 		(property "Reference" "U18"
-			(at 140.97 62.23 0)
+			(at 142.24 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12189,7 +12169,7 @@
 			)
 		)
 		(property "Value" "74HC04"
-			(at 140.97 64.77 0)
+			(at 142.24 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12199,7 +12179,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 140.97 69.85 0)
+			(at 142.24 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12210,7 +12190,7 @@
 			)
 		)
 		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
-			(at 140.97 69.85 0)
+			(at 142.24 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12221,7 +12201,7 @@
 			)
 		)
 		(property "Description" "Hex Inverter"
-			(at 140.97 69.85 0)
+			(at 142.24 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12668,7 +12648,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 179.07 77.47 0)
+		(at 180.34 77.47 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12678,7 +12658,7 @@
 		(dnp no)
 		(uuid "be2433d9-c736-4c9f-830c-8564cae17622")
 		(property "Reference" "#PWR063"
-			(at 179.07 83.82 0)
+			(at 180.34 83.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12689,7 +12669,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 179.07 81.28 0)
+			(at 180.34 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12699,7 +12679,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 179.07 77.47 0)
+			(at 180.34 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12710,7 +12690,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 77.47 0)
+			(at 180.34 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12721,7 +12701,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 179.07 77.47 0)
+			(at 180.34 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12824,7 +12804,7 @@
 	)
 	(symbol
 		(lib_id "74xx:74HC14")
-		(at 171.45 69.85 180)
+		(at 172.72 69.85 180)
 		(unit 2)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12834,7 +12814,7 @@
 		(dnp no)
 		(uuid "c5f48378-9a02-40e1-a712-02febae5ace7")
 		(property "Reference" "U14"
-			(at 171.45 74.93 0)
+			(at 172.72 74.93 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12844,7 +12824,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 171.45 77.47 0)
+			(at 172.72 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12854,7 +12834,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 171.45 69.85 0)
+			(at 172.72 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12865,7 +12845,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 171.45 69.85 0)
+			(at 172.72 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12876,7 +12856,7 @@
 			)
 		)
 		(property "Description" "Hex inverter schmitt trigger"
-			(at 171.45 69.85 0)
+			(at 172.72 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13054,7 +13034,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 129.54 69.85 270)
+		(at 130.81 69.85 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13064,7 +13044,7 @@
 		(dnp no)
 		(uuid "c8da026b-c88e-4283-ab74-9f2dc2c6bfc8")
 		(property "Reference" "R27"
-			(at 129.54 69.85 90)
+			(at 130.81 69.85 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13074,7 +13054,7 @@
 			)
 		)
 		(property "Value" "220R"
-			(at 129.54 72.39 90)
+			(at 130.81 72.39 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13084,7 +13064,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.54 68.072 90)
+			(at 130.81 68.072 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13095,7 +13075,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 69.85 0)
+			(at 130.81 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13106,7 +13086,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 129.54 69.85 0)
+			(at 130.81 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13627,7 +13607,7 @@
 	)
 	(symbol
 		(lib_id "74xx:74HC14")
-		(at 110.49 69.85 180)
+		(at 111.76 69.85 180)
 		(unit 3)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13637,7 +13617,7 @@
 		(dnp no)
 		(uuid "dc48243e-eecc-43be-88f9-d15dc1fd149e")
 		(property "Reference" "U14"
-			(at 110.49 62.23 0)
+			(at 111.76 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13647,7 +13627,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 110.49 64.77 0)
+			(at 111.76 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13657,7 +13637,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 110.49 69.85 0)
+			(at 111.76 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13668,7 +13648,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 110.49 69.85 0)
+			(at 111.76 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13679,7 +13659,7 @@
 			)
 		)
 		(property "Description" "Hex inverter schmitt trigger"
-			(at 110.49 69.85 0)
+			(at 111.76 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13917,7 +13897,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 175.26 63.5 0)
+			(at 176.53 63.5 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14448,7 +14428,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 118.11 73.66 0)
+		(at 119.38 73.66 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14458,7 +14438,7 @@
 		(dnp no)
 		(uuid "fe46d794-b594-491d-b84c-c6bea4c4b79d")
 		(property "Reference" "C3"
-			(at 120.65 72.39 0)
+			(at 121.92 72.39 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14469,7 +14449,7 @@
 			)
 		)
 		(property "Value" "10N"
-			(at 120.65 74.93 0)
+			(at 121.92 74.93 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14480,7 +14460,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.0752 77.47 0)
+			(at 120.3452 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14491,7 +14471,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 118.11 73.66 0)
+			(at 119.38 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14502,7 +14482,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 118.11 73.66 0)
+			(at 119.38 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
