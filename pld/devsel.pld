@@ -9,8 +9,8 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = PHI2;
-pin 2 = PHI0;
+pin 1 = PHI0;
+pin 2 = PHI2;
 pin 3 = !DEV_CE;
 pin 4 = RW;
 pin [13,11..5] = [A7..A0];

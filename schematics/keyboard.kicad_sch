@@ -9028,7 +9028,7 @@
 	(symbol
 		(lib_id "74xx:74HC04")
 		(at 49.53 190.5 90)
-		(unit 4)
+		(unit 6)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9135,7 +9135,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/a706df21-fd6c-437e-86a1-96397867f2ab"
 					(reference "U19")
-					(unit 4)
+					(unit 6)
 				)
 			)
 		)
@@ -10367,7 +10367,7 @@
 	(symbol
 		(lib_id "74xx:74HC14")
 		(at 195.58 69.85 180)
-		(unit 1)
+		(unit 3)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10474,7 +10474,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/a706df21-fd6c-437e-86a1-96397867f2ab"
 					(reference "U18")
-					(unit 1)
+					(unit 3)
 				)
 			)
 		)
@@ -11300,7 +11300,7 @@
 	(symbol
 		(lib_id "74xx:74HC04")
 		(at 157.48 69.85 180)
-		(unit 1)
+		(unit 3)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11407,7 +11407,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/a706df21-fd6c-437e-86a1-96397867f2ab"
 					(reference "U19")
-					(unit 1)
+					(unit 3)
 				)
 			)
 		)
@@ -11571,7 +11571,7 @@
 	(symbol
 		(lib_id "74xx:74HC04")
 		(at 96.52 69.85 180)
-		(unit 3)
+		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11678,14 +11678,14 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/a706df21-fd6c-437e-86a1-96397867f2ab"
 					(reference "U19")
-					(unit 3)
+					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
 		(lib_id "power:VCC")
-		(at 69.85 27.94 0)
+		(at 69.85 26.67 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -11695,7 +11695,7 @@
 		(dnp no)
 		(uuid "92e994be-f7a5-4313-be21-7caae1d034d3")
 		(property "Reference" "#PWR047"
-			(at 69.85 31.75 0)
+			(at 69.85 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11706,7 +11706,7 @@
 			)
 		)
 		(property "Value" "VCC"
-			(at 69.85 24.13 0)
+			(at 69.85 22.86 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11716,7 +11716,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 27.94 0)
+			(at 69.85 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11727,7 +11727,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 69.85 27.94 0)
+			(at 69.85 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11738,7 +11738,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 69.85 27.94 0)
+			(at 69.85 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12342,7 +12342,7 @@
 	(symbol
 		(lib_id "74xx:74HC14")
 		(at 161.29 54.61 0)
-		(unit 6)
+		(unit 4)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12449,7 +12449,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/a706df21-fd6c-437e-86a1-96397867f2ab"
 					(reference "U18")
-					(unit 6)
+					(unit 4)
 				)
 			)
 		)
@@ -12534,7 +12534,7 @@
 	(symbol
 		(lib_id "74xx:74HC04")
 		(at 110.49 54.61 0)
-		(unit 6)
+		(unit 5)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12641,7 +12641,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/a706df21-fd6c-437e-86a1-96397867f2ab"
 					(reference "U19")
-					(unit 6)
+					(unit 5)
 				)
 			)
 		)
@@ -12920,7 +12920,7 @@
 	(symbol
 		(lib_id "74xx:74HC04")
 		(at 125.73 54.61 0)
-		(unit 5)
+		(unit 4)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13027,7 +13027,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/a706df21-fd6c-437e-86a1-96397867f2ab"
 					(reference "U19")
-					(unit 5)
+					(unit 4)
 				)
 			)
 		)
@@ -13608,7 +13608,7 @@
 	(symbol
 		(lib_id "74xx:74HC14")
 		(at 111.76 69.85 180)
-		(unit 3)
+		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13715,7 +13715,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/a706df21-fd6c-437e-86a1-96397867f2ab"
 					(reference "U18")
-					(unit 3)
+					(unit 1)
 				)
 			)
 		)
