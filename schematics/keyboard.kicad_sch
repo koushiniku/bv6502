@@ -4249,7 +4249,7 @@
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U13"
+			(property "Reference" "U21"
 				(at -1.27 0 90)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4410,6 +4410,25 @@
 						)
 					)
 				)
+				(pin no_connect line
+					(at -10.16 -15.24 0)
+					(length 2.54)
+					(hide yes)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin input line
 					(at -10.16 7.62 0)
 					(length 2.54)
@@ -4420,7 +4439,7 @@
 							)
 						)
 					)
-					(number "3"
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4438,7 +4457,7 @@
 							)
 						)
 					)
-					(number "4"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4456,7 +4475,7 @@
 							)
 						)
 					)
-					(number "5"
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4474,7 +4493,7 @@
 							)
 						)
 					)
-					(number "6"
+					(number "7"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4486,25 +4505,6 @@
 					(at -10.16 -2.54 0)
 					(length 2.54)
 					(name "D5IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin no_connect line
-					(at -10.16 -15.24 0)
-					(length 2.54)
-					(hide yes)
-					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)

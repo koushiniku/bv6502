@@ -4,7 +4,7 @@
 
 Name        kbd ;
 PartNo      00 ;
-Date        05/19/26 ;
+Date        06/07/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -15,11 +15,10 @@ Device      g22v10 ;
 /* inputs */
 pin 1 = PHI0;       /* Host write clock */
 pin 2 = PHI2;       /* Host clock */
-pin 3 = !ACK;       /* Keyboard ACK goes high after clock high for 100us */
-pin 4 = STA;        /* Start bit from keyboard */
-pin 5 = PAR;        /* Computed parity from keyboard (1 = good) */
-pin 6 = !STO;       /* Stop bit from keyboard */
-
+pin 4 = !ACK;       /* Keyboard ACK goes high after clock high for 100us */
+pin 5 = STA;        /* Start bit from keyboard */
+pin 6 = PAR;        /* Computed parity from keyboard (1 = good) */
+pin 7 = !STO;       /* Stop bit from keyboard */
 pin 8 = D5_IN;      /* For writing to D5. */
 pin 9 = A0;         /* Address bit from host. */
 pin 10 = RW;        /* R/W# from host */

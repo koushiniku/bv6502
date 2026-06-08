@@ -4,7 +4,7 @@
 
 Name        loader ;
 PartNo      00 ;
-Date        05/28/26 ;
+Date        06/07/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -12,18 +12,18 @@ Assembly    None ;
 Location    None ;
 Device      g22v10 ;
 
-pin 1 = PHI2;       /* System clock. */
-pin 2 = C0;         /* Counter bits for timing WE#. */
-pin 3 = C1;
-pin 4 = !R_IN;      /* Reset button. */
-pin 5 = A15;        /* Upper bit to select which RAM to enable. */
-pin 6 = DONE;       /* Carry means we're done counting. */
+pin  1 = PHI2;      /* System clock. */
+pin  7 = !R_IN;     /* Reset button. */
+pin  8 = C0;        /* Counter bits for timing WE#. */
+pin  9 = C1;
+pin 10 = A15;       /* Upper bit to select which RAM to enable. */
+pin 11 = DONE;      /* Carry means we're done counting. */
 
-pin 23 = !CEN;      /* Count enable. */
-pin 22 = !RAM1_CE;  /* 32K RAM chip enables. */
-pin 21 = !RAM0_CE;
-pin 20 = !WE;       /* Write enable. */
-pin 19 = !RES;      /* RES, Counter OE, ROM CE, ROM OE, !BE */
+pin 14 = !RES;      /* RES, Counter OE, ROM CE, ROM OE, !BE */
+pin 15 = !WE;       /* Write enable. */
+pin 16 = !RAM0_CE;
+pin 17 = !RAM1_CE;  /* 32K RAM chip enables. */
+pin 18 = !CEN;      /* Count enable. */
 
 /* Reset condition:
  *  - Enable when R_IN is pressed.
@@ -37,7 +37,6 @@ CEN = !R_IN & !DONE;
 
 /* This chip drives these while in reset. Out of reset, address decoder takes
  * over. */
-OE.oe = RES;
 WE.oe = RES;
 RAM0_CE.oe = RES;
 RAM1_CE.oe = RES;

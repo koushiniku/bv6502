@@ -1307,6 +1307,132 @@
 						)
 					)
 				)
+				(pin open_collector line
+					(at 11.43 -8.89 180)
+					(length 2.54)
+					(name "RDY"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 11.43 -5.08 180)
+					(length 2.54)
+					(name "DEV.~{CE}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 11.43 -2.54 180)
+					(length 2.54)
+					(name "BRAM.~{CE}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin tri_state line
+					(at 11.43 0 180)
+					(length 2.54)
+					(name "RAM0.~{CE}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin tri_state line
+					(at 11.43 2.54 180)
+					(length 2.54)
+					(name "RAM1.~{CE}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 11.43 6.35 180)
+					(length 2.54)
+					(name "~{OE}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin tri_state line
+					(at 11.43 8.89 180)
+					(length 2.54)
+					(name "~{WE}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "20"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin no_connect line
 					(at 11.43 -24.13 180)
 					(length 2.54)
@@ -1318,7 +1444,7 @@
 							)
 						)
 					)
-					(number "14"
+					(number "21"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1337,7 +1463,7 @@
 							)
 						)
 					)
-					(number "15"
+					(number "22"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1350,132 +1476,6 @@
 					(length 2.54)
 					(hide yes)
 					(name "NC16"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "16"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 11.43 -8.89 180)
-					(length 2.54)
-					(name "RDY"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "17"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 11.43 -5.08 180)
-					(length 2.54)
-					(name "DEV.~{CE}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "18"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 11.43 -2.54 180)
-					(length 2.54)
-					(name "BRAM.~{CE}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "19"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin tri_state line
-					(at 11.43 0 180)
-					(length 2.54)
-					(name "RAM0.~{CE}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "20"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin tri_state line
-					(at 11.43 2.54 180)
-					(length 2.54)
-					(name "RAM1.~{CE}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "21"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 11.43 6.35 180)
-					(length 2.54)
-					(name "~{OE}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "22"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin tri_state line
-					(at 11.43 8.89 180)
-					(length 2.54)
-					(name "~{WE}"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1930,11 +1930,10 @@
 						)
 					)
 				)
-				(pin no_connect line
-					(at 11.43 -22.86 180)
+				(pin output line
+					(at 11.43 5.08 180)
 					(length 2.54)
-					(hide yes)
-					(name "NC19"
+					(name "BR.LE"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1949,11 +1948,10 @@
 						)
 					)
 				)
-				(pin no_connect line
-					(at 11.43 -20.32 180)
+				(pin output line
+					(at 11.43 7.62 180)
 					(length 2.54)
-					(hide yes)
-					(name "NC20"
+					(name "BR.~{OE}"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1969,10 +1967,10 @@
 					)
 				)
 				(pin no_connect line
-					(at 11.43 -17.78 180)
+					(at 11.43 10.16 180)
 					(length 2.54)
 					(hide yes)
-					(name "NC21"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1987,10 +1985,11 @@
 						)
 					)
 				)
-				(pin output line
-					(at 11.43 6.35 180)
+				(pin no_connect line
+					(at 11.43 12.7 180)
 					(length 2.54)
-					(name "BR.~{OE}"
+					(hide yes)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2005,10 +2004,11 @@
 						)
 					)
 				)
-				(pin output line
-					(at 11.43 8.89 180)
+				(pin no_connect line
+					(at 11.43 15.24 180)
 					(length 2.54)
-					(name "BR.LE"
+					(hide yes)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2294,6 +2294,12 @@
 		(uuid "2f51900b-0dde-4fe0-bd5b-d0f92cd3b687")
 	)
 	(junction
+		(at 186.69 143.51)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "328ac325-dcfe-4307-8491-16b5f8cc2639")
+	)
+	(junction
 		(at 199.39 78.74)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2406,12 +2412,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ef828948-a85f-417b-b447-5281c9837d6f")
-	)
-	(junction
-		(at 186.69 107.95)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "fd06bcde-dec2-4d86-9fad-8fd812f31aa2")
 	)
 	(no_connect
 		(at 146.05 96.52)
@@ -2809,6 +2809,16 @@
 	)
 	(wire
 		(pts
+			(xy 176.53 143.51) (xy 186.69 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "23333591-1756-4eed-9fc3-d332a2a45fec")
+	)
+	(wire
+		(pts
 			(xy 162.56 76.2) (xy 173.99 76.2)
 		)
 		(stroke
@@ -2876,16 +2886,6 @@
 			(type default)
 		)
 		(uuid "30c88000-1290-4859-abf0-cde0e3cebfc3")
-	)
-	(wire
-		(pts
-			(xy 176.53 107.95) (xy 186.69 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "30d11682-2946-4934-a783-392cf2073235")
 	)
 	(wire
 		(pts
@@ -3179,16 +3179,6 @@
 	)
 	(wire
 		(pts
-			(xy 176.53 135.89) (xy 176.53 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "64954a53-f5ee-41c9-9ab8-af26bb0f61e7")
-	)
-	(wire
-		(pts
 			(xy 177.8 130.81) (xy 166.37 130.81)
 		)
 		(stroke
@@ -3279,7 +3269,7 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 78.74) (xy 146.05 78.74)
+			(xy 158.75 82.55) (xy 146.05 82.55)
 		)
 		(stroke
 			(width 0)
@@ -3289,7 +3279,7 @@
 	)
 	(wire
 		(pts
-			(xy 146.05 81.28) (xy 157.48 81.28)
+			(xy 146.05 80.01) (xy 157.48 80.01)
 		)
 		(stroke
 			(width 0)
@@ -3339,7 +3329,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 81.28) (xy 157.48 138.43)
+			(xy 157.48 80.01) (xy 157.48 138.43)
 		)
 		(stroke
 			(width 0)
@@ -3629,7 +3619,7 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 93.98) (xy 158.75 78.74)
+			(xy 158.75 93.98) (xy 158.75 82.55)
 		)
 		(stroke
 			(width 0)
@@ -3686,6 +3676,16 @@
 			(type default)
 		)
 		(uuid "a8730a2d-b859-47a9-a6f3-e050c81c3288")
+	)
+	(wire
+		(pts
+			(xy 176.53 135.89) (xy 176.53 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8c255b5-d0dd-49a0-8357-abf4e8f71792")
 	)
 	(wire
 		(pts

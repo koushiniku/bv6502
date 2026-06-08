@@ -439,7 +439,7 @@
         "uuid": "94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
       }
     ],
-    "used_designators": "#PWR70-71,U29",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
@@ -478,6 +478,10 @@
     [
       "ce02b87a-0b7e-446c-8a51-e177c4556bd7",
       "LCD"
+    ],
+    [
+      "e08c3662-8b87-47ad-9b1c-0f8a718f16c2",
+      "VGA"
     ]
   ],
   "text_variables": {},

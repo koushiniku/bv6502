@@ -1,6 +1,6 @@
 Name        devsel ;
 PartNo      00 ;
-Date        06/02/26 ;
+Date        06/07/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -16,14 +16,13 @@ pin 4 = RW;
 pin [13,11..5] = [A7..A0];
 
 /* outputs */
-pin 23 = BR_LE;         /* Bank register latch enable */
-pin 22 = !BR_OE;        /* Bank register transceiver output enable */
-                        /* TBD outputs */
-pin 19 = !KBD_CS;
-pin 18 = !LCD_CS;
-pin 17 = !ACIA_CS;
-pin 16 = !VIA_CS;
-pin 15 = !SID_CS;
+pin 14 = !SID_CS;
+pin 15 = !VIA_CS;
+pin 16 = !ACIA_CS;
+pin 17 = !LCD_CS;
+pin 18 = !KBD_CS;
+pin 19 = BR_LE;         /* Bank register latch enable */
+pin 20 = !BR_OE;        /* Bank register transceiver output enable */
 
 /* address field */
 field ADDR = [A7..A0];
