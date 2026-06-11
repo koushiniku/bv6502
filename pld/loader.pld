@@ -4,7 +4,7 @@
 
 Name        loader ;
 PartNo      00 ;
-Date        06/07/26 ;
+Date        06/10/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,7 +13,8 @@ Location    None ;
 Device      g22v10 ;
 
 pin  1 = PHI2;      /* System clock. */
-pin  7 = !R_IN;     /* Reset button. */
+pin  6 = !R_IN1;    /* Reset button. */
+pin  7 = !R_IN2;    /* Reset from PicoROM. */
 pin  8 = C0;        /* Counter bits for timing WE#. */
 pin  9 = C1;
 pin 10 = A15;       /* Upper bit to select which RAM to enable. */
@@ -24,16 +25,20 @@ pin 15 = !WE;       /* Write enable. */
 pin 16 = !RAM0_CE;
 pin 17 = !RAM1_CE;  /* 32K RAM chip enables. */
 pin 18 = !CEN;      /* Count enable. */
+pin 19 = !CRS;      /* Counter reset. */
+
+/* Combined reset button inputs. */
+CRS = R_IN1 # R_IN2;
 
 /* Reset condition:
- *  - Enable when R_IN is pressed.
+ *  - Enable when button is pressed.
  *  - Stays unabled count is done. */
-RES = R_IN # !DONE;
+RES = CRS # !DONE;
 
 /* Count enable condition:
- *  - Start when R_IN is released.
+ *  - Start when button is released.
  *  - Stop when count is done. */
-CEN = !R_IN & !DONE;
+CEN = !CRS & !DONE;
 
 /* This chip drives these while in reset. Out of reset, address decoder takes
  * over. */

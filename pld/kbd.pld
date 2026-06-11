@@ -31,12 +31,12 @@ pin 14 = IRQ;           /* IRQ also keyboard clock suppression (active high). */
 pin 15 = D7;            /* IRQ status flag. */
 pin 16 = D6;            /* Error status flag. */
 pin 17 = D5;            /* IRQ enable flag. */
-pin 18 = ACK_SAMPLE1;   /* ACK edge detection */
-pin 19 = ACK_SAMPLE2;   /* ACK edge detection */
-pin 20 = ACK_IGNORE;    /* Waiting for first ACK after a KB write). */
 pin 21 = !CPU_DATA_W;   /* CPU data write. PISO input enabled,  H2D_MODE . */
 pin 22 = !CPU_DATA_R;   /* CPU data read. SIPO output is enabled. */
 pin 23 = !H2D_MODE;     /* H2D mode. 100us low pulse, PISO shift uninhibited. */
+pin 18 = ACK_SAMPLE1;   /* ACK edge detection */
+pin 19 = ACK_SAMPLE2;   /* ACK edge detection */
+pin 20 = ACK_IGNORE;    /* Waiting for first ACK after a KB write). */
 
 /* unused outputs */
 ACK_SAMPLE1.oe = 'b'0;
