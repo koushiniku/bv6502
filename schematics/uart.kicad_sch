@@ -3292,7 +3292,7 @@
 		(dnp no)
 		(uuid "bd8b978f-86af-4000-b986-5aad6334b971")
 		(property "Reference" "C8"
-			(at 195.58 87.63 0)
+			(at 194.31 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3302,8 +3302,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0U1"
-			(at 195.58 92.71 0)
+		(property "Value" "100N"
+			(at 194.31 92.71 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
