@@ -4,7 +4,7 @@
 
 Name        decoder ;
 PartNo      00 ;
-Date        06/13/26 ;
+Date        06/15/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,47 +13,48 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = PHI0;
-pin 2 = PHI2;
-pin 3 = !RES;
-pin 4 = RW;
-pin [13,11..5] = [A15..A8];
+pin 1 = write_clock;
+pin 2 = main_clock;
+pin 3 = !reset;
+pin 4 = rw;
+pin [13,11..5] = [a15..a8];
 
-/* output */
-pin 14 = !BZ;   /* RDY */
-pin 15 = !DEV_CE;
-pin 16 = !BRAM_CE;
-pin 17 = !RAM0_CE;
-pin 18 = !RAM1_CE;
-pin 19 = !OE;
-pin 20 = !WE;
-pin 21 = BZOE;
+/* outputs/registers */
+pin 14 = !bus_busy;     /* RDY */
+pin 15 = !dev_ce;
+pin 16 = !bram_ce;
+pin 17 = !ram0_ce;
+pin 18 = !ram1_ce;
+pin 19 = !ram_oe;
+pin 20 = !ram_we;
+pin 21 = bus_busy_oe;
 
 /* address field */
-field ADDR = [A15..A6];
+field address = [a15..a8];
 
 /* Drive these signals exactly when the bootloader isn't. */
-OE.oe = !RES;
-WE.oe = !RES;
-RAM0_CE.oe = !RES;
-RAM1_CE.oe = !RES;
+ram_we.oe = !reset;
+ram0_ce.oe = !reset;
+ram1_ce.oe = !reset;
 
 /* Read and write signals. */
-WE = (BZ # PHI0) & !RW;
-OE = (BZ # PHI2) & RW;
+ram_we = (bus_busy # write_clock) & !rw;
+ram_oe = !reset & (bus_busy # main_clock) & rw;
 
-DEV_CE  = !RES & ADDR:[C000..C0FF];     /* I/O memory */
+dev_ce  = !reset & address:[c000..c0ff];    /* I/O memory */
 
-RAM0_CE = ADDR:[0000..7FFF];            /* Low RAM */
-BRAM_CE = ADDR:[8000..BFFF];            /* Banked RAM */
-RAM1_CE = ADDR:[C000..FFFF] & !DEV_CE;  /* High RAM */
+ram0_ce = address:[0000..7fff];             /* Low RAM */
+bram_ce = address:[8000..bfff];             /* Banked RAM */
+ram1_ce = address:[c000..ffff] & !dev_ce;   /* High RAM */
 
 /* Hold RDY low for a clock to access slower 55ns bank RAM.
  * Should latch for one cycle. */
-BZ.d = BRAM_CE & !BZ;
+bus_busy.d = bram_ce & !bus_busy;
 
 /* W65C02 can drive RDY low on WAI instruction, so we drive it high for one
  * cycle after driving it low, so that it rises fast, but then we disable it and
  * allow the pullup resistor to drive it. */
-BZOE.d = BRAM_CE & (BZ # !BZOE);
-BZ.oe = BZOE;
+bus_busy_oe.d = bram_ce & (bus_busy # !bus_busy_oe);
+bus_busy.oe = bus_busy_oe;
+
+bus_busy_oe.oe = 'b'0;

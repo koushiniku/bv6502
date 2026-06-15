@@ -4,7 +4,7 @@
 
 Name        kbd ;
 PartNo      00 ;
-Date        06/13/26 ;
+Date        06/15/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,108 +13,111 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = PHI0;       /* Host write clock */
-pin 2 = PHI2;       /* Host clock */
-pin 4 = ACK;        /* Keyboard ACK goes high after clock high for 100us */
-pin 5 = STA;        /* Start bit from keyboard */
-pin 6 = PAR;        /* Computed parity from keyboard (1 = good) */
-pin 7 = !STO;       /* Stop bit from keyboard */
-pin 8 = D5_IN;      /* For writing to D5. */
-pin 9 = A0;         /* Address bit from host. */
-pin 10 = RW;        /* R/W# from host */
-pin 11 = !CS;       /* Chip select from host */
-pin 13 = !RES;      /* Reset button */
+pin 1 = write_clock;    /* Host write clock */
+pin 2 = main_clock;     /* Host clock */
+pin 4 = kbd_ack;        /* Goes high after clock high for 100us */
+pin 5 = start_good;     /* Start bit from kbd */
+pin 6 = parity_good;    /* Computed parity from kbd (1 = good) */
+pin 7 = !stop_good;     /* Stop bit from kbd */
+pin 8 = d5_in;          /* For writing to d5. */
+pin 9 = a0;             /* Address bit from host. */
+pin 10 = rw;            /* R/W# from host */
+pin 11 = !cs;           /* Chip select from host */
+pin 13 = !reset;        /* Reset button */
 
 
 /* outputs */
-pin 14 = IRQ;           /* IRQ also keyboard clock suppression (active high). */
-pin 15 = D7;            /* IRQ status flag. */
-pin 16 = D6;            /* Error status flag. */
-pin 17 = D5;            /* IRQ enable flag. */
+pin 14 = irq;           /* irq also kbd clock suppression (active high). */
+pin 15 = d7;            /* irq status flag. */
+pin 16 = d6;            /* Error status flag. */
+pin 17 = d5;            /* irq enable flag. */
 
-/* CPU data write.
-    - PISO load enabled     0
-    - SIPO output disabled. 1
-    - XC dir A to B.        1
-    - Drive parity bit 8.   1 */
-pin 18 = CPU_DATA_W;
-pin 19 = !XCE;          /* Transceiver CE, during CPU read or write. */
+/* Host data write.
+    - PISO load enabled (invert).
+    - SIPO output disabled.
+    - XC dir A to B.
+    - Drive parity bit 8. */
+pin 18 = host_data_wr;
+pin 19 = !xc_ce;        /* Transceiver CE, during Host read or write. */
 
 /* H2D mode.
     - 100us low pulse
     - PISO clock uninhibited. */
-pin 20 = H2D_MODE;      /* H2D mode. 100us low pulse, PISO shift uninhibited. */
-pin 21 = ACK_SAMPLE1;   /* ACK edge detection */
-pin 22 = ACK_SAMPLE2;   /* ACK edge detection */
-pin 23 = ACK_IGNORE;    /* Waiting for first ACK after a KB write). */
+pin 20 = h2d_mode;
+pin 21 = kbd_ack_sample1;   /* kbd_ack edge detection */
+pin 22 = kbd_ack_sample2;   /* kbd_ack edge detection */
+pin 23 = kbd_ack_ignore;    /* Waiting for first kbd_ack after a KB write). */
 
 /* unused pins */
-ACK_SAMPLE1.oe = 'b'0;
-ACK_SAMPLE2.oe = 'b'0;
-ACK_IGNORE.oe = 'b'0;
+kbd_ack_sample1.oe = 'b'0;
+kbd_ack_sample2.oe = 'b'0;
+kbd_ack_ignore.oe = 'b'0;
 
 /* Host IO states */
-W = CS & !RW;
-CPU_DATA_W_D = W & A0;      /* non-clocked versions for clocked registers */
-CPU_DATA_W = PHI0 & CPU_DATA_W_D # RES; /* preload SR during reset */
-CPU_CSR_W_D = W & !A0;
-CPU_CSR_W = PHI0 & CPU_CSR_W_D;
+host_write = cs & !rw;
+host_data_wr = host_write & a0;
+/* Preload PISO SR during reset so that "1" is output by default. */
+host_data_w_clocked = write_clock & host_data_wr # reset;
+host_csr_wr = host_write & !a0;
+host_csr_wr_clocked = write_clock & host_csr_wr;
 
-R = CS & RW;
-CPU_DATA_R_D = R & A0;
-CPU_DATA_R = PHI2 & CPU_DATA_R_D;
-CPU_CSR_R_D = R & !A0;
-CPU_CSR_R = PHI2 & CPU_CSR_R_D;
+host_read = cs & rw;
+host_data_rd = host_read & a0;
+host_data_rd_clocked = main_clock & host_data_rd;
+host_csr_rd = host_read & !a0;
+host_csr_rd_clocked = main_clock & host_csr_rd;
 
-XCE = CPU_DATA_W # CPU_DATA_R;
+xc_ce = host_data_w_clocked # host_data_rd_clocked;
 
-/* ACK edge detection */
-ACK_SAMPLE1.d = ACK;
-ACK_SAMPLE1.ar = RES;
-ACK_SAMPLE2.d = ACK_SAMPLE1;
-ACK_SAMPLE2.ar = RES;
-ACK_RISE = ACK_SAMPLE1 & !ACK_SAMPLE2;
+/* kbd_ack edge detection */
+kbd_ack_sample1.d = kbd_ack;
+kbd_ack_sample1.ar = reset;
+kbd_ack_sample2.d = kbd_ack_sample1;
+kbd_ack_sample2.ar = reset;
+kbd_ack_rise = kbd_ack_sample1 & !kbd_ack_sample2;
 
-/* Things that can cause ACK_RISE:
+/* Things that can cause kbd_ack_rise:
  *  - Clock going high after device-to-host data is ready
- *      - Raise IRQ
- *  - Clock going high after IRQ cleared
+ *      - Raise irq
+ *  - Clock going high after irq cleared
  *      - Ignore
- *      - Next, watch for device-to-host data ready ACK
+ *      - Next, watch for device-to-host data ready kbd_ack
  *  - Clock going high after host-to-device CTS
  *      - Ignore
  *      - Next, watch for H2D write done
  *  - Clock going high after Write is done
  *      - Stop tracking host-to-device (disable shift clock)
- *      - Next, watch for device-to-host data ready ACK
+ *      - Next, watch for device-to-host data ready kbd_ack
  *  - Main power is applied, but we have a long reset sequence. */
 
-/* Ignore next ACK after CPU data writes and CPU clearing IRQ. Stop ignoring
- * after the ack. */
-ACK_IGNORE.d = CPU_DATA_W_D # CPU_CSR_W_D & D7 # ACK_IGNORE & !ACK_RISE;
-ACK_IGNORE.ar = RES;
+/* Ignore next kbd_ack after Host data writes and Host clearing irq. Stop
+ * ignoring after the ack. */
+kbd_ack_ignore.d = host_data_wr # host_csr_wr & d7
+                        # kbd_ack_ignore & !kbd_ack_rise;
+kbd_ack_ignore.ar = reset;
 
-/* Enter H2D mode on CPU data writes. Clear the mode on the next ACK *after*
- * ACK_IGNORE is cleared. */
-H2D_MODE.d = CPU_DATA_W_D # ACK_IGNORE & !ACK_RISE & !ACK_IGNORE;
-H2D_MODE.ar = RES;
+/* Enter H2D mode on host data writes. Clear the mode on the next kbd_ack
+ * *after* kbd_ack_ignore is cleared. */
+h2d_mode.d = host_data_wr # kbd_ack_ignore & !kbd_ack_rise & !kbd_ack_ignore;
+h2d_mode.ar = reset;
 
-/* Set IRQ if neither ACK_IGNORE nor H2D_MODE. This should be an incoming D2H
- * packet. Clear it on data reads and if IRQ is disabled. */
-IRQ.d = (ACK_RISE & !ACK_IGNORE & !H2D_MODE # IRQ & !CPU_DATA_R_D) & D5;
-IRQ.ar = RES;
+/* Set irq if neither kbd_ack_ignore nor h2d_mode. This should be an incoming
+ * D2H packet. Clear it on data reads and if irq is disabled. */
+irq.d = (kbd_ack_rise & !kbd_ack_ignore & !h2d_mode
+            # irq & !host_data_rd) & d5;
+irq.ar = reset;
 
-/* IRQ status */
-D7.oe = CPU_CSR_R;
-D7 = IRQ;
+/* irq status */
+d7.oe = host_csr_rd_clocked;
+d7 = irq;
 
 /* error status */
-D6.oe = CPU_CSR_R;
-D6 = !(STA & STO & PAR);
+d6.oe = host_csr_rd_clocked;
+d6 = !(start_good & stop_good & parity_good);
 
-/* IRQ enable - despite what the WinCUPL manual says, 22v10 does not support
+/* irq enable - despite what the WinCUPL manual says, 22v10 does not support
  * reading the input value of an "I/O" pin with the .io extension, so we need
  * another pin for the input value. */
-D5.oe = CPU_CSR_R;
-D5.d = CPU_CSR_W_D & D5_IN # !CPU_CSR_W_D & D5;
-D5.ar = RES;
+d5.oe = host_csr_rd_clocked;
+d5.d = host_csr_wr & d5_in # !host_csr_wr & d5;
+d5.ar = reset;

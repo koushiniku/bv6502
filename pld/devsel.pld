@@ -1,6 +1,10 @@
+/* SPDX-License-Identifier: MIT */
+
+/* devsel.pld */
+
 Name        devsel ;
 PartNo      00 ;
-Date        06/07/26 ;
+Date        06/15/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -9,29 +13,29 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = PHI0;
-pin 2 = PHI2;
-pin 3 = !DEV_CE;
-pin 4 = RW;
-pin [13,11..5] = [A7..A0];
+pin 1 = write_clock;
+pin 2 = main_clock;
+pin 3 = !dev_ce;
+pin 4 = rw;
+pin [13,11..5] = [a7..a0];
 
 /* outputs */
-pin 14 = !SID_CS;
-pin 15 = !VIA_CS;
-pin 16 = !ACIA_CS;
-pin 17 = !LCD_CS;
-pin 18 = !KBD_CS;
-pin 19 = BR_LE;         /* Bank register latch enable */
-pin 20 = !BR_OE;        /* Bank register transceiver output enable */
+pin 14 = !sid_cs;
+pin 15 = !via_cs;
+pin 16 = !acia_cs;
+pin 17 = !lcd_cs;
+pin 18 = !kbd_cs;
+pin 19 = bank_reg_le;   /* Bank register latch enable */
+pin 20 = !bank_reg_oe;  /* Bank register transceiver output enable */
 
 /* address field */
-field ADDR = [A7..A0];
+field address = [a7..a0];
 
-BR_LE = DEV_CE & ADDR:0 & PHI0 & !RW;
-BR_OE = DEV_CE & ADDR:0 & PHI2 & RW;
+bank_reg_le = dev_ce & address:0 & write_clock & !rw;
+bank_reg_oe = dev_ce & address:0 & main_clock & rw;
 
-KB_CS   = DEV_CE & ADDR:[08..09];
-LCD_CS  = DEV_CE & ADDR:[0A..0B];
-ACIA_CS = DEV_CE & ADDR:[0C..0F];
-VIA_CS  = DEV_CE & ADDR:[10..1F];
-SID_CS  = DEV_CE & ADDR:[20..3F];
+kbd_cs  = dev_ce & address:[08..09];
+lcd_cs  = dev_ce & address:[0a..0b];
+acia_cs = dev_ce & address:[0c..0f];
+via_cs  = dev_ce & address:[10..1f];
+sid_cs  = dev_ce & address:[20..3f];
