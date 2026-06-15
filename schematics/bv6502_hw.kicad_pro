@@ -439,7 +439,7 @@
         "uuid": "94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
       }
     ],
-    "used_designators": "R6,R34,R38,R45,D3,D18,C16,#PWR39,#PWR59,#PWR80-81,Q5-6,U37",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
