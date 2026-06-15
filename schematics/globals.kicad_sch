@@ -10644,6 +10644,12 @@
 		(uuid "14b05e2b-a753-4294-8946-c8cdaebb05b1")
 	)
 	(junction
+		(at 119.38 165.1)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "151b9654-63ce-4d38-b6a2-d38af671ce95")
+	)
+	(junction
 		(at 97.79 64.77)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10884,6 +10890,12 @@
 		(uuid "a42bc854-c269-4250-8277-f3bf694727cf")
 	)
 	(junction
+		(at 121.92 154.94)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a7bcb4fd-50d5-41a0-9bd4-38b3fbcd15ee")
+	)
+	(junction
 		(at 36.83 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10938,12 +10950,6 @@
 		(uuid "b5044109-45d9-46e2-8d83-1d99511a84f8")
 	)
 	(junction
-		(at 119.38 165.1)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b78e2357-a756-473a-9918-e79640b1f32b")
-	)
-	(junction
 		(at 139.7 62.23)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10990,6 +10996,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "dc218942-25fa-4fd5-b798-a00d35271bb0")
+	)
+	(junction
+		(at 124.46 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e0ce484d-3a9e-40c5-be25-d03ec4df5a64")
 	)
 	(junction
 		(at 217.17 62.23)
@@ -11549,6 +11561,16 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 167.64) (xy 114.3 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1bcd161b-8631-4c0f-adbb-2882d0913211")
+	)
+	(wire
+		(pts
 			(xy 224.79 90.17) (xy 224.79 92.71)
 		)
 		(stroke
@@ -11829,6 +11851,16 @@
 	)
 	(wire
 		(pts
+			(xy 121.92 154.94) (xy 119.38 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e95c283-b668-4372-8f7c-1967604d72ad")
+	)
+	(wire
+		(pts
 			(xy 189.23 100.33) (xy 196.85 100.33)
 		)
 		(stroke
@@ -11946,6 +11978,16 @@
 			(type default)
 		)
 		(uuid "452fa517-0026-4752-9489-e21f15869752")
+	)
+	(wire
+		(pts
+			(xy 121.92 154.94) (xy 124.46 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46f1d73b-a356-4797-86c7-de6a26a5d96a")
 	)
 	(wire
 		(pts
@@ -13129,6 +13171,16 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 162.56) (xy 124.46 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cd44789e-a2de-4710-b7e3-a1388b389ca3")
+	)
+	(wire
+		(pts
 			(xy 189.23 54.61) (xy 220.98 54.61)
 		)
 		(stroke
@@ -13266,6 +13318,16 @@
 			(type default)
 		)
 		(uuid "da77ea38-e063-4234-ab86-cc5bbfe5ae7a")
+	)
+	(wire
+		(pts
+			(xy 119.38 162.56) (xy 119.38 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "daf0d1ed-4e3a-4377-bbf7-05ebdaefedba")
 	)
 	(wire
 		(pts
@@ -13529,7 +13591,7 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 167.64) (xy 114.3 167.64)
+			(xy 247.65 167.64) (xy 124.46 167.64)
 		)
 		(stroke
 			(width 0)
@@ -17168,7 +17230,7 @@
 	)
 	(symbol
 		(lib_id "power:VCC")
-		(at 119.38 157.48 0)
+		(at 121.92 154.94 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17178,7 +17240,7 @@
 		(dnp no)
 		(uuid "87f5287e-bc62-4932-8c6f-8b98491b359c")
 		(property "Reference" "#PWR010"
-			(at 119.38 161.29 0)
+			(at 121.92 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17189,7 +17251,7 @@
 			)
 		)
 		(property "Value" "VCC"
-			(at 119.38 153.67 0)
+			(at 121.92 151.13 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17199,7 +17261,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 157.48 0)
+			(at 121.92 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17210,7 +17272,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 157.48 0)
+			(at 121.92 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17221,7 +17283,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 119.38 157.48 0)
+			(at 121.92 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18260,7 +18322,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 119.38 161.29 0)
+		(at 119.38 158.75 0)
 		(mirror x)
 		(unit 1)
 		(body_style 1)
@@ -18271,7 +18333,7 @@
 		(dnp no)
 		(uuid "aa2c2350-96ed-4f4b-aa67-f1c64673cf5c")
 		(property "Reference" "R10"
-			(at 121.92 161.29 90)
+			(at 121.92 158.75 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18281,7 +18343,7 @@
 			)
 		)
 		(property "Value" "100K"
-			(at 119.38 161.29 90)
+			(at 119.38 158.75 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18291,7 +18353,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 117.602 161.29 90)
+			(at 117.602 158.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18302,7 +18364,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 161.29 0)
+			(at 119.38 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18313,7 +18375,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 119.38 161.29 0)
+			(at 119.38 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18586,6 +18648,86 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
 					(reference "U7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 124.46 158.75 0)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b916bd79-271e-47ca-83ac-793eebf6fea9")
+		(property "Reference" "R34"
+			(at 127 158.75 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4K7"
+			(at 124.46 158.75 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 122.682 158.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 124.46 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 124.46 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "5ecade40-d871-4cd7-9585-8c2208954b5f")
+		)
+		(pin "1"
+			(uuid "ce6bd58b-277a-4e3c-aa72-8a183b0d9d5a")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
+					(reference "R34")
 					(unit 1)
 				)
 			)

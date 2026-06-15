@@ -9,12 +9,20 @@ srcdir	= .
 PLDS	:= $(wildcard *.pld)
 JEDS	:= $(PLDS:.pld=.jed)
 
-.PHONY: all
-all : $(JEDS)
+COMP	= 5vcomp
+PROG	= minipro
+CHIP	= ATF22V10C
 
-%.jed : %.pld
-	5vcomp $<
+.PHONY: all
+all: $(JEDS)
+
+%.jed: %.pld
+	$(COMP) $<
 
 .PHONY: clean
-clean :
+clean:
 	rm -f $(JEDS)
+
+.PHONY: write-%
+write-%: %.jed
+	$(PROG) -p $(CHIP) -w $<

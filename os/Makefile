@@ -10,13 +10,14 @@ AR 	= ar65
 AS 	= ca65
 CC 	= cc65
 LD 	= ld65
-ASFLAGS := --cpu W65C02 -I $(HOME)/.local/share/cc65/asminc -g
+ASFLAGS	:= --cpu W65C02 -I $(HOME)/.local/share/cc65/asminc -g
 CFLAGS	:= -t none -O --cpu W65C02 -I $(HOME)/.local/share/cc65/include -g
 BYTES	= 131072
 
 PROG	= minipro
 FLASH	= SST39SF010A
-#FLASH	= AT28C256
+ROM	= AT28C256
+PICO	= picorom
 
 BASE	= bv6502
 LIB	:= $(BASE).lib
@@ -36,26 +37,32 @@ LSTS	:= $(SRCS_S:.s=.lst)
 DBG	:= $(BASE).dbg
 
 .PHONY: all
-all : $(BIN)
+all: $(BIN)
 
-%.o : %.s $(INCS_S)
+%.o: %.s $(INCS_S)
 	$(AS) $(ASFLAGS) -l $(@:.o=.lst) -o $@ $<
 
-%.o : %.c $(HDRS_C)
+%.o: %.c $(HDRS_C)
 	$(CC) $(CFLAGS) $<
 
-$(LIB) : crt0.o $(EXTLIB)
+$(LIB): crt0.o $(EXTLIB)
 	if [ ! -f $@ ]; then cp $(EXTLIB) $@; fi
 	$(AR) r $@ $<
 
-$(BIN) : $(filter-out crt0.o,$(OBJS)) $(LIB) $(CFG)
+$(BIN): $(filter-out crt0.o,$(OBJS)) $(LIB) $(CFG)
 	$(LD) -C $(CFG) -m $(MAP) --dbgfile $(DBG) -o $@ $(filter-out $(CFG),$^)
 	truncate -s $(BYTES) $@
 
 .PHONY: flash
-flash : $(BIN)
+flash: $(BIN)
 	$(PROG) -p $(FLASH) -w $<
 
+.PHONY: picorom
+picorom: $(BIN)
+	$(PICO) reset $(BASE) low
+	$(PICO) upload $(BASE) $(BIN) 1MBit
+	$(PICO) reset $(BASE) z
+
 .PHONY: clean
-clean :
+clean:
 	rm -f $(LIB) $(OBJS) $(LSTS) $(MAP) $(BIN) $(DBG)
