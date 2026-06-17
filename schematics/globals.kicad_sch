@@ -14269,7 +14269,7 @@
 				)
 			)
 		)
-		(property "Value" "1K"
+		(property "Value" "4K7"
 			(at 153.67 74.93 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15214,7 +15214,7 @@
 				)
 			)
 		)
-		(property "Value" "1K"
+		(property "Value" "2K2"
 			(at 139.7 74.93 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19708,7 +19708,7 @@
 				)
 			)
 		)
-		(property "Value" "1K"
+		(property "Value" "4K7"
 			(at 104.14 87.63 90)
 			(show_name no)
 			(do_not_autoplace no)
