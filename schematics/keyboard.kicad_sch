@@ -14330,7 +14330,7 @@
 			)
 		)
 	)
-	(global_label "ϕ2"
+	(global_label "ϕ2.0"
 		(shape input)
 		(at 66.04 40.64 180)
 		(fields_autoplaced yes)
@@ -14342,7 +14342,7 @@
 		)
 		(uuid "a0b26e34-5410-4611-be5c-7bdeb0f8792b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.5148 40.64 0)
+			(at 58.7005 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14402,7 +14402,7 @@
 			)
 		)
 	)
-	(global_label "ϕ0"
+	(global_label "ϕ0.0"
 		(shape input)
 		(at 66.04 38.1 180)
 		(fields_autoplaced yes)
@@ -14414,7 +14414,7 @@
 		)
 		(uuid "f98548ac-1bb7-4790-98ac-0e2845f37b55")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.5148 38.1 0)
+			(at 58.7005 38.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

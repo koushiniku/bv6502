@@ -508,7 +508,7 @@
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U24"
+			(property "Reference" "U11"
 				(at -1.27 0 90)
 				(show_name no)
 				(do_not_autoplace no)
@@ -639,9 +639,9 @@
 					)
 				)
 				(pin input line
-					(at -8.89 8.89 0)
+					(at -8.89 6.35 0)
 					(length 2.54)
-					(name "2D"
+					(name "3D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -649,24 +649,6 @@
 						)
 					)
 					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin tri_state line
-					(at 8.89 8.89 180)
-					(length 2.54)
-					(name "2Q"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -684,6 +666,24 @@
 							)
 						)
 					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin tri_state line
+					(at 8.89 1.27 180)
+					(length 2.54)
+					(name "5Q"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
 					(number "6"
 						(effects
 							(font
@@ -693,9 +693,9 @@
 					)
 				)
 				(pin input line
-					(at -8.89 6.35 0)
+					(at -8.89 1.27 0)
 					(length 2.54)
-					(name "3D"
+					(name "5D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -711,9 +711,9 @@
 					)
 				)
 				(pin input line
-					(at -8.89 3.81 0)
+					(at -8.89 -3.81 0)
 					(length 2.54)
-					(name "4D"
+					(name "7D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -729,9 +729,9 @@
 					)
 				)
 				(pin tri_state line
-					(at 8.89 3.81 180)
+					(at 8.89 -3.81 180)
 					(length 2.54)
-					(name "4Q"
+					(name "7Q"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -783,9 +783,9 @@
 					)
 				)
 				(pin tri_state line
-					(at 8.89 1.27 180)
+					(at 8.89 -6.35 180)
 					(length 2.54)
-					(name "5Q"
+					(name "8Q"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -801,9 +801,9 @@
 					)
 				)
 				(pin input line
-					(at -8.89 1.27 0)
+					(at -8.89 -6.35 0)
 					(length 2.54)
-					(name "5D"
+					(name "8D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -855,9 +855,9 @@
 					)
 				)
 				(pin tri_state line
-					(at 8.89 -3.81 180)
+					(at 8.89 3.81 180)
 					(length 2.54)
-					(name "7Q"
+					(name "4Q"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -873,9 +873,9 @@
 					)
 				)
 				(pin input line
-					(at -8.89 -3.81 0)
+					(at -8.89 3.81 0)
 					(length 2.54)
-					(name "7D"
+					(name "4D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -891,9 +891,9 @@
 					)
 				)
 				(pin input line
-					(at -8.89 -6.35 0)
+					(at -8.89 8.89 0)
 					(length 2.54)
-					(name "8D"
+					(name "2D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -909,9 +909,9 @@
 					)
 				)
 				(pin tri_state line
-					(at 8.89 -6.35 180)
+					(at 8.89 8.89 180)
 					(length 2.54)
-					(name "8Q"
+					(name "2Q"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4787,7 +4787,7 @@
 			)
 		)
 	)
-	(global_label "ϕ2"
+	(global_label "ϕ2.1"
 		(shape input)
 		(at 74.93 64.77 180)
 		(fields_autoplaced yes)
@@ -4799,7 +4799,7 @@
 		)
 		(uuid "a038fb19-c646-4b6b-85fb-c5c4edcae887")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 69.4048 64.77 0)
+			(at 67.5905 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4835,7 +4835,7 @@
 			)
 		)
 	)
-	(global_label "ϕ0"
+	(global_label "ϕ0.1"
 		(shape input)
 		(at 74.93 62.23 180)
 		(fields_autoplaced yes)
@@ -4847,7 +4847,7 @@
 		)
 		(uuid "b0f4c816-30a7-4754-971b-d899fd28b94d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 69.4048 62.23 0)
+			(at 67.5905 62.23 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

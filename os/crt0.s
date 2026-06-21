@@ -2,6 +2,7 @@
 ; crt0.s
 
         .include "bv6502.inc"
+        .include "via.inc"
 
         .export _init, _exit, _nmi_int, _irq_int, _stop, _wait
         .export initirq, doneirq
@@ -10,13 +11,21 @@
         .import __RAM_START__, __RAM_SIZE__
         .import copydata, zerobss, initlib, donelib, callirq
 
-
         .code
 
 _init:
         ldx     #$FF
         txs
         cld
+        lda     #$FF
+        sta     VIA::DDRB
+@loop:
+        lda     #$55
+        pha
+        lda     #$00
+        pla
+        sta     VIA::PORTB
+        jmp     @loop
         lda     #<(__RAM_START__ + __RAM_SIZE__)
         sta     c_sp
         lda     #>(__RAM_START__ + __RAM_SIZE__)

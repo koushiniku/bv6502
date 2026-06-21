@@ -2,6 +2,7 @@
 ; main.s
 
         .include "bv6502.inc"
+        .include "via.inc"
 
         ;.import _cgetc, _cputc, cursor
         .import _cputs
@@ -18,6 +19,11 @@ hello:  .asciiz "Hello,\rworld!"
         .code
 
 _main:
+        ; probably the easiest thing to do is blink lights on the VIA.
+        lda     #$FF
+        sta     VIA::DDRB
+        lda     #$55
+        sta     VIA::PORTB
         lda     #<hello
         ldx     #>hello
         jsr     _cputs

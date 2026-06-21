@@ -4,7 +4,7 @@
 
 Name        loader ;
 PartNo      00 ;
-Date        06/15/26 ;
+Date        06/19/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -49,7 +49,7 @@ ram0_ce.oe = reset;
 ram1_ce.oe = reset;
 
 /* Get the write in before the address changes. */
-we = !counter0 & counter1;
+ram_we = !counter0 & counter1;
 
 /* Swap RAM halfway through. */
 ram0_ce = !a15;

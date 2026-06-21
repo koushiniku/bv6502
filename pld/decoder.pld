@@ -27,7 +27,7 @@ pin 17 = !ram0_ce;
 pin 18 = !ram1_ce;
 pin 19 = !ram_oe;
 pin 20 = !ram_we;
-pin 21 = bus_busy_oe;
+pin 21 = bus_busy_oe;   /* internal reg */
 
 /* address field */
 field address = [a15..a8];
