@@ -4,7 +4,7 @@
 
 Name        lcd ;
 PartNo      00 ;
-Date        06/15/26 ;
+Date        06/25/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,8 +13,7 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = write_clock;    /* Host write clock */
-pin 2 = main_clock;
+pin 1 = clk;            /* Host clock */
 
 pin 8 = !reset;         /* Reset button. */
 pin 9 = !cs;            /* Chip select from host */
@@ -57,7 +56,7 @@ read_interval = count:0;
 
 /* Latching host write data. */
 host_write = cs & !rw;
-reg_le = write_clock & host_write;
+reg_le = clk & host_write;
 
 /* Track writes until they are in progress. */
 write_pending.d = host_write # write_pending & !write_interval;
@@ -76,4 +75,4 @@ lcd_rs = lcd_w & rs_pending;
     - Enable output on for host read. */
 d7.d = write_pending # lcd_w # d7 & !read_interval
         # lcd_busy_flag & read_interval;
-d7.oe = main_clock & cs & rw;
+d7.oe = clk & cs & rw;

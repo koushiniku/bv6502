@@ -4,7 +4,7 @@
 
 Name        decoder ;
 PartNo      00 ;
-Date        06/15/26 ;
+Date        06/25/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,8 +13,7 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = write_clock;
-pin 2 = main_clock;
+pin 1 = clk;
 pin 3 = !reset;
 pin 4 = rw;
 pin [13,11..5] = [a15..a8];
@@ -38,8 +37,8 @@ ram0_ce.oe = !reset;
 ram1_ce.oe = !reset;
 
 /* Read and write signals. */
-ram_we = (bus_busy # write_clock) & !rw;
-ram_oe = !reset & (bus_busy # main_clock) & rw;
+ram_we = (bus_busy # clk) & !rw;
+ram_oe = !reset & (bus_busy # clk) & rw;
 
 dev_ce  = !reset & address:[c000..c0ff];    /* I/O memory */
 
@@ -47,7 +46,7 @@ ram0_ce = address:[0000..7fff];             /* Low RAM */
 bram_ce = address:[8000..bfff];             /* Banked RAM */
 ram1_ce = address:[c000..ffff] & !dev_ce;   /* High RAM */
 
-/* Hold RDY low for a clock to access slower 55ns bank RAM.
+/* Hold RDY low for a clock cycle to access slower 55ns bank RAM.
  * Should latch for one cycle. */
 bus_busy.d = bram_ce & !bus_busy;
 

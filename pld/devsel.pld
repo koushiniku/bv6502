@@ -4,7 +4,7 @@
 
 Name        devsel ;
 PartNo      00 ;
-Date        06/15/26 ;
+Date        06/25/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,8 +13,7 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = write_clock;
-pin 2 = main_clock;
+pin 1 = clk;
 pin 3 = !dev_ce;
 pin 4 = rw;
 pin [13,11..5] = [a7..a0];
@@ -31,8 +30,8 @@ pin 20 = !bank_reg_oe;  /* Bank register transceiver output enable */
 /* address field */
 field address = [a7..a0];
 
-bank_reg_le = dev_ce & address:0 & write_clock & !rw;
-bank_reg_oe = dev_ce & address:0 & main_clock & rw;
+bank_reg_le = dev_ce & address:0 & clk & !rw;
+bank_reg_oe = dev_ce & address:0 & clk & rw;
 
 kbd_cs  = dev_ce & address:[08..09];
 lcd_cs  = dev_ce & address:[0a..0b];

@@ -10168,7 +10168,7 @@
 				(pin input line
 					(at -10.16 12.7 0)
 					(length 2.54)
-					(name "ϕ0"
+					(name "ϕ2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -10183,10 +10183,11 @@
 						)
 					)
 				)
-				(pin input line
+				(pin no_connect line
 					(at -10.16 10.16 0)
 					(length 2.54)
-					(name "ϕ2"
+					(hide yes)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -12356,16 +12357,6 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 40.64) (xy 67.31 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3258d666-35a1-419e-a44b-3a71d8d4016a")
-	)
-	(wire
-		(pts
 			(xy 101.6 139.7) (xy 123.19 139.7)
 		)
 		(stroke
@@ -14330,30 +14321,6 @@
 			)
 		)
 	)
-	(global_label "ϕ2.0"
-		(shape input)
-		(at 66.04 40.64 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a0b26e34-5410-4611-be5c-7bdeb0f8792b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 58.7005 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-	)
 	(global_label "KBD.~{CS}"
 		(shape input)
 		(at 59.69 60.96 180)
@@ -14402,7 +14369,7 @@
 			)
 		)
 	)
-	(global_label "ϕ0.0"
+	(global_label "ϕ2.0"
 		(shape input)
 		(at 66.04 38.1 180)
 		(fields_autoplaced yes)

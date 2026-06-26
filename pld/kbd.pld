@@ -13,8 +13,7 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = write_clock;    /* Host write clock */
-pin 2 = main_clock;     /* Host clock */
+pin 1 = clk;            /* Host clock */
 pin 4 = kbd_ack;        /* Goes high after clock high for 100us */
 pin 5 = start_good;     /* Start bit from kbd */
 pin 6 = parity_good;    /* Computed parity from kbd (1 = good) */
@@ -57,15 +56,15 @@ kbd_ack_ignore.oe = 'b'0;
 host_write = cs & !rw;
 host_data_wr = host_write & a0;
 /* Preload PISO SR during reset so that "1" is output by default. */
-host_data_w_clocked = write_clock & host_data_wr # reset;
+host_data_w_clocked = clk & host_data_wr # reset;
 host_csr_wr = host_write & !a0;
-host_csr_wr_clocked = write_clock & host_csr_wr;
+host_csr_wr_clocked = clk & host_csr_wr;
 
 host_read = cs & rw;
 host_data_rd = host_read & a0;
-host_data_rd_clocked = main_clock & host_data_rd;
+host_data_rd_clocked = clk & host_data_rd;
 host_csr_rd = host_read & !a0;
-host_csr_rd_clocked = main_clock & host_csr_rd;
+host_csr_rd_clocked = clk & host_csr_rd;
 
 xc_ce = host_data_w_clocked # host_data_rd_clocked;
 

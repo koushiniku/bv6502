@@ -17,15 +17,12 @@ _init:
         ldx     #$FF
         txs
         cld
-        lda     #$FF
-        sta     VIA::DDRB
 @loop:
-        lda     #$55
-        pha
-        lda     #$00
-        pla
-        sta     VIA::PORTB
+        lda     #%00100000
+        sta     foo
         jmp     @loop
+foo:    .res    1
+
         lda     #<(__RAM_START__ + __RAM_SIZE__)
         sta     c_sp
         lda     #>(__RAM_START__ + __RAM_SIZE__)

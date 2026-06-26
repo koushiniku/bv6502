@@ -1123,7 +1123,7 @@
 				(pin input line
 					(at -11.43 8.89 0)
 					(length 2.54)
-					(name "ϕ0"
+					(name "ϕ2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1138,10 +1138,11 @@
 						)
 					)
 				)
-				(pin input line
+				(pin no_connect line
 					(at -11.43 6.35 0)
 					(length 2.54)
-					(name "ϕ2"
+					(hide yes)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2068,16 +2069,6 @@
 		)
 		(uuid "325ae538-63e8-4ee1-b526-24d512e529e0")
 	)
-	(wire
-		(pts
-			(xy 104.14 101.6) (xy 105.41 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34adda26-463c-4151-b12c-85f098184005")
-	)
 	(bus
 		(pts
 			(xy 127 77.47) (xy 127 95.25)
@@ -2633,30 +2624,6 @@
 		(uuid "9a9590bf-b282-4a5e-ab35-fa644f7dcb89")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 96.8005 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-	)
-	(global_label "ϕ2.0"
-		(shape input)
-		(at 104.14 101.6 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a275c6b8-5009-4664-b44d-84ab127f289e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 96.8005 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

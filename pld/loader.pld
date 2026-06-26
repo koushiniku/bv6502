@@ -4,7 +4,7 @@
 
 Name        loader ;
 PartNo      00 ;
-Date        06/19/26 ;
+Date        06/25/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,7 +13,7 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin  1 = clock;             /* System clock. */
+pin  1 = clk;               /* System clk. */
 pin  6 = !reset_button;     /* Reset button. */
 pin  7 = !reset_picorom;    /* Reset from PicoROM. */
 pin  8 = counter0;          /* Counter bits for timing we#. */
