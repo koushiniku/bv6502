@@ -1785,17 +1785,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(text ""
-		(exclude_from_sim no)
-		(at 195.58 81.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c451b233-37f5-4cde-996b-a0e494873eed")
-	)
 	(junction
 		(at 152.4 97.79)
 		(diameter 0)

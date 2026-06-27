@@ -10,7 +10,7 @@
 
         .include "zeropage.inc"
 
-MHZ     := 6
+MHZ     := 8
 
         .macro smb bit, addr
                 .ident(.sprintf("smb%d", bit)) addr

@@ -14,7 +14,7 @@
 
 ;hello:  .asciiz "Hello,\r\nworld!\r\nScroll\r\nup\r\nnow!"
 ;hello:  .asciiz "Hello,\r\nworld!\r\nScroll\r\nup!"
-hello:  .asciiz "Hello,\rworld!"
+hello:  .asciiz "What is hellord?\r\n"
 
         .code
 
@@ -22,12 +22,13 @@ _main:
         ; probably the easiest thing to do is blink lights on the VIA.
         lda     #$FF
         sta     VIA::DDRB
-        lda     #$55
+        stz     VIA::DDRA
+@loop:
+        lda     VIA::PORTA
         sta     VIA::PORTB
         lda     #<hello
         ldx     #>hello
         jsr     _cputs
-@loop:
         bra     @loop
 
 

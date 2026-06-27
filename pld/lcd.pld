@@ -4,7 +4,7 @@
 
 Name        lcd ;
 PartNo      00 ;
-Date        06/25/26 ;
+Date        06/26/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -42,7 +42,6 @@ d7.ar = reset;
 /* Set up counter. */
 field count = [c2..c0];
 count.ar = reset;
-count.oe = 'b'0;
 
 c0.d = !c0;
 c1.d = c1 $ c0;
