@@ -4,6 +4,7 @@
 ; 20x4 character LCD driver.
 
         .include "bv6502.inc"
+        .include "via.inc"
 
         .import incsp2, popa, return0, cursor
 
@@ -125,8 +126,8 @@ lcd_char_wr:
         bra     lcd_inst_wr
 @end:
         txa
-        beq     lcd_scroll
-        stz     lcd_cur
+        bne     lcd_scroll      ; X!=0: scroll
+        stz     lcd_cur         ; X=0: wrap cursor to top left
         lda     #$80
         bra     lcd_inst_wr
 
@@ -153,10 +154,25 @@ con_cputc:
         cmp     #$08
         beq     lcd_bs_wr
         cmp     #$09
-        beq     lcd_tab_wr
+        bne     @next
+        jmp     lcd_tab_wr
+@next:
         ldx     #1
         bra     lcd_char_wr
 
+; Handle a line feed ("\n").
+; Set cursor to the beginning of the next line.
+; Scroll if on bottom line already.
+lcd_lf_wr:
+        lda     lcd_cur
+        cmp     #60
+        bcc     @cursordown
+        bra     lcd_scroll
+@cursordown:
+        clc
+        adc     #20
+        sta     lcd_cur
+; fall through
 ; Handle a carriage return ("\r").
 ; Set cursor to the beginning of the current line.
 ;     for (a = 20, x = 0; a <= lcd_cur; x = a, a += 20);
@@ -207,19 +223,18 @@ lcd_inst_wr:
 
 ; We went off the bottom
 lcd_scroll:
-        lda     $01             ; clear screen
-        sta     lcd_inst_wr
-        stz     lcd_cur
+        stz     lcd_cur         ; clear the screen
+        lda     #$01
+        jsr     lcd_inst_wr
         ldy     #20             ; copy characters 20-79 to 0-59
 @loop:
-        ldx     #0
+        phy
         lda     lcd_buf,Y
-        jsr     lcd_char_wr     ; recursive...careful...
-        cpy     #60
-        bcc     @next
-        lda     #' '            ; fill buffer bottom row with spaces
+        ldx     #0
+        jsr     lcd_char_wr
+        ply
+        lda     #' '            ; backfill buffer with spaces
         sta     lcd_buf,Y
-@next:
         iny
         cpy     #80
         bcc     @loop
@@ -228,52 +243,36 @@ lcd_scroll:
         lda     #$80 | 84
         bra     lcd_inst_wr
 
-
-; Handle a line feed ("\n").
-; Set cursor to the beginning of the next line.
-; Scroll if on bottom line already.
-lcd_lf_wr:
-        lda     lcd_cur
-        cmp     #60
-        bcc     @cursordown
-        bra     lcd_scroll
-@cursordown:
-        clc
-        adc     #20
-        sta     lcd_cur
-        rts
-
 ; handle a tab character ("\t").
 ; Print spaces until column (not lcd_cur) is divisible by 8
 lcd_tab_wr:
         lda     lcd_cur
 @loop:
-        sec
+        sec                     ; put column number in y
         sbc     #20
         bcs     @loop
         clc
         adc     #20
         tay
 @loop2:
-        phy
-        ldx     #1
+        phy                     ; add spaces until Y=8, 16, or 20 (0)
+        ldx     #0
         lda     #' '
         jsr     lcd_char_wr
         ply
         iny
         cpy     #8
-        jsr     @done
+        beq     @done
         cpy     #16
-        jsr     @done
+        beq     @done
         cpy     #20
-        jsr     @done
+        beq     @done
         bra     @loop2
 @done:
         rts
 
 ; Initialize the LCD
 lcd_init:
-        jsr     lcd_inst_wr
         lda     #$38            ; Fn set: 8-bit mode, 2-line display, 5x8 font.
         jsr     lcd_inst_wr
         lda     #$08            ; Display off.
@@ -285,6 +284,12 @@ lcd_init:
         lda     #$0C            ; Display on, cursor off, blink cursor off.
         jsr     lcd_inst_wr
         stz     lcd_cur         ; init the local cursor tracker
+        lda     #' '
+        ldx     #80             ; fill buffer with spaces
+@loop:
+        dex
+        sta     lcd_buf,X
+        bne     @loop
         rts
 
 ;void __fastcall__ gotoxy (unsigned char x, unsigned char y);
@@ -372,7 +377,7 @@ con_setcursor:
         lda     #$0C
         jmp     lcd_inst_wr
 @set:
-        lda     $0F
+        lda     #$0F
         jmp     lcd_inst_wr
 @done:
         rts

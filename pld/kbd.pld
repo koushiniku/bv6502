@@ -4,7 +4,7 @@
 
 Name        kbd ;
 PartNo      00 ;
-Date        06/15/26 ;
+Date        06/27/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,11 +13,11 @@ Location    None ;
 Device      g22v10 ;
 
 /* inputs */
-pin 1 = clk;            /* Host clock */
+pin 1 = clk;            /* INVERTED host clock */
 pin 4 = kbd_ack;        /* Goes high after clock high for 100us */
-pin 5 = start_good;     /* Start bit from kbd */
+pin 5 = !start_good;    /* Start bit from kbd */
 pin 6 = parity_good;    /* Computed parity from kbd (1 = good) */
-pin 7 = !stop_good;     /* Stop bit from kbd */
+pin 7 = stop_good;      /* Stop bit from kbd */
 pin 8 = d5_in;          /* For writing to d5. */
 pin 9 = a0;             /* Address bit from host. */
 pin 10 = rw;            /* R/W# from host */
@@ -45,12 +45,7 @@ pin 19 = !xc_ce;        /* Transceiver CE, during Host read or write. */
 pin 20 = h2d_mode;
 pin 21 = kbd_ack_sample1;   /* kbd_ack edge detection */
 pin 22 = kbd_ack_sample2;   /* kbd_ack edge detection */
-pin 23 = kbd_ack_ignore;    /* Waiting for first kbd_ack after a KB write). */
-
-/* unused pins */
-kbd_ack_sample1.oe = 'b'0;
-kbd_ack_sample2.oe = 'b'0;
-kbd_ack_ignore.oe = 'b'0;
+pin 23 = kbd_ack_ignore;    /* Waiting for first kbd_ack after a KB write. */
 
 /* Host IO states */
 host_write = cs & !rw;

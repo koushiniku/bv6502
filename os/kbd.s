@@ -4,6 +4,7 @@
 ; PS/2 keyboard driver
 
         .include "bv6502.inc"
+        .include "via.inc"
 
         .export con_cgetc, con_kbhit
         .import _setcursor
@@ -125,9 +126,8 @@ kbd_done:
 kbd_irq:
         bit     KBD::CSR
         bpl     @notmine
-        bvc     @error
-        ldx     KBD::DATA
-        txa
+        lda     KBD::DATA       ; also clears interrupt
+        bvs     @error
         jsr     kbd_parse
         sec
         rts
@@ -138,7 +138,7 @@ kbd_irq:
         lda     $FE             ; ask for retransmit
         sta     kbd_retry
         sta     KBD::DATA
-        clc
+        sec
         rts
 
 
@@ -160,6 +160,7 @@ kbd_bscan:
         lda     #BITPOS(KBD_E0CODE)     ; check for $E0 key releases
         trb     kbd_fl1
         bne     kbd_bescan
+        lda     kbd_scan
 @scan:
         case    $12,@lshift
         case    $59,@rshift
@@ -215,7 +216,7 @@ kbd_escan:
 kbd_parse:
         sta     kbd_scan
         cmp     #0
-        beq     @noh
+        bpl     @noh
         jmp     kbd_hscan       ; bit 7 is set: parse high jump table
 @noh:
         lda     #BITPOS(KBD_F0CODE) ; was $F0 the previous code?

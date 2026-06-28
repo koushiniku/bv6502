@@ -10017,16 +10017,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "10ns earlier clock\nto latch writes\nwithin 10ns hold time"
-		(exclude_from_sim no)
-		(at 68.58 39.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "14aac42a-001c-4427-a5fc-992a9186ce74")
-	)
 	(text "I'm lazy and I did not put all\nthe bypass caps in the schematic."
 		(exclude_from_sim no)
 		(at 96.52 104.14 0)
@@ -10068,16 +10058,16 @@
 		(uuid "1651a6a8-9a39-4a56-81fd-60971c190932")
 	)
 	(junction
-		(at 19.05 176.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "18200da6-cbc1-4c4f-af92-3512c92c4a1d")
-	)
-	(junction
 		(at 97.79 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1cf2ae35-18ca-4bd0-8fbe-f5ca8c3265a6")
+	)
+	(junction
+		(at 63.5 196.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "232b24e5-bade-4082-b805-c0e0126c7911")
 	)
 	(junction
 		(at 166.37 87.63)
@@ -10176,12 +10166,6 @@
 		(uuid "533679f5-3c86-4192-b590-a301b17e4da9")
 	)
 	(junction
-		(at 52.07 196.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5369ff9a-0ec1-4adf-8967-e1695c8a1fb3")
-	)
-	(junction
 		(at 193.04 39.37)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10272,6 +10256,12 @@
 		(uuid "8421660a-4536-4d5d-9f96-ea3455f0f3fe")
 	)
 	(junction
+		(at 63.5 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "86d7d8e1-4c0e-4f5c-9b37-f4c20fa05b7d")
+	)
+	(junction
 		(at 222.25 52.07)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10344,6 +10334,12 @@
 		(uuid "ac64b827-9caf-4a28-8640-524b969ae9ce")
 	)
 	(junction
+		(at 53.34 196.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "acf59c05-2c67-4b4a-b3c2-3f4d1d0680b1")
+	)
+	(junction
 		(at 165.1 52.07)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10368,12 +10364,6 @@
 		(uuid "b5044109-45d9-46e2-8d83-1d99511a84f8")
 	)
 	(junction
-		(at 66.04 196.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b9a41c64-c101-464f-92a0-21eb29d0560f")
-	)
-	(junction
 		(at 135.89 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10390,12 +10380,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ca2be4d8-154c-4ea6-b93c-015b282d7409")
-	)
-	(junction
-		(at 19.05 196.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cccbd588-9f72-420b-bb92-4237a898bb8a")
 	)
 	(junction
 		(at 224.79 95.25)
@@ -10428,6 +10412,12 @@
 		(uuid "dcb1f946-8cb6-4f4d-9ce4-079ffa47fd09")
 	)
 	(junction
+		(at 73.66 196.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dfc07549-75f6-4cdd-bda5-c29926db56ab")
+	)
+	(junction
 		(at 116.84 40.64)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10452,7 +10442,7 @@
 		(uuid "e23ad205-1727-4fd7-973c-717b7985b72e")
 	)
 	(junction
-		(at 78.74 196.85)
+		(at 88.9 196.85)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e70b9950-eae7-41be-99c4-f1d432eb444e")
@@ -10470,22 +10460,42 @@
 		(uuid "e9b340a1-8912-408a-9f64-e9a0175c68d1")
 	)
 	(junction
+		(at 19.05 176.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e9e8e961-b7bd-4d79-86f0-ae0c49943ce9")
+	)
+	(junction
 		(at 212.09 72.39)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f5e8d521-f8eb-43d0-99ea-2924c7eed991")
+	)
+	(junction
+		(at 19.05 196.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fb5bacfd-5257-48d2-b990-1c946a886119")
 	)
 	(no_connect
 		(at 189.23 148.59)
 		(uuid "204c30d2-824d-4dc4-8be4-684a388f53fa")
 	)
 	(no_connect
-		(at 78.74 181.61)
+		(at 88.9 181.61)
 		(uuid "29ebf77d-550a-4781-bea4-d525d552a7d2")
 	)
 	(no_connect
 		(at 189.23 143.51)
 		(uuid "3339584d-15a2-4783-ad65-088427f39ef5")
+	)
+	(no_connect
+		(at 53.34 181.61)
+		(uuid "50710dae-2697-44d4-ba62-5952024bd1f2")
+	)
+	(no_connect
+		(at 63.5 181.61)
+		(uuid "53859718-0473-4c5c-b77d-e2fa4f8bf2e5")
 	)
 	(no_connect
 		(at 189.23 146.05)
@@ -10508,16 +10518,12 @@
 		(uuid "c7e9bfbb-a695-4520-8e42-a178cfbb292b")
 	)
 	(no_connect
-		(at 91.44 181.61)
+		(at 101.6 181.61)
 		(uuid "dd09384b-a216-4e5a-b7df-c5d4df816a79")
 	)
 	(no_connect
 		(at 189.23 153.67)
 		(uuid "f20f88eb-218c-4638-9782-57acc3a0aa3d")
-	)
-	(no_connect
-		(at 66.04 181.61)
-		(uuid "fb025def-9147-4a94-b006-c42b976ad9f9")
 	)
 	(no_connect
 		(at 41.91 181.61)
@@ -11241,6 +11247,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 30.48) (xy 102.87 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31c7b80b-08bd-416a-8eb4-9f28c0bad578")
+	)
+	(wire
+		(pts
 			(xy 102.87 43.18) (xy 101.6 43.18)
 		)
 		(stroke
@@ -11451,7 +11467,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 196.85) (xy 78.74 196.85)
+			(xy 73.66 196.85) (xy 88.9 196.85)
 		)
 		(stroke
 			(width 0)
@@ -11591,16 +11607,6 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 196.85) (xy 66.04 196.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5554d0eb-eb70-4865-9243-3ea31a48e3ad")
-	)
-	(wire
-		(pts
 			(xy 166.37 87.63) (xy 166.37 130.81)
 		)
 		(stroke
@@ -11608,6 +11614,16 @@
 			(type default)
 		)
 		(uuid "56802c3b-b1ca-4699-bcd9-4c47189e9d84")
+	)
+	(wire
+		(pts
+			(xy 63.5 43.18) (xy 63.5 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "56f82f67-3e2a-423b-a5e4-38adbbdb8dcd")
 	)
 	(wire
 		(pts
@@ -11718,6 +11734,16 @@
 			(type default)
 		)
 		(uuid "6349a45a-1703-40eb-b075-9cee65db56dd")
+	)
+	(wire
+		(pts
+			(xy 63.5 30.48) (xy 78.74 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "66df67f5-294f-47d7-97e0-8110b50214d2")
 	)
 	(wire
 		(pts
@@ -11941,7 +11967,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 176.53) (xy 52.07 176.53)
+			(xy 19.05 176.53) (xy 73.66 176.53)
 		)
 		(stroke
 			(width 0)
@@ -12281,7 +12307,7 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 196.85) (xy 91.44 196.85)
+			(xy 88.9 196.85) (xy 101.6 196.85)
 		)
 		(stroke
 			(width 0)
@@ -12551,7 +12577,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 196.85) (xy 52.07 196.85)
+			(xy 19.05 196.85) (xy 73.66 196.85)
 		)
 		(stroke
 			(width 0)
@@ -13461,6 +13487,30 @@
 			)
 		)
 	)
+	(global_label "ϕ1"
+		(shape output)
+		(at 102.87 30.48 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "249f86df-867c-419b-86ba-e8f2e7c7bb11")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 108.3952 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
 	(global_label "D[0..7]"
 		(shape output)
 		(at 256.54 69.85 0)
@@ -14194,6 +14244,122 @@
 		)
 	)
 	(symbol
+		(lib_name "74HC04_6")
+		(lib_id "74xx:74HC04")
+		(at 63.5 189.23 90)
+		(unit 6)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2b05609b-7da0-477c-8a3c-401bd1a60816")
+		(property "Reference" "U1"
+			(at 63.5 190.5 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "74HCU04"
+			(at 58.42 189.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 63.5 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+			(at 63.5 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Hex Inverter"
+			(at 63.5 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "10"
+			(uuid "df861523-f075-4c58-bcfb-1d34df5829af")
+		)
+		(pin "11"
+			(uuid "ba13da10-9c5d-469c-aed9-593423ba19f0")
+		)
+		(pin "7"
+			(uuid "b8453eca-74ff-4436-b864-716eaef55932")
+		)
+		(pin "14"
+			(uuid "509deb29-8055-437d-9766-78082a028eb6")
+		)
+		(pin "13"
+			(uuid "cc58799a-5bb2-436f-aee8-ce54cfd845fc")
+		)
+		(pin "4"
+			(uuid "0600d3fd-6a7b-4f2e-91d2-a571448cd519")
+		)
+		(pin "5"
+			(uuid "23083458-9b64-4c20-8301-7dbb043807c6")
+		)
+		(pin "6"
+			(uuid "9a8afdca-f6af-421b-9708-c142212fd814")
+		)
+		(pin "8"
+			(uuid "06c728f1-a7a3-4265-bc08-e428b3f08b4f")
+		)
+		(pin "3"
+			(uuid "93de9793-24c4-472e-a05a-d0841a6ed7e6")
+		)
+		(pin "12"
+			(uuid "4a16f42e-844f-4222-863f-4df1bb6c0284")
+		)
+		(pin "9"
+			(uuid "055653eb-7f7f-4de2-8183-68ff03d87f80")
+		)
+		(pin "2"
+			(uuid "3ac83d55-0777-4466-a2cc-61c1b078d8af")
+		)
+		(pin "1"
+			(uuid "34ca7909-f422-44d7-82b7-131d100eeae4")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
+					(reference "U1")
+					(unit 6)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "74HC04_1")
 		(lib_id "74xx:74HC04")
 		(at 71.12 49.53 0)
@@ -14390,7 +14556,7 @@
 		(lib_name "74HC04_5")
 		(lib_id "74xx:74HC04")
 		(at 31.75 189.23 90)
-		(unit 6)
+		(unit 3)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14497,7 +14663,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
 					(reference "U1")
-					(unit 6)
+					(unit 3)
 				)
 			)
 		)
@@ -14602,7 +14768,7 @@
 				)
 			)
 		)
-		(property "Value" "47R"
+		(property "Value" "22R"
 			(at 97.79 43.18 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14815,6 +14981,85 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 97.79 30.48 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "42a97621-29ed-4fe7-9b25-1ecb50be96bc")
+		(property "Reference" "R9"
+			(at 97.79 27.94 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47R"
+			(at 97.79 30.48 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 97.79 32.258 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 97.79 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 97.79 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "4b6c3e6c-42f3-46df-9ab5-4e9cd4511873")
+		)
+		(pin "1"
+			(uuid "13940062-7b60-4889-acdd-4dfd7120a260")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
+					(reference "R9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 179.07 115.57 0)
 		(unit 1)
@@ -14895,7 +15140,7 @@
 		(lib_name "74HC04_6")
 		(lib_id "74xx:74HC04")
 		(at 41.91 189.23 90)
-		(unit 5)
+		(unit 4)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15002,7 +15247,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
 					(reference "U1")
-					(unit 5)
+					(unit 4)
 				)
 			)
 		)
@@ -16658,8 +16903,8 @@
 	(symbol
 		(lib_name "74HC14_2")
 		(lib_id "74xx:74HC14")
-		(at 66.04 189.23 90)
-		(unit 2)
+		(at 86.36 30.48 0)
+		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16668,7 +16913,7 @@
 		(dnp no)
 		(uuid "8941db05-f665-4c14-a6ec-3cca27885797")
 		(property "Reference" "U2"
-			(at 58.42 189.23 0)
+			(at 86.36 22.86 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16678,7 +16923,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 60.96 189.23 0)
+			(at 86.36 25.4 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16688,7 +16933,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 66.04 189.23 0)
+			(at 86.36 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16699,7 +16944,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 66.04 189.23 0)
+			(at 86.36 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16710,7 +16955,7 @@
 			)
 		)
 		(property "Description" "Hex inverter schmitt trigger"
-			(at 66.04 189.23 0)
+			(at 86.36 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16766,7 +17011,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
 					(reference "U2")
-					(unit 2)
+					(unit 1)
 				)
 			)
 		)
@@ -17749,6 +17994,122 @@
 		)
 	)
 	(symbol
+		(lib_name "74HC04_5")
+		(lib_id "74xx:74HC04")
+		(at 53.34 189.23 90)
+		(unit 5)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b57da6d4-70b1-4ba6-b4f2-762381a53cad")
+		(property "Reference" "U1"
+			(at 53.34 190.5 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "74HCU04"
+			(at 48.26 189.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 53.34 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+			(at 53.34 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Hex Inverter"
+			(at 53.34 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "10"
+			(uuid "11f1072c-b0fb-4117-b684-9eb08cb25688")
+		)
+		(pin "11"
+			(uuid "ced4cea2-973b-4085-ac96-863ccb60b6eb")
+		)
+		(pin "7"
+			(uuid "b8453eca-74ff-4436-b864-716eaef55931")
+		)
+		(pin "14"
+			(uuid "509deb29-8055-437d-9766-78082a028eb5")
+		)
+		(pin "13"
+			(uuid "d8cfe782-395a-4077-bf0a-8116645ac3cc")
+		)
+		(pin "4"
+			(uuid "0600d3fd-6a7b-4f2e-91d2-a571448cd518")
+		)
+		(pin "5"
+			(uuid "23083458-9b64-4c20-8301-7dbb043807c5")
+		)
+		(pin "6"
+			(uuid "9a8afdca-f6af-421b-9708-c142212fd813")
+		)
+		(pin "8"
+			(uuid "06c728f1-a7a3-4265-bc08-e428b3f08b4e")
+		)
+		(pin "3"
+			(uuid "93de9793-24c4-472e-a05a-d0841a6ed7e5")
+		)
+		(pin "12"
+			(uuid "ce50ad91-a130-4aa0-9a34-0224f89ad3f3")
+		)
+		(pin "9"
+			(uuid "055653eb-7f7f-4de2-8183-68ff03d87f7f")
+		)
+		(pin "2"
+			(uuid "3ac83d55-0777-4466-a2cc-61c1b078d8ae")
+		)
+		(pin "1"
+			(uuid "34ca7909-f422-44d7-82b7-131d100eeae3")
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
+					(reference "U1")
+					(unit 5)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Memory_Flash:SST39SF010")
 		(at 237.49 77.47 0)
 		(unit 1)
@@ -18250,7 +18611,7 @@
 	(symbol
 		(lib_name "74HC14_5")
 		(lib_id "74xx:74HC14")
-		(at 91.44 189.23 90)
+		(at 101.6 189.23 90)
 		(unit 6)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18260,7 +18621,7 @@
 		(dnp no)
 		(uuid "c0982029-e964-40f3-937c-2c9fbea161dc")
 		(property "Reference" "U2"
-			(at 83.82 189.23 0)
+			(at 93.98 189.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18270,7 +18631,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 86.36 189.23 0)
+			(at 96.52 189.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18280,7 +18641,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 91.44 189.23 0)
+			(at 101.6 189.23 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18291,7 +18652,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 91.44 189.23 0)
+			(at 101.6 189.23 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18302,7 +18663,7 @@
 			)
 		)
 		(property "Description" "Hex inverter schmitt trigger"
-			(at 91.44 189.23 0)
+			(at 101.6 189.23 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18366,7 +18727,7 @@
 	(symbol
 		(lib_name "74HC14_3")
 		(lib_id "74xx:74HC14")
-		(at 52.07 186.69 0)
+		(at 73.66 186.69 0)
 		(unit 7)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18376,7 +18737,7 @@
 		(dnp no)
 		(uuid "c2e55865-e4f4-49a3-97d6-551a3dfb55b5")
 		(property "Reference" "U2"
-			(at 53.34 186.69 90)
+			(at 74.93 186.69 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18386,7 +18747,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 55.88 186.69 90)
+			(at 77.47 186.69 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18396,7 +18757,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 52.07 186.69 0)
+			(at 73.66 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18407,7 +18768,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 52.07 186.69 0)
+			(at 73.66 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18418,7 +18779,7 @@
 			)
 		)
 		(property "Description" "Hex inverter schmitt trigger"
-			(at 52.07 186.69 0)
+			(at 73.66 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18570,7 +18931,7 @@
 		(lib_name "74HC14_12")
 		(lib_id "74xx:74HC14")
 		(at 105.41 86.36 0)
-		(unit 1)
+		(unit 2)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18677,7 +19038,7 @@
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be/560ef1bd-4b3f-459c-9f6a-9898850b3c5b"
 					(reference "U2")
-					(unit 1)
+					(unit 2)
 				)
 			)
 		)
@@ -19062,7 +19423,7 @@
 				)
 			)
 		)
-		(property "Value" "47R"
+		(property "Value" "22R"
 			(at 97.79 55.88 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19554,7 +19915,7 @@
 	(symbol
 		(lib_name "74HC14_6")
 		(lib_id "74xx:74HC14")
-		(at 78.74 189.23 90)
+		(at 88.9 189.23 90)
 		(unit 5)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19564,7 +19925,7 @@
 		(dnp no)
 		(uuid "fe48b606-54d0-4e26-9028-105f93bf8f5f")
 		(property "Reference" "U2"
-			(at 71.12 189.23 0)
+			(at 81.28 189.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19574,7 +19935,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 73.66 189.23 0)
+			(at 83.82 189.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19584,7 +19945,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 78.74 189.23 0)
+			(at 88.9 189.23 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19595,7 +19956,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 78.74 189.23 0)
+			(at 88.9 189.23 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19606,7 +19967,7 @@
 			)
 		)
 		(property "Description" "Hex inverter schmitt trigger"
-			(at 78.74 189.23 0)
+			(at 88.9 189.23 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
