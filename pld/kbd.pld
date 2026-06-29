@@ -51,17 +51,17 @@ pin 23 = kbd_ack_ignore;    /* Waiting for first kbd_ack after a KB write. */
 host_write = cs & !rw;
 host_data_wr = host_write & a0;
 /* Preload PISO SR during reset so that "1" is output by default. */
-host_data_w_clocked = clk & host_data_wr # reset;
+host_data_wr_clocked = !clk & host_data_wr # reset;
 host_csr_wr = host_write & !a0;
-host_csr_wr_clocked = clk & host_csr_wr;
+host_csr_wr_clocked = !clk & host_csr_wr;
 
 host_read = cs & rw;
 host_data_rd = host_read & a0;
-host_data_rd_clocked = clk & host_data_rd;
+host_data_rd_clocked = !clk & host_data_rd;
 host_csr_rd = host_read & !a0;
-host_csr_rd_clocked = clk & host_csr_rd;
+host_csr_rd_clocked = !clk & host_csr_rd;
 
-xc_ce = host_data_w_clocked # host_data_rd_clocked;
+xc_ce = host_data_wr_clocked # host_data_rd_clocked;
 
 /* kbd_ack edge detection */
 kbd_ack_sample1.d = kbd_ack;
@@ -86,19 +86,20 @@ kbd_ack_rise = kbd_ack_sample1 & !kbd_ack_sample2;
 
 /* Ignore next kbd_ack after Host data writes and Host clearing irq. Stop
  * ignoring after the ack. */
-kbd_ack_ignore.d = host_data_wr # host_csr_wr & d7
-                        # kbd_ack_ignore & !kbd_ack_rise;
+kbd_ack_ignore.d = host_data_wr
+                    # irq & host_data_rd
+                    # kbd_ack_ignore & !kbd_ack_rise;
 kbd_ack_ignore.ar = reset;
 
 /* Enter H2D mode on host data writes. Clear the mode on the next kbd_ack
  * *after* kbd_ack_ignore is cleared. */
-h2d_mode.d = host_data_wr # kbd_ack_ignore & !kbd_ack_rise & !kbd_ack_ignore;
+h2d_mode.d = host_data_wr # h2d_mode & (kbd_ack_ignore # !kbd_ack_rise);
 h2d_mode.ar = reset;
 
 /* Set irq if neither kbd_ack_ignore nor h2d_mode. This should be an incoming
  * D2H packet. Clear it on data reads and if irq is disabled. */
-irq.d = (kbd_ack_rise & !kbd_ack_ignore & !h2d_mode
-            # irq & !host_data_rd) & d5;
+irq.d = d5 & kbd_ack_rise & !kbd_ack_ignore & !h2d_mode
+        # irq & d5 & !host_data_rd;
 irq.ar = reset;
 
 /* irq status */
@@ -113,5 +114,5 @@ d6 = !(start_good & stop_good & parity_good);
  * reading the input value of an "I/O" pin with the .io extension, so we need
  * another pin for the input value. */
 d5.oe = host_csr_rd_clocked;
-d5.d = host_csr_wr & d5_in # !host_csr_wr & d5;
+d5.d = d5_in & host_csr_wr # d5 & !host_csr_wr;
 d5.ar = reset;

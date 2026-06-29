@@ -315,6 +315,7 @@ kbd_lscan:
         sta     kbd_fl0
         lda     #$ED
         sta     kbd_retry
+        sta     VIA::PORTB
         sta     KBD::DATA
         rts
 @lctrl:
