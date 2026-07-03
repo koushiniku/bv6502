@@ -37,21 +37,22 @@ pin 17 = d5;            /* irq enable flag. */
     - XC dir A to B.
     - Drive parity bit 8. */
 pin 18 = host_data_wr;
-pin 19 = !xc_ce;        /* Transceiver CE, during Host read or write. */
+pin 19 = !h2d_ld;
+pin 20 = !xc_ce;        /* Transceiver CE, during Host read or write. */
 
 /* H2D mode.
     - 100us low pulse
     - PISO clock uninhibited. */
-pin 20 = h2d_mode;
-pin 21 = kbd_ack_sample1;   /* kbd_ack edge detection */
-pin 22 = kbd_ack_sample2;   /* kbd_ack edge detection */
-pin 23 = kbd_ack_ignore;    /* Waiting for first kbd_ack after a KB write. */
+pin 21 = !h2d_mode;
+pin 22 = kbd_ack_sample1;   /* kbd_ack edge detection */
+pin 23 = kbd_ack_sample2;   /* kbd_ack edge detection */
 
 /* Host IO states */
 host_write = cs & !rw;
-host_data_wr = host_write & a0;
 /* Preload PISO SR during reset so that "1" is output by default. */
-host_data_wr_clocked = !clk & host_data_wr # reset;
+h2d_ld = host_write & a0 # reset;
+host_data_wr = h2d_ld;
+host_data_wr_clocked = !clk & host_data_wr;
 host_csr_wr = host_write & !a0;
 host_csr_wr_clocked = !clk & host_csr_wr;
 
@@ -70,36 +71,13 @@ kbd_ack_sample2.d = kbd_ack_sample1;
 kbd_ack_sample2.ar = reset;
 kbd_ack_rise = kbd_ack_sample1 & !kbd_ack_sample2;
 
-/* Things that can cause kbd_ack_rise:
- *  - Clock going high after device-to-host data is ready
- *      - Raise irq
- *  - Clock going high after irq cleared
- *      - Ignore
- *      - Next, watch for device-to-host data ready kbd_ack
- *  - Clock going high after host-to-device CTS
- *      - Ignore
- *      - Next, watch for H2D write done
- *  - Clock going high after Write is done
- *      - Stop tracking host-to-device (disable shift clock)
- *      - Next, watch for device-to-host data ready kbd_ack
- *  - Main power is applied, but we have a long reset sequence. */
-
-/* Ignore next kbd_ack after Host data writes and Host clearing irq. Stop
- * ignoring after the ack. */
-kbd_ack_ignore.d = host_data_wr
-                    # irq & host_data_rd
-                    # kbd_ack_ignore & !kbd_ack_rise;
-kbd_ack_ignore.ar = reset;
-
-/* Enter H2D mode on host data writes. Clear the mode on the next kbd_ack
- * *after* kbd_ack_ignore is cleared. */
-h2d_mode.d = host_data_wr # h2d_mode & (kbd_ack_ignore # !kbd_ack_rise);
+/* Enter H2D mode on host data writes. Clear the mode on the next kbd_ack */
+h2d_mode.d = host_data_wr # h2d_mode & !kbd_ack_rise;
 h2d_mode.ar = reset;
 
-/* Set irq if neither kbd_ack_ignore nor h2d_mode. This should be an incoming
- * D2H packet. Clear it on data reads and if irq is disabled. */
-irq.d = d5 & kbd_ack_rise & !kbd_ack_ignore & !h2d_mode
-        # irq & d5 & !host_data_rd;
+/* Set irq if not in h2d_mode. This should be an incoming D2H packet. Clear it
+ * on data reads and if irq is disabled. */
+irq.d = d5 & (kbd_ack_rise & !h2d_mode # irq & !host_data_rd);
 irq.ar = reset;
 
 /* irq status */

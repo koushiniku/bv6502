@@ -315,7 +315,6 @@ kbd_lscan:
         sta     kbd_fl0
         lda     #$ED
         sta     kbd_retry
-        sta     VIA::PORTB
         sta     KBD::DATA
         rts
 @lctrl:
@@ -414,7 +413,7 @@ kbd_hscan:
         rts
 @ack:
         lda     #BITPOS(KBD_LED) ; acking an LED command?
-        trb     kbd_fl1
+        trb     kbd_fl0
         beq     @return
         lda     kbd_fl0         ; update keyboard LEDs
         lsr     A               ; bits are on the left
