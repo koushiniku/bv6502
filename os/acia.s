@@ -40,6 +40,8 @@ ACIA_CMD_IRD            = 1
 ACIA_CMD_RTS            = 3
 ACIA_CMD_REM            = 4
 
+ACIA_CTRL_RCS           = 4
+
 
 ; 10 bits/write / 115200 bits/s * (MHZ * 1000000) cycles/s
 ; = 87 * MHZ cycles per write
@@ -57,6 +59,10 @@ acia_tx_rp:
         .res 1
 acia_tx_wp:
         .res 1
+acia_fl:
+        .res 1
+ACIA_TDRF               = 0     ; transmit data register full
+
 
 
         .bss
@@ -75,16 +81,19 @@ acia_init:
         stz     acia_rx_wp
         stz     acia_tx_rp
         stz     acia_tx_wp
-        stz     ACIA::CTRL
+        stz     acia_fl
+        lda     #(BITPOS(ACIA_CTRL_RCS))
+        sta     ACIA::CTRL
         lda     #(BITPOS(ACIA_CMD_DTR) | BITPOS(ACIA_CMD_RTS))
         sta     ACIA::CMD
         lda     VIA::ACR
         and     #<~(BITPOS(VIA_ACR_T1_PB7) | BITPOS(VIA_ACR_T1_CTL))
         sta     VIA::ACR
-        lda     #VIA_IFR_IER_T1
+        lda     #(BITPOS(VIA_IFR_IER_T1) | BITPOS(VIA_IFR_IER_SET))
         sta     VIA::IFR
-        ora     #VIA_IFR_IER_SET
         sta     VIA::IER
+        lda     #<ACIA_WR_CYCLES
+        sta     VIA::T1C
         rts
 
 ; just disable interrupts
@@ -96,13 +105,13 @@ acia_done:
         rts
 
 acia_irq:
-        lda     ACIA::STS
-        bit     #(BITPOS(ACIA_STS_RDRF))
+        lda     ACIA::STS       ; clears IRQ
+        bit     #BITPOS(ACIA_STS_RDRF)
         bpl     @notmine        ; check IRQ status
         beq     acia_tx         ; check RDRF status
-        ldx     ACIA::DATA      ; clears interrupt
-        bit     #(BITPOS(ACIA_STS_FERR))
-        beq     acia_tx         ; check framing error (bad data)
+        ldx     ACIA::DATA      ; Clears framing and overrun error bits
+        bit     #BITPOS(ACIA_STS_FERR)
+        bne     acia_tx         ; check framing error (bad data)
         ldy     acia_rx_wp
         iny
         cpy     acia_rx_rp
@@ -111,15 +120,18 @@ acia_irq:
         txa
         sta     acia_rx_buf,Y
         inc     acia_rx_wp
+        bra     acia_tx
 @notmine:
         clc
         rts
 
 ; VIA timer for waiting for ACIA tx buffer empty.
 acia_via_irq:
-        lda     #(BITPOS(VIA_IFR_IER_T1))
+        lda     #BITPOS(VIA_IFR_IER_T1)
         tsb     VIA::IFR
         beq     @notmine
+        lda     #$01
+        rmb     ACIA_TDRF,acia_fl
         bra     acia_tx
 @notmine:
         clc
@@ -128,23 +140,20 @@ acia_via_irq:
 ; Transmits a byte if the stars align.
 acia_tx:
         ldy     acia_tx_rp      ; anything to transmit?
-        cpy     acia_rx_wp
+        cpy     acia_tx_wp
         beq     @tx_done
-        lda     #(BITPOS(ACIA_STS_DCD))
+        lda     #BITPOS(ACIA_STS_DCD)
         bit     ACIA::STS
-        bvc     @tx_done        ; check DSR
-        beq     @tx_done        ; check DCD
-        ldx     >VIA::T1C      ; check if timer is expired
+        bvs     @tx_done        ; check DSR
+        bne     @tx_done        ; check DCD
+        lda     #BITPOS(ACIA_TDRF)      ; test and set tx full
+        tsb     acia_fl
         bne     @tx_done
-        ldx     <VIA::T1C
-        bne     @tx_done
-        ldx     acia_tx_buf,Y   ; write tx data
-        stx     ACIA::DATA
+        lda     acia_tx_buf,Y   ; write tx data
+        sta     ACIA::DATA
         inc     acia_tx_rp
-        ldx     #<ACIA_WR_CYCLES ; restart the timer
-        stx     <VIA::T1C
-        ldx     #>ACIA_WR_CYCLES
-        stx     >VIA::T1C
+        lda     #>ACIA_WR_CYCLES; restart the timer
+        sta     VIA::T1C + 1
 @tx_done:
         sec                     ; for marking IRQ as handled
         rts
@@ -179,6 +188,7 @@ acia_kbhit:
 acia_cputc:
         ldx     acia_tx_wp
         inx
+@retry:
         cpx     acia_tx_rp
         beq     @full
         dex
@@ -187,7 +197,7 @@ acia_cputc:
         bra     acia_tx
 @full:
         wai
-        bra     acia_cputc
+        bra     @retry
 
 ; other conio functions, currently unimplemented
 ; maybe implement vt100 someday. :)
@@ -216,8 +226,8 @@ acia_setcursor:
         rts
 
 acia_screensize:
-        sta     <ptr1
-        stx     >ptr1
+        sta     ptr1
+        stx     ptr1 + 1
         lda     #0
         sta     (ptr1)
         sta     (c_sp)

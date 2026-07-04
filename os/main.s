@@ -4,17 +4,14 @@
         .include "bv6502.inc"
         .include "via.inc"
 
-        .import _cgetc, _cputc, cursor
+        .import _cputs, _cgetc, _cputc, cursor
         .import _console_switch
-        ;.import _cputs, _cputc
 
         .export _main
 
 
 ;       .rodata
-;hello:  .asciiz "Hello,\r\nworld!\r\nScroll\r\nup\r\nnow!"
-;hello:  .asciiz "Hello,\r\nworld!\r\nScroll\r\nup!"
-;hello:  .asciiz "Hellorld?"
+HELLO:  .asciiz "Hellorld!\r\n"
 
         .code
 
@@ -26,6 +23,9 @@ _main:
         jsr     _console_switch
         lda     #1
         sta     cursor
+        lda     #<HELLO
+        ldx     #>HELLO
+        jsr     _cputs
 @loop:
         jsr     _cgetc
         cmp     #$0D
