@@ -10,7 +10,8 @@
 
         .include "zeropage.inc"
 
-MHZ     := 8
+MHZ     := 8                    ; Clock frequency
+BANK    := $C000                ; Bank register
 
         .macro smb bit, addr
                 .ident(.sprintf("smb%d", bit)) addr

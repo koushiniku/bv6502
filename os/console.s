@@ -3,6 +3,7 @@
 ; cc65 library console calls
 
         .include "bv6502.inc"
+        .include "via.inc"
 
         .import popa
 
@@ -33,7 +34,7 @@
                 job arg, setcursor
         .endmacro
 
-        .export gotoxy
+        .export gotoxy, _console_switch
 
         .macro FN_EXPORT na, stub
                 .export .ident(.concat("_", .string(stub)));
@@ -51,24 +52,24 @@
 
         .code
 
-        .macro FN_REDIR na, stub
+        .macro FN_REDIR prefix, stub
                 .ident(.concat("_", .string(stub))) :
                         .byte $4C
                 .ident(.concat(.string(stub), "_p")) :
-                        .word .ident(.concat("con_", .string(stub)))
+                        .word .ident(.concat(.string(prefix), "_", .string(stub)))
         .endmacro
 
-        FN_LIST FN_REDIR
+        FN_LIST FN_REDIR con
 
 gotoxy:
         jsr     popa
         jmp     _gotoxy
 
         .macro FN_SET prefix, stub
-                lda #< .ident(.concat(.string(prefix), "_", .string(stub)))
-                sta  < .ident(.concat(.string(stub), "_p"))
-                lda #> .ident(.concat(.string(prefix), "_", .string(stub)))
-                sta  > .ident(.concat(.string(stub), "_p"))
+                lda     #<.ident(.concat(.string(prefix), "_", .string(stub)))
+                sta     .ident(.concat(.string(stub), "_p"))
+                lda     #>.ident(.concat(.string(prefix), "_", .string(stub)))
+                sta     .ident(.concat(.string(stub), "_p")) + 1
         .endmacro
 
 _console_switch:

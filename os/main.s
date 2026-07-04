@@ -5,6 +5,7 @@
         .include "via.inc"
 
         .import _cgetc, _cputc, cursor
+        .import _console_switch
         ;.import _cputs, _cputc
 
         .export _main
@@ -19,7 +20,10 @@
 
 _main:
         lda     #$FF
+        sta     VIA::DDRA
         sta     VIA::DDRB
+        lda     #1
+        jsr     _console_switch
         lda     #1
         sta     cursor
 @loop:

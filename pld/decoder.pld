@@ -4,7 +4,7 @@
 
 Name        decoder ;
 PartNo      00 ;
-Date        06/25/26 ;
+Date        07/03/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -49,11 +49,11 @@ ram1_ce = address:[c000..ffff] & !dev_ce;   /* High RAM */
 /* Hold RDY low for a clock cycle to access slower 55ns bank RAM.
  * Should latch for one cycle. */
 bus_busy.d = bram_ce & !bus_busy;
+bus_busy.ar = reset;
 
 /* W65C02 can drive RDY low on WAI instruction, so we drive it high for one
  * cycle after driving it low, so that it rises fast, but then we disable it and
  * allow the pullup resistor to drive it. */
-bus_busy_oe.d = bram_ce & (bus_busy # !bus_busy_oe);
+bus_busy_oe.d = bram_ce # bus_busy;
+bus_busy_oe.ar = reset;
 bus_busy.oe = bus_busy_oe;
-
-bus_busy_oe.oe = 'b'0;
