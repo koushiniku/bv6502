@@ -374,6 +374,52 @@
 		)
 	)
 	(sheet
+		(at 118.11 26.67)
+		(size 25.4 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "f1fd0bc6-5eda-4d32-a9e5-2a35604bd244")
+		(property "Sheetname" "FT232H"
+			(at 118.11 25.9584 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ft232h.kicad_sch"
+			(at 118.11 50.1146 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "bv6502_hw"
+				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
+					(page "11")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 17.78 46.99)
 		(size 24.13 21.59)
 		(exclude_from_sim no)

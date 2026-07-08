@@ -82,14 +82,14 @@ acia_init:
         stz     acia_tx_rp
         stz     acia_tx_wp
         stz     acia_fl
-        lda     #(BITPOS(ACIA_CTRL_RCS))
+        lda     #(SETBIT(ACIA_CTRL_RCS))
         sta     ACIA::CTRL
-        lda     #(BITPOS(ACIA_CMD_DTR) | BITPOS(ACIA_CMD_RTS))
+        lda     #(SETBIT(ACIA_CMD_DTR) | SETBIT(ACIA_CMD_RTS))
         sta     ACIA::CMD
         lda     VIA::ACR
-        and     #<~(BITPOS(VIA_ACR_T1_PB7) | BITPOS(VIA_ACR_T1_CTL))
+        and     #<~(SETBIT(VIA_ACR_T1_PB7) | SETBIT(VIA_ACR_T1_CTL))
         sta     VIA::ACR
-        lda     #(BITPOS(VIA_IFR_IER_T1) | BITPOS(VIA_IFR_IER_SET))
+        lda     #(SETBIT(VIA_IFR_IER_T1) | SETBIT(VIA_IFR_IER_SET))
         sta     VIA::IFR
         sta     VIA::IER
         lda     #<ACIA_WR_CYCLES
@@ -100,17 +100,17 @@ acia_init:
 acia_done:
         lda     #VIA_IFR_IER_T1
         sta     VIA::IER
-        lda     #BITPOS(ACIA_CMD_IRD)
+        lda     #SETBIT(ACIA_CMD_IRD)
         sta     ACIA::CMD
         rts
 
 acia_irq:
         lda     ACIA::STS       ; clears IRQ
-        bit     #BITPOS(ACIA_STS_RDRF)
+        bit     #SETBIT(ACIA_STS_RDRF)
         bpl     @notmine        ; check IRQ status
         beq     acia_tx         ; check RDRF status
         ldx     ACIA::DATA      ; Clears framing and overrun error bits
-        bit     #BITPOS(ACIA_STS_FERR)
+        bit     #SETBIT(ACIA_STS_FERR)
         bne     acia_tx         ; check framing error (bad data)
         ldy     acia_rx_wp
         iny
@@ -127,7 +127,7 @@ acia_irq:
 
 ; VIA timer for waiting for ACIA tx buffer empty.
 acia_via_irq:
-        lda     #BITPOS(VIA_IFR_IER_T1)
+        lda     #SETBIT(VIA_IFR_IER_T1)
         tsb     VIA::IFR
         beq     @notmine
         lda     #$01
@@ -142,11 +142,11 @@ acia_tx:
         ldy     acia_tx_rp      ; anything to transmit?
         cpy     acia_tx_wp
         beq     @tx_done
-        lda     #BITPOS(ACIA_STS_DCD)
+        lda     #SETBIT(ACIA_STS_DCD)
         bit     ACIA::STS
         bvs     @tx_done        ; check DSR
         bne     @tx_done        ; check DCD
-        lda     #BITPOS(ACIA_TDRF)      ; test and set tx full
+        lda     #SETBIT(ACIA_TDRF)      ; test and set tx full
         tsb     acia_fl
         bne     @tx_done
         lda     acia_tx_buf,Y   ; write tx data
@@ -166,7 +166,7 @@ acia_cgetc:
         beq     @empty
         lda     acia_rx_buf,X
         inc     acia_rx_rp
-        ldx     #(BITPOS(ACIA_CMD_DTR) | BITPOS(ACIA_CMD_RTS))
+        ldx     #(SETBIT(ACIA_CMD_DTR) | SETBIT(ACIA_CMD_RTS))
         stx     ACIA::CMD
         rts
 @empty:

@@ -439,7 +439,7 @@
         "uuid": "94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
       }
     ],
-    "used_designators": "Q2,Q8,U20,U38-39,R7-9,R38,R45-49,#PWR40-41,#PWR54,#PWR74-75,#PWR82-84,C16,D18-23",
+    "used_designators": "Q2,Q8,U20,U38-39,R7-9,R38,R45-49,#PWR40-41,#PWR54,#PWR63,#PWR74-75,#PWR81-84,A5,C16,D18-23",
     "variants": []
   },
   "sheets": [
@@ -482,6 +482,10 @@
     [
       "e08c3662-8b87-47ad-9b1c-0f8a718f16c2",
       "VGA"
+    ],
+    [
+      "f1fd0bc6-5eda-4d32-a9e5-2a35604bd244",
+      "FT232H"
     ]
   ],
   "text_variables": {},

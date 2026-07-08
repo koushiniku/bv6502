@@ -34,6 +34,6 @@ BANK    := $C000                ; Bank register
                 beq target
         .endmacro
 
-        .define BITPOS(b) (1 << b)
+        .define SETBIT(b) (1 << b)
 
         .endif

@@ -1,0 +1,47 @@
+/* SPDX-License-Identifier: MIT */
+
+/* ft232h.pld */
+
+Name        ft232h ;
+PartNo      00 ;
+Date        07/07/26 ;
+Revision    01 ;
+Designer    koushiniku ;
+Company     None ;
+Assembly    None ;
+Location    None ;
+Device      g22v10 ;
+
+pin 1 = clk;            /* inverted host clock */
+pin 6 = d5_in;          /* IRQ enable input */
+pin 7 = a0;             /* high=CSR, low=data */
+pin 8 = rw;             /* high=read, low=write */
+pin 9 = !res;           /* reset */
+pin 10 = !rxf;          /* receive buffer full */
+pin 11 = !txe;          /* transmit buffer empty */
+pin 13 = !cs;           /* chip select */
+pin 14 = irq;           /* IRQ. Use a transistor to invert open drain. */
+pin 15 = !rd;           /* read output */
+pin 16 = !wr;           /* write output */
+pin 17 = d7;            /* TXE output to host */
+pin 18 = d6;            /* RXF output to host */
+pin 19 = d5;            /* IRQ enable output to host */
+
+irq = d5 & (rxf # txe);
+
+data_io = !clk & cs & !a0;
+rd = data_io & rw;
+wr = data_io & !rw;
+
+csr_rd = !clk & cs & a0 & rw;
+csr_wr = cs & a0 & !rw;
+
+d5.d = d5_in & csr_wr # d5 & !csr_wr;
+d5.oe = csr_rd;
+d5.ar = res;
+
+d6 = !rxf;
+d6.oe = csr_rd;
+
+d7 = !txe;
+d7.oe = csr_rd;

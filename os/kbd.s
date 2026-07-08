@@ -157,7 +157,7 @@ kbd_bescan:
 ; process post-$F0 ("break") $00-$7F scan codes
 ; We only care about keys where releasing has an effect
 kbd_bscan:
-        lda     #BITPOS(KBD_E0CODE)     ; check for $E0 key releases
+        lda     #SETBIT(KBD_E0CODE)     ; check for $E0 key releases
         trb     kbd_fl1
         bne     kbd_bescan
         lda     kbd_scan
@@ -219,13 +219,13 @@ kbd_parse:
         bpl     @noh
         jmp     kbd_hscan       ; bit 7 is set: parse high jump table
 @noh:
-        lda     #BITPOS(KBD_F0CODE) ; was $F0 the previous code?
+        lda     #SETBIT(KBD_F0CODE) ; was $F0 the previous code?
         trb     kbd_fl1
         bne     kbd_bscan
         lda     #KBD_ALT_MASK   ; is alt being pressed?
         bit     kbd_fl1
         bne     @return         ; ignoring alt-anything for now
-        lda     #BITPOS(KBD_E0CODE) ; was $E0 the previous code?
+        lda     #SETBIT(KBD_E0CODE) ; was $E0 the previous code?
         trb     kbd_fl1
         bne     kbd_escan       ; parse the e0 keys
         lda     #KBD_CTRL_MASK
@@ -309,7 +309,7 @@ kbd_lscan:
         smb     KBD_RSHIFT,kbd_fl0
         rts
 @capslock:
-        lda     #BITPOS(KBD_CAPSLOCK) | BITPOS(KBD_LED)
+        lda     #SETBIT(KBD_CAPSLOCK) | SETBIT(KBD_LED)
 @set_leds:
         eor     kbd_fl0
         sta     kbd_fl0
@@ -326,13 +326,13 @@ kbd_lscan:
 @numlock:
         bit     kbd_fl1
         bmi     @return
-        lda     #BITPOS(KBD_NUMLOCK) | BITPOS(KBD_LED)
+        lda     #SETBIT(KBD_NUMLOCK) | SETBIT(KBD_LED)
         bra     @set_leds
 @lalt:
         smb     KBD_LALT,kbd_fl1
         rts
 @scrlock:
-        lda     #BITPOS(KBD_SCRLOCK) | BITPOS(KBD_LED)
+        lda     #SETBIT(KBD_SCRLOCK) | SETBIT(KBD_LED)
         bra     @set_leds
 
 ; push the ascii in A into the buffer
@@ -412,7 +412,7 @@ kbd_hscan:
         smb     KBD_E0CODE,kbd_fl1
         rts
 @ack:
-        lda     #BITPOS(KBD_LED) ; acking an LED command?
+        lda     #SETBIT(KBD_LED) ; acking an LED command?
         trb     kbd_fl0
         beq     @return
         lda     kbd_fl0         ; update keyboard LEDs
