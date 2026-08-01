@@ -98,52 +98,6 @@
 		)
 	)
 	(sheet
-		(at 71.12 29.21)
-		(size 22.86 20.32)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "79decbb9-0443-4d8e-a639-28f3b5de1557")
-		(property "Sheetname" "ACIA/UART"
-			(at 71.12 28.4984 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "uart.kicad_sch"
-			(at 71.12 50.1146 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(instances
-			(project "bv6502_hw"
-				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
-					(page "6")
-				)
-			)
-		)
-	)
-	(sheet
 		(at 17.78 77.47)
 		(size 22.86 19.05)
 		(exclude_from_sim no)
@@ -414,7 +368,7 @@
 		(instances
 			(project "bv6502_hw"
 				(path "/94c72abe-aaa5-49aa-8ab7-5d3e7cbc10be"
-					(page "11")
+					(page "6")
 				)
 			)
 		)

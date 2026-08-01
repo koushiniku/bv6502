@@ -4,7 +4,7 @@
 
 Name        devsel ;
 PartNo      00 ;
-Date        06/25/26 ;
+Date        07/10/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -21,7 +21,7 @@ pin [13,11..5] = [a7..a0];
 /* outputs */
 pin 14 = !sid_cs;
 pin 15 = !via_cs;
-pin 16 = !acia_cs;
+pin 16 = !ft245_cs;
 pin 17 = !lcd_cs;
 pin 18 = !kbd_cs;
 pin 19 = bank_reg_le;   /* Bank register latch enable */
@@ -33,8 +33,8 @@ field address = [a7..a0];
 bank_reg_le = dev_ce & address:0 & clk & !rw;
 bank_reg_oe = dev_ce & address:0 & clk & rw;
 
-kbd_cs  = dev_ce & address:[08..09];
-lcd_cs  = dev_ce & address:[0a..0b];
-acia_cs = dev_ce & address:[0c..0f];
-via_cs  = dev_ce & address:[10..1f];
-sid_cs  = dev_ce & address:[20..3f];
+kbd_cs   = dev_ce & address:[08..09];
+lcd_cs   = dev_ce & address:[0a..0b];
+ft245_cs = dev_ce & address:[0c..0d];
+via_cs   = dev_ce & address:[10..1f];
+sid_cs   = dev_ce & address:[20..3f];

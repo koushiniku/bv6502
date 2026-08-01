@@ -4,7 +4,7 @@
 
 Name        ft232h ;
 PartNo      00 ;
-Date        07/07/26 ;
+Date        07/25/26 ;
 Revision    01 ;
 Designer    koushiniku ;
 Company     None ;
@@ -13,35 +13,51 @@ Location    None ;
 Device      g22v10 ;
 
 pin 1 = clk;            /* inverted host clock */
-pin 6 = d5_in;          /* IRQ enable input */
-pin 7 = a0;             /* high=CSR, low=data */
-pin 8 = rw;             /* high=read, low=write */
-pin 9 = !res;           /* reset */
+pin 5 = d4_in;          /* IRQ enable input */
+pin 6 = a0;             /* high=CSR, low=data */
+pin 7 = rw;             /* high=read, low=write */
+pin 8 = !res;           /* reset */
+pin 9 = !dcd;           /* using the PWREN# signal as if it's DTR# */
 pin 10 = !rxf;          /* receive buffer full */
 pin 11 = !txe;          /* transmit buffer empty */
 pin 13 = !cs;           /* chip select */
-pin 14 = irq;           /* IRQ. Use a transistor to invert open drain. */
+pin 14 = !irq;          /* IRQ. Use a transistor to invert open drain. */
 pin 15 = !rd;           /* read output */
-pin 16 = !wr;           /* write output */
+pin 16 = !wr;           /* write output, falling edge triggered */
 pin 17 = d7;            /* TXE output to host */
 pin 18 = d6;            /* RXF output to host */
-pin 19 = d5;            /* IRQ enable output to host */
+pin 19 = d5;            /* DCD output to host */
+pin 20 = d4;            /* IRQ enable output to host */
 
-irq = d5 & (rxf # txe);
+/* Tx is fast enough to poll TXE without buffering, so only interrupt for Rx.
+ * Using .oe to make it behave as open drain. */
+irq = 'b'1;
+irq.oe = rxf & d5;
 
-data_io = !clk & cs & !a0;
-rd = data_io & rw;
-wr = data_io & !rw;
+/* Data read signal behaves like a RAM OE#. */
+rd = !clk & cs & !a0 & rw;
+
+/* Data write signal behaves like a flip-flop, taking the data at the leading
+ * edge, rather than a RAM WE# that latches at the trailing edge, so we use a
+ * register to assert it at the end of the clock cycle (PHI1 rising edge). It
+ * will stay asserted through the next clock cycle, but this should be fine;
+ * data is already latched and the CPU is inccapable of back-to-back writes. */
+wr.d = cs & !a0 & !rw;
+wr.ar = res;
 
 csr_rd = !clk & cs & a0 & rw;
+
+/* D4 is IRQ enable. It retains the last value written to d4_in. */
 csr_wr = cs & a0 & !rw;
+d4.d = d4_in & csr_wr # d4 & !csr_wr;
+d4.oe = csr_rd;
+d4.ar = res;
 
-d5.d = d5_in & csr_wr # d5 & !csr_wr;
+d5 = dcd;
 d5.oe = csr_rd;
-d5.ar = res;
 
-d6 = !rxf;
+d6 = rxf;
 d6.oe = csr_rd;
 
-d7 = !txe;
+d7 = txe;
 d7.oe = csr_rd;

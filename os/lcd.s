@@ -8,12 +8,10 @@
 
         .import incsp2, popa, return0, cursor
 
-        .export con_bgcolor, con_bordercolor, con_cclear, con_cclearxy
-        .export con_chline, con_chlinexy, con_clrscr, con_cpeekc
-        .export con_cpeekcolor, con_cpeekrevers, con_cputc, con_cputcxy
-        .export con_cvline, con_cvlinexy, con_gotox, con_gotoxy
-        .export con_revers, con_screensize, con_textcolor, con_wherex
-        .export con_wherey, con_setcursor
+        .export con_bgcolor, con_cclear, con_cclearxy, con_clrscr, con_cpeekc
+        .export con_cpeekcolor, con_cputc, con_cputcxy, con_gotox, congotoxy,
+        .export con_gotoxy, con_revers, conscreensize, con_textcolor,
+        .export con_wherex, con_wherey, con_setcursor
 
         .constructor lcd_init
         .destructor lcd_done
@@ -121,7 +119,7 @@ lcd_char_wr:
 @r2:
         lda     #$80 | 20
         bra     lcd_inst_wr
-@r3:    
+@r3:
         lda     #$80 | 84
         bra     lcd_inst_wr
 @end:
@@ -483,29 +481,20 @@ con_cpeekcolor     := return0
 ; unsigned char cpeekrevers (void);
 con_cpeekrevers    := return0
 
-; unsigned char __fastcall__ revers (unsigned char onoff); 
+; unsigned char __fastcall__ revers (unsigned char onoff);
 con_revers         := return0
 
-;void __fastcall__ screensize (unsigned char* x, unsigned char* y);
-; lower address for y coord is in A
-; upper address for y coord is in X
-; lower address for X coord is in (c_sp)
-; upper address for X coord is in (c_sp+1)
-con_screensize:
-        sta     <ptr1
-        stx     >ptr1
-        lda     #4
-        sta     (ptr1)
-        lda     #20
-        sta     (c_sp)
-        jmp     incsp2
+; return width in X and height in Y
+conscreensize:
+        ldx     #20
+        ldy     #4
+        rts
 
 ; unsigned char __fastcall__ textcolor (unsigned char color);
 con_textcolor   := return0
-       
+
 ; unsigned char __fastcall__ bgcolor (unsigned char color);
 con_bgcolor     := return0
 
 ; unsigned char __fastcall__ bordercolor (unsigned char color);
 con_bordercolor := return0
-
