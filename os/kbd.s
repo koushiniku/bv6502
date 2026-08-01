@@ -7,7 +7,7 @@
         .include "via.inc"
 
         .export con_cgetc, con_kbhit
-        .import _setcursor
+        .import con_setcursor
 
         .constructor kbd_init
         .destructor kbd_done
@@ -377,10 +377,10 @@ con_cgetc:
         rts
 @empty:
         lda     #1
-        jsr     _setcursor
+        jsr     con_setcursor
         wai
         lda     #0
-        jsr     _setcursor
+        jsr     con_setcursor
         bra     con_cgetc
 
 ; unsigned char kbhit (void);

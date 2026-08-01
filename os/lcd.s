@@ -9,8 +9,8 @@
         .import incsp2, popa, return0, cursor
 
         .export con_bgcolor, con_cclear, con_cclearxy, con_clrscr, con_cpeekc
-        .export con_cpeekcolor, con_cputc, con_cputcxy, con_gotox, congotoxy,
-        .export con_gotoxy, con_revers, conscreensize, con_textcolor,
+        .export con_cpeekcolor, con_cputc, con_cpeeks, con_cputcxy, con_gotox
+        .export congotoxy, con_gotoxy, con_revers, conscreensize, con_textcolor
         .export con_wherex, con_wherey, con_setcursor
 
         .constructor lcd_init
@@ -290,6 +290,8 @@ lcd_init:
         bne     @loop
         rts
 
+congotoxy:
+        jsr     popa
 ;void __fastcall__ gotoxy (unsigned char x, unsigned char y);
 ; y coord in A
 ; x coord in X
@@ -475,6 +477,12 @@ con_wherey:
         ldx     #0
         rts
 
+; void __fastcall__ cpeeks (char* s, unsigned int length);
+con_cpeeks:
+        lda     #0
+        sta     (sreg)
+        rts
+
 ; unsigned char cpeekcolor (void);
 con_cpeekcolor     := return0
 
@@ -498,3 +506,4 @@ con_bgcolor     := return0
 
 ; unsigned char __fastcall__ bordercolor (unsigned char color);
 con_bordercolor := return0
+

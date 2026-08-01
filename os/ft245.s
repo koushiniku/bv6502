@@ -7,7 +7,7 @@
         .include "bv6502.inc"
         .include "via.inc"
 
-        .import popa
+        .import popa, cursor
 
         .export ft245_bgcolor, ft245_cclear, ft245_cclearxy, ft245_cgetc
         .export ft245_clrscr, ft245_cpeekc, ft245_cpeeks, ft245_cputc
@@ -48,35 +48,34 @@ rvrs_on_str:    .asciiz "\x1B[?5h"
 rvrs_off_str:   .asciiz "\x1B[?5l"
 
         .zeropage
-rx_rp           .res    1
-rx_wp           .res    1
-flags           .res    1
-esc_sp          .res    1
-esc_ep          .res    1
-
+rx_rp:          .res    1
+rx_wp:          .res    1
+flags:          .res    1
+esc_sp:         .res    1
+esc_ep:         .res    1
 
         .bss
-rx_buf          .res    256
-param_buf       .res    PARAM_BYTES
+rx_buf:         .res    256
+param_buf:      .res    PARAM_BYTES
 
         .code
 ft245_init:
-        lda     #BITPOS(FT245_CSR_IRQ_EN)
+        lda     #SETBIT(FT245_CSR_IRQ_EN)
         sta     FT245::CSR
         lda     #$FF
         sta     VIA::T1L        ; pre-load the low-oder timer once
-        lda     #BITPOS(VIA_IFR_IER_SET) | BITPOS(VIA_IFR_IER_T1)
+        lda     #SETBIT(VIA_IFR_IER_SET) | SETBIT(VIA_IFR_IER_T1)
         sta     VIA::IER        ; enable incoming escape code timeout
         rts
 
 ft245_done:
         stz     FT245::CSR
-        lda     #BITPOS(VIA_IFR_IER_T1)
+        lda     #SETBIT(VIA_IFR_IER_T1)
         sta     VIA::IER
         rts
 
 ft245_irq:
-        lda     #BITPOS(FT245_CSR_IRQ_EN)
+        lda     #SETBIT(FT245_CSR_IRQ_EN)
         bit     FT245::CSR
         bvc     @notmine
         bne     @notmine
@@ -101,7 +100,7 @@ ft245_irq:
         rts
 
 ft245_timer_irq:
-        lda     #BITPOS(VIA_IFR_IER_T1)
+        lda     #SETBIT(VIA_IFR_IER_T1)
         tsb     VIA::IFR
         beq     @notmine
         tsb     flags           ; both are bit 6; this must be atomic
@@ -129,7 +128,7 @@ ft245_cgetc:
         ldx     #0
         rts
 @empty:
-        lda     #BITPOS(FT245_CSR_IRQ_EN)
+        lda     #SETBIT(FT245_CSR_IRQ_EN)
         sta     FT245::CSR
         phy
         sec                     ; turn on
@@ -140,41 +139,68 @@ ft245_cgetc:
         ply
         bra     @retry
 
-set_cursor:
-        php
-        lda     cursor
-        bne     @cont
-        plp
-        rts
-@cont:
-        plp
-        bcc     @off
-        lda     cur_on_str
-        ldx     cur_on_str + 1
-        bra     @send
-@off:
-        lda     cur_off_str
-        ldx     cur_off_str + 1
-@send:
-        bra     esc_tx
-
-esc_tx:
-        sta     ptr1
-        stx     ptr1 + 1
-        ldy     #0
-@loop:
-        lda     (ptr1),Y
-        bne     @cont
-        rts
-@cont:
-        jsr     ft245_cputc
+; transmit byte in decimal ascii
+; omit leading zeroes
+; omit zero itself
+itoa_tx:
+        ldy     #$FF
+        sty     tmp1            ; set zero when leading nonzero digit found
+@loop100:
         iny
-        bra     @loop
+        tax
+        sec
+        sbc     #100
+        bcs     @loop100
+        tya
+        beq     @skip100
+        stz     tmp1
+        adc     #$30            ; carry is clear from bcs
+        phx
+        jsr     ft245_cputc
+        pla
+@skip100:
+        ldy     #$FF
+@loop10:
+        iny
+        tax
+        sec
+        sbc     #10
+        bcs     @loop10
+        tya
+        bne     @noskip10
+        bit     tmp1
+        bmi     @skip10
+        tya
+@noskip10:
+        stz     tmp1
+        adc     #$30            ; carry is clear from bcs
+        phx
+        jsr     ft245_cputc
+        pla
+@skip10:
+        bne     @noskip1
+        bit     tmp1
+        bmi     @skip1
+@noskip1:
+        clc
+        adc     #$30
+        bra     ft245_cputc
+@skip1:
+        rts
 
+; character in A
+; y coord in X
+; x coord in sreg
+ft245_cputcxy:
+        pha
+        tya
+        ldx     sreg
+        jsr     ft245_gotoxy
+        pla
 ft245_cputc:
         tax
 @loop:
-        lda     #BITPOS(FT245_CSR_DCD)
+        lda     #SETBIT(FT245_CSR_DCD)
         bit     FT245::CSR
         bne     @nocarrier      ; drop the data rather than stall
         bpl     @loop           ; poll until empty
@@ -228,32 +254,6 @@ csi_tx:
         lda     #$5B
         bra     ft245_cputc
 
-ft245_clrscr:
-        lda     clrscr_str
-        ldx     clrscr_str + 1
-        bra     esc_tx
-
-ft245_revers:
-        ldx     flags           ; preserve the old value
-        phx
-        cmp     #0
-        beq     @off
-        lda     rvrs_on_str
-        ldx     rvrs_on_str + 1
-        jsr     esc_tx
-        smb     FLAGS_REVERS,flags
-        bra     @cont
-@off:
-        lda     rvrs_off_str
-        ldx     rvers_off_str + 1
-        jsr     esc_tx
-        rmb     FLAGS_REVERS,flags
-@cont:
-        pla
-        ora     #BITPOS(FLAGS_REVERS)
-        stx     #0
-        rts
-
 ft245_gotoy:
         lda     #'G'
         bra     goto
@@ -283,6 +283,63 @@ ft245_gotoxy:
         jsr     itoa_tx
         lda     #'H'
         bra     ft245_cputc
+
+set_cursor:
+        php
+        lda     cursor
+        bne     @cont
+        plp
+        rts
+@cont:
+        plp
+        bcc     @off
+        lda     cur_on_str
+        ldx     cur_on_str + 1
+        bra     @send
+@off:
+        lda     cur_off_str
+        ldx     cur_off_str + 1
+@send:
+        bra     esc_tx
+
+esc_tx:
+        sta     ptr1
+        stx     ptr1 + 1
+        ldy     #0
+@loop:
+        lda     (ptr1),Y
+        bne     @cont
+        rts
+@cont:
+        jsr     ft245_cputc
+        iny
+        bra     @loop
+
+ft245_clrscr:
+        lda     clrscr_str
+        ldx     clrscr_str + 1
+        bra     esc_tx
+
+ft245_revers:
+        ldx     flags           ; preserve the old value
+        phx
+        cmp     #0
+        beq     @off
+        lda     rvrs_on_str
+        ldx     rvrs_on_str + 1
+        jsr     esc_tx
+        smb     FLAGS_REVERS,flags
+        bra     @cont
+@off:
+        lda     rvrs_off_str
+        ldx     rvrs_off_str + 1
+        jsr     esc_tx
+        rmb     FLAGS_REVERS,flags
+@cont:
+        pla
+        ora     #SETBIT(FLAGS_REVERS)
+        ldx     #0
+        rts
 
 ; length in A, y in X, x in sreg
 ft245_cclearxy:
@@ -399,14 +456,15 @@ esc_rx:
         ldy     rx_rp
         sty     esc_ep
         lda     #$FF            ; start timeout timer
-        sta     VIA::T1H
+        sta     VIA::T1L + 1
 @restart:
         ldy     #PARAM_BYTES - 1
 @zloop:
-        stz     param_buf,Y
+        lda     #0
+        tax
+        sta     param_buf,Y
         dey
-        bpl     zloop
-        ldx     #0              ; param index
+        bpl     @zloop
 @next:
         ldy     esc_ep
 @retry:
@@ -417,13 +475,13 @@ esc_rx:
         beq     @next
         cmp     #$1B
         beq     @is_esc
-        lda     #BITPOS(FLAGS_CSI_SEEN)
+        lda     #SETBIT(FLAGS_CSI_SEEN)
         bit     flags
         bne     @csi_seen
         bpl     @next
         cmp     #$5B
         bne     @err
-        smb     BLAGS_CSI_SEEN,flags
+        smb     FLAGS_CSI_SEEN,flags
         bra     @next
 @empty:
         wai
@@ -433,14 +491,14 @@ esc_rx:
         rts
 @is_esc:
         lda     flags
-        ora     #BITPOS(FLAGS_ESC_SEEN)
-        and     #~(BITPOS(FLAGS_CSI_SEEN))
+        ora     #SETBIT(FLAGS_ESC_SEEN)
+        and     #<~(SETBIT(FLAGS_CSI_SEEN))
         sta     flags
         sty     esc_sp
         bra     @next
 @err:
         lda     flags
-        and     #~(BITPOS(FLAGS_CSI_SEEN)|BITPOS(FLAGS_ESC_SEEN))
+        and     #<~(SETBIT(FLAGS_CSI_SEEN)|SETBIT(FLAGS_ESC_SEEN))
         sta     flags
         bra     @next
 @csi_seen:
@@ -449,9 +507,9 @@ esc_rx:
         cmp     #$3A
         bcc     @is_param       ; digit
         beq     @err            ; no colons supported
-        cmp     @$3B
+        cmp     #$3B
         beq     @is_semi        ; semicolon
-        cmp     @$40
+        cmp     #$40
         bcc     @err            ; no private prefixes
         lda     $7F
         bcs     @err            ; too high
@@ -503,55 +561,6 @@ esc_rx_erase:
         iny
         bra     @next
 @done:
-        rts
-
-; transmit byte in decimal ascii
-; omit leading zeroes
-; omit zero itself
-itoa_tx:
-        ldy     #$FF
-        sty     tmp1            ; set zero when leading nonzero digit found
-@loop100:
-        iny
-        tax
-        sec
-        sbc     #100
-        bcs     @loop100
-        tya
-        beq     @skip100
-        stz     tmp1
-        adc     #$30            ; carry is clear from bcs
-        phx
-        jsr     ft245_cputc
-        pla
-@skip100:
-        ldy     #$FF
-@loop10:
-        iny
-        tax
-        sec
-        sbc     #10
-        bcs     @loop10
-        tya
-        bne     @noskip10
-        bit     tmp1
-        bmi     @skip10
-        tya
-@noskip10:
-        stz     tmp1
-        adc     #$30            ; carry is clear from bcs
-        phx
-        jsr     ft245_cputc
-        pla
-@skip10:
-        bne     @noskip1
-        bit     tmp1
-        bmi     @skip1
-@noskip1:
-        clc
-        adc     #$30
-        bra     ft245_cputc
-@skip1:
         rts
 
 ; just return null
